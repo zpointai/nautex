@@ -136,8 +136,8 @@
       "buildMaterials": [
         "Locked app-builder-lib NSIS templates; acquired upstream project files where identified"
       ],
-      "verificationStatus": "VENDOR_TERMS_REVIEW",
-      "remaining": "Exact distributor patch/build revision unknown; NSIS COPYING retained.",
+      "verificationStatus": "PERMISSIVE_NOTICE_REQUIREMENTS_VERIFIED",
+      "remaining": "Exact binary is identified by SHA-256 and pinned NSIS 3.0.4.1 provenance. NSIS 3.04 COPYING covers this core plugin under zlib/libpng; retained notices meet the reviewed notice requirement. This licence does not require delivery of source or independent reproduction. Exact distributor patch/build revision remains unknown as a provenance limitation, not a source-delivery condition.",
       "peImports": [
         "GDI32.dll",
         "KERNEL32.dll",
@@ -166,8 +166,8 @@
       "buildMaterials": [
         "Locked app-builder-lib NSIS templates; acquired upstream project files where identified"
       ],
-      "verificationStatus": "VENDOR_TERMS_REVIEW",
-      "remaining": "Exact distributor patch/build revision unknown; NSIS COPYING retained.",
+      "verificationStatus": "PERMISSIVE_NOTICE_REQUIREMENTS_VERIFIED",
+      "remaining": "Exact binary is identified by SHA-256 and pinned NSIS 3.0.4.1 provenance. NSIS 3.04 COPYING covers this core plugin under zlib/libpng; retained notices meet the reviewed notice requirement. This licence does not require delivery of source or independent reproduction. Exact distributor patch/build revision remains unknown as a provenance limitation, not a source-delivery condition.",
       "peImports": [
         "ADVAPI32.dll",
         "KERNEL32.dll",
@@ -184,20 +184,23 @@
       "component": "installer-plugin-nsis7z",
       "exactVersionEvidence": "19.00.0.0; byte-matches official x86-unicode distribution",
       "provenance": "Extracted from final NSIS installer; matched to pinned NSIS 3.0.4.1 or nsis-resources 3.4.1 build input",
-      "license": "LZMA SDK public domain notice; plugin-wrapper grant requires confirmation",
+      "license": "Wrapper: LGPL (upstream does not specify a version); selected LZMA SDK 19.00 code: public domain",
       "requiredNotices": [
         "public/legal/THIRD-PARTY-NOTICES.txt",
-        "third-party/licences/index.json"
+        "third-party/licences/index.json",
+        "third-party/licences/Nsis7z-Wrapper-LICENSE.txt"
       ],
       "sourceMaterials": [
         "Nsis7z_19.00.7z",
-        "7z1900-src.7z"
+        "lzma1900.7z"
       ],
       "buildMaterials": [
-        "Locked app-builder-lib NSIS templates; acquired upstream project files where identified"
+        "Nsis7z.vcxproj / Nsis7z.sln from official 19.00 archive",
+        "Visual Studio 2017 v141; Windows SDK 10.0.17763.0; Release Unicode Win32",
+        "DOC/nsis7z.txt version-19.00 instructions: extract SDK C and CPP trees into Contrib/nsis7z"
       ],
       "verificationStatus": "SOURCES_PARTIAL",
-      "remaining": "Official byte match and source/project acquired; confirm the wrapper/source component licence scope before publication.",
+      "remaining": "Official binary SHA-256 matches the installer plugin. Correct LZMA SDK 19.00 source obtained; the earlier 7-Zip source archive is not the instructed SDK input. 358 of 359 explicit project source/header entries resolve; CPP/7zip/IMyUnknown.h is a stale ClInclude entry with no C/C++ include references found in the supplied trees. Wrapper LGPL statement retained separately from the SDK public-domain notice. No independent rebuild performed; source/build qualification remains partial.",
       "peImports": [
         "ADVAPI32.dll",
         "KERNEL32.dll",
@@ -259,8 +262,8 @@
       "buildMaterials": [
         "Locked app-builder-lib NSIS templates; acquired upstream project files where identified"
       ],
-      "verificationStatus": "VENDOR_TERMS_REVIEW",
-      "remaining": "Exact distributor patch/build revision unknown; NSIS COPYING retained.",
+      "verificationStatus": "PERMISSIVE_NOTICE_REQUIREMENTS_VERIFIED",
+      "remaining": "Exact binary is identified by SHA-256 and pinned NSIS 3.0.4.1 provenance. NSIS 3.04 COPYING covers this core plugin under zlib/libpng; retained notices meet the reviewed notice requirement. This licence does not require delivery of source or independent reproduction. Exact distributor patch/build revision remains unknown as a provenance limitation, not a source-delivery condition.",
       "peImports": [
         "KERNEL32.dll",
         "USER32.dll",
@@ -343,8 +346,8 @@
         "scripts/community-installer.nsh",
         "Locked app-builder-lib NSIS templates"
       ],
-      "verificationStatus": "SOURCES_PARTIAL",
-      "remaining": "Archive inspection confirms Deflate outer stub, not the optional CPL LZMA stub. Exact patched NSIS core source/build revision remains unverified. Seven extracted installer plugin DLLs and the generated uninstaller are inventoried individually; Microsoft prerequisite internals remain covered by its vendor package terms.",
+      "verificationStatus": "PERMISSIVE_NOTICE_REQUIREMENTS_VERIFIED",
+      "remaining": "The actual NSIS outer stub uses Deflate and is covered by the retained NSIS zlib/libpng grant. This grant does not require delivery of patched core source or an independent rebuild. The pinned distributor bundle and binary SHA-256 identify the candidate; the distributor patch revision remains unknown. This classification covers only the core/stub: embedded plugins and payload retain their separate requirements.",
       "peImports": [
         "ADVAPI32.dll",
         "COMCTL32.dll",
@@ -7414,8 +7417,8 @@
         "scripts/community-installer.nsh",
         "Locked app-builder-lib NSIS templates"
       ],
-      "verificationStatus": "SOURCES_PARTIAL",
-      "remaining": "Archive inspection confirms Deflate outer stub, not the optional CPL LZMA stub. Exact patched NSIS core source/build revision remains unverified. Seven extracted installer plugin DLLs and the generated uninstaller are inventoried individually; Microsoft prerequisite internals remain covered by its vendor package terms.",
+      "verificationStatus": "PERMISSIVE_NOTICE_REQUIREMENTS_VERIFIED",
+      "remaining": "The actual NSIS outer stub uses Deflate and is covered by the retained NSIS zlib/libpng grant. This grant does not require delivery of patched core source or an independent rebuild. The pinned distributor bundle and binary SHA-256 identify the candidate; the distributor patch revision remains unknown. This classification covers only the core/stub: embedded plugins and payload retain their separate requirements.",
       "peImports": [
         "ADVAPI32.dll",
         "COMCTL32.dll",

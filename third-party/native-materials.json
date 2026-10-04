@@ -1,6 +1,6 @@
 {
   "date": "2026-10-04",
-  "archive": "Nautex-Native-Materials-0.3.14.zip",
+  "archive": "Nautex-Native-Materials-0.3.14-followup.zip",
   "completeCorrespondingSource": false,
   "materials": [
     {
@@ -434,6 +434,14 @@
       "origin": "https://www.7-zip.org/a/7z1900-src.7z",
       "role": "Upstream 7-Zip 19.00 source; plugin source identifies its own selected LZMA SDK files",
       "correspondenceCaveat": "No complete independent native rebuild performed"
+    },
+    {
+      "file": "lzma1900.7z",
+      "bytes": 1082692,
+      "sha256": "00f569e624b3d9ed89cf8d40136662c4c5207eaceb92a70b1044c77f84234bad",
+      "origin": "https://www.7-zip.org/a/lzma1900.7z",
+      "role": "Exact SDK 19.00 source/build input required by the official Nsis7z 19.00 instructions",
+      "correspondenceCaveat": "Official plugin binary matches; project-reference coverage checked; no independent rebuild performed"
     }
   ]
 }

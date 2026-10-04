@@ -1,5 +1,11 @@
 # Nautex Community 0.3.14 — source release
 
+## Source and Community video update
+
+This source-only revision includes the corrected NSIS core/core-plugin notice classifications, the matching LZMA SDK 19.00 material reference, a precise outstanding distributor-materials request, and a new sanitised Community overview video. The MP4, silent version, editable project, storyboard, validation and checksums accompany the source snapshot. See [video and sharing guidance](COMMUNITY_VIDEO.md).
+
+The Windows installer and native-materials kit remain withheld. No app runtime or architecture change is made by this documentation/media revision. Earlier developer-host and household test evidence applies to the earlier private candidate, not a new build. Signing remains optional.
+
 ## Installation time and antivirus alerts — update 4 October 2026
 
 A tester reports that the privately supplied Windows candidate installed successfully, took almost 10 minutes, triggered several Avast alerts, and then appeared to run normally. Four supplied photos were subsequently reviewed. One shows Avast's **"Suspicious file detected"** message naming **`Nautex Community.exe`**, an active scan with about 60 seconds remaining, and a statement that the file was sent to Avast Threat Labs. This is an analysis-in-progress message: the photo shows neither a named malware detection nor a final safe/malicious verdict. Only this one alert is visible; the other reported alerts have not been identified.
@@ -10,10 +16,10 @@ The visible Avast scan and Threat Labs referral are consistent with the unfamili
 
 Keep antivirus protection enabled. If a file is blocked or quarantined, leave it blocked pending review and record the detection name, affected filename, file SHA-256 and final antivirus verdict. Share screenshots only after removing personal paths, account details and private data. A matching release checksum establishes that a file matches the published artifact; it does not establish that the file is harmless. Signing may help establish publisher identity, but does not guarantee that antivirus alerts disappear.
 
-The installer remains unavailable as a public release asset while native redistribution and outstanding installation checks remain unresolved. This dated note updates the release page; the original source tag, archived source and checksums are unchanged.
+The installer remains unavailable as a public release asset while native redistribution and outstanding installation checks remain unresolved. The original source.1 release remains unchanged; source.2 packages the updated documentation and media with new matching checksums.
 
 
-Tag: `v0.3.14-source.1`. Repository: https://github.com/zpointai/nautex.
+Tag: `v0.3.14-source.2`. Repository: https://github.com/zpointai/nautex.
 
 **The Windows installer is pending verification. No installer or native-materials archive is published with this source release.** GitHub's generated source archives contain code and are not executable installers.
 

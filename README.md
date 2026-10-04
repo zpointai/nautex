@@ -2,9 +2,13 @@
 
 Local Windows software for ship-chandler procurement, inventory and operations, with optional user-configured AI assistance. Copyright 2026 Zlatin Gorov; an OASIS AI project.
 
-**Source release: `v0.3.14-source.1`. The Windows installer is pending verification and is not available for download.**
+**Source release: `v0.3.14-source.2`. The Windows installer is pending verification and is not available for download.**
 
 This repository contains the sanitised application source under AGPL-3.0-only. Native dependency redistribution review and clean-Windows installation qualification remain incomplete. No installer or native-materials archive is published. GitHub's “Source code (zip)” contains source, not an installer. See the [release status and verified results](docs/RELEASE_STATUS.md).
+
+[![Watch the Community overview](docs/screenshots/community-overview.png)](https://github.com/zpointai/nautex/releases/download/v0.3.14-source.2/Nautex-Community-Overview.mp4)
+
+[Video, editable project and suggested announcement](docs/COMMUNITY_VIDEO.md).
 
 ![Fresh workspace setup](docs/screenshots/first-run.png)
 ![Empty catalogue](docs/screenshots/empty-catalogue.png)

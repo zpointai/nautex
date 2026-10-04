@@ -1,6 +1,6 @@
 # Source release status — 4 October 2026
 
-Publication scope: the allowlisted application source, AGPL-3.0-only licence, documentation, clean screenshots, dependency notices and review manifests. No native executable, installer, dependency source archive, operational profile or private Git history is included. The source tag is `v0.3.14-source.1`.
+Publication scope: the allowlisted application source, AGPL-3.0-only licence, documentation, clean screenshots, dependency notices and review manifests. No native executable, installer, dependency source archive, operational profile or private Git history is included. Separate promotional media assets are published with this release. The source tag is `v0.3.14-source.2`.
 
 ## Verified developer-host results
 
