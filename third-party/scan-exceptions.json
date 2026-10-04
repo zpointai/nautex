@@ -1,0 +1,26 @@
+[
+  {
+    "rule": "provider-key",
+    "suffix": "backend/packages/@img/sharp-wasm32/lib/sharp-wasm32-0.35.4.node.wasm",
+    "sha256": "d15cb27ddd05a1d259b531ab1e343f2d23aa0f6c3d5e3849afd6e85bbcfda1de",
+    "reason": "Unmodified upstream npm-ci dependency: illustrative documentation or binary string false positive; exact file hash required."
+  },
+  {
+    "rule": "private-key",
+    "suffix": "prisma-runtime/packages/dotenv/README.md",
+    "sha256": "d445595efbfa0e290e495cbef75379e5cb16d881489d4873ecb0d0bd2e56227a",
+    "reason": "Unmodified upstream npm-ci dependency: illustrative documentation or binary string false positive; exact file hash required."
+  },
+  {
+    "rule": "private-key",
+    "suffix": "prisma-runtime/packages/dotenv/README-es.md",
+    "sha256": "a7021cf039feb04752c5cde82f07336dec6e17876e88677d7c5de4c2dbbbcff1",
+    "reason": "Unmodified upstream npm-ci dependency: illustrative documentation or binary string false positive; exact file hash required."
+  },
+  {
+    "suffix": "@img/sharp-win32-x64/lib/libvips-42.dll",
+    "rule": "provider-key",
+    "sha256": "e6cc51bbc763e7deda536c6f56ce96b4c51ea769690ce4f4ed07607527b81dae",
+    "reason": "Unmodified upstream DLL; exact byte match to official vips-dev-x64-web-8.18.6-static.zip (SHA256 42ceea0c2f53d1244f3cb54c059881487b37452ee46c1c98c0d4b47480b20588). Embedded pattern is upstream binary data, not an owner credential. Exact DLL hash required."
+  }
+]

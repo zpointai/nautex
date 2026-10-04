@@ -1,0 +1,212 @@
+[
+  {
+    "file": "libiconv-1.15--libiconv-1.15_COPYING.LIB.txt",
+    "archive": "libiconv-1.15.tar.gz",
+    "member": "libiconv-1.15/COPYING.LIB",
+    "sha256": "56bdea73b6145ef6ac5259b3da390b981d840c24cb03b8e1cbc678de7ecfa18d"
+  },
+  {
+    "file": "libiconv-1.15--libiconv-1.15_COPYING.txt",
+    "archive": "libiconv-1.15.tar.gz",
+    "member": "libiconv-1.15/COPYING",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+  },
+  {
+    "file": "libiconv-1.15--libiconv-1.15_libcharset_COPYING.LIB.txt",
+    "archive": "libiconv-1.15.tar.gz",
+    "member": "libiconv-1.15/libcharset/COPYING.LIB",
+    "sha256": "56bdea73b6145ef6ac5259b3da390b981d840c24cb03b8e1cbc678de7ecfa18d"
+  },
+  {
+    "file": "gettext-0.19.8--gettext-0.19.8_gettext-tools_COPYING.txt",
+    "archive": "gettext-0.19.8.tar.gz",
+    "member": "gettext-0.19.8/gettext-tools/COPYING",
+    "sha256": "5d4cff30d5038f82a0edc79798456049b61e1752fdb7e9ab1f4bfb9fae3a7303"
+  },
+  {
+    "file": "gettext-0.19.8--gettext-0.19.8_COPYING.txt",
+    "archive": "gettext-0.19.8.tar.gz",
+    "member": "gettext-0.19.8/COPYING",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+  },
+  {
+    "file": "gettext-0.19.8--gettext-0.19.8_djgpp_COPYING.DJ.txt",
+    "archive": "gettext-0.19.8.tar.gz",
+    "member": "gettext-0.19.8/djgpp/COPYING.DJ",
+    "sha256": "7ee9e3e525fe35087cff566bce96b1e8f60e944235daa822b5b8375688d64186"
+  },
+  {
+    "file": "gettext-0.19.8--gettext-0.19.8_gettext-runtime_COPYING.txt",
+    "archive": "gettext-0.19.8.tar.gz",
+    "member": "gettext-0.19.8/gettext-runtime/COPYING",
+    "sha256": "7ef2cdfe58e0c0460657b6598b49af29d4e03c1e41cbaf0e1da1eb8ad74b95d0"
+  },
+  {
+    "file": "libxslt-1.1.45--libxslt-1.1.45_Copyright.txt",
+    "archive": "libxslt-1.1.45.tar.xz",
+    "member": "libxslt-1.1.45/Copyright",
+    "sha256": "7e48e290b6bfccc2ec1b297023a1d77f2fd87417f71fbb9f50aabef40a851819"
+  },
+  {
+    "file": "sharp-04-glib-2.89.4--glib-2.89.4_LICENSES_LicenseRef-old-glib-tests.txt.txt",
+    "archive": "sharp-04-glib-2.89.4.tar.xz",
+    "member": "glib-2.89.4/LICENSES/LicenseRef-old-glib-tests.txt",
+    "sha256": "fb261b2d5dbe76c4850f90da763210bc385e52428df6bbfd7b06295ac8a32914"
+  },
+  {
+    "file": "sharp-07-libexif-0.6.26--libexif-0.6.26_COPYING.txt",
+    "archive": "sharp-07-libexif-0.6.26.tar.xz",
+    "member": "libexif-0.6.26/COPYING",
+    "sha256": "36b6d3fa47916943fd5fec313c584784946047ec1337a78b440e5992cb595f89"
+  },
+  {
+    "file": "sharp-24-cairo-1.18.4--cairo-1.18.4_COPYING.txt",
+    "archive": "sharp-24-cairo-1.18.4.tar.xz",
+    "member": "cairo-1.18.4/COPYING",
+    "sha256": "67228a9f7c5f9b67c58f556f1be178f62da4d9e2e6285318d8c74d567255abdf"
+  },
+  {
+    "file": "sharp-24-cairo-1.18.4--cairo-1.18.4_COPYING-LGPL-2.1.txt",
+    "archive": "sharp-24-cairo-1.18.4.tar.xz",
+    "member": "cairo-1.18.4/COPYING-LGPL-2.1",
+    "sha256": "9e9e8608c4cdda51a78cc3a385f4ec9a2e4c96d5ecad74ac8bca5fca3e563b7d"
+  },
+  {
+    "file": "sharp-24-cairo-1.18.4--cairo-1.18.4_COPYING-MPL-1.1.txt",
+    "archive": "sharp-24-cairo-1.18.4.tar.xz",
+    "member": "cairo-1.18.4/COPYING-MPL-1.1",
+    "sha256": "53692a2ed6c6a2c6ec9b32dd0b820dfae91e0a1fcdf625ca9ed0bdf8705fcc4f"
+  },
+  {
+    "file": "sharp-24-cairo-1.18.4--cairo-1.18.4_perf_COPYING.txt",
+    "archive": "sharp-24-cairo-1.18.4.tar.xz",
+    "member": "cairo-1.18.4/perf/COPYING",
+    "sha256": "6f93b45ea874706058ae35bc02df79c3f9daf00948672eea8394cc25d1327d49"
+  },
+  {
+    "file": "sharp-24-cairo-1.18.4--cairo-1.18.4_test_COPYING.txt",
+    "archive": "sharp-24-cairo-1.18.4.tar.xz",
+    "member": "cairo-1.18.4/test/COPYING",
+    "sha256": "a37812e0e27a211272d4c27fa45028c3653e78bb708acccb77c94128dc72b98e"
+  },
+  {
+    "file": "sharp-24-cairo-1.18.4--cairo-1.18.4_util_COPYING.txt",
+    "archive": "sharp-24-cairo-1.18.4.tar.xz",
+    "member": "cairo-1.18.4/util/COPYING",
+    "sha256": "008e976b6e5e7155ee24322073f42cab7cd6daf90bc2322f1d5c3aacab94111c"
+  },
+  {
+    "file": "sharp-25-fribidi-1.0.16--fribidi-1.0.16_COPYING.txt",
+    "archive": "sharp-25-fribidi-1.0.16.tar.xz",
+    "member": "fribidi-1.0.16/COPYING",
+    "sha256": "32434afcc8666ba060e111d715bfdb6c2d5dd8a35fa4d3ab8ad67d8f850d2f2b"
+  },
+  {
+    "file": "sharp-26-pango-1.58.2--pango-1.58.2_COPYING.txt",
+    "archive": "sharp-26-pango-1.58.2.tar.xz",
+    "member": "pango-1.58.2/COPYING",
+    "sha256": "d245807f90032872d1438d741ed21e2490e1175dc8aa3afa5ddb6c8e529b58e5"
+  },
+  {
+    "file": "sharp-27-librsvg-2.62.91--librsvg-2.62.91_COPYING.LIB.txt",
+    "archive": "sharp-27-librsvg-2.62.91.tar.xz",
+    "member": "librsvg-2.62.91/COPYING.LIB",
+    "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+  },
+  {
+    "file": "sharp-27-librsvg-2.62.91--librsvg-2.62.91_librsvg-rebind_LICENSE.txt",
+    "archive": "sharp-27-librsvg-2.62.91.tar.xz",
+    "member": "librsvg-2.62.91/librsvg-rebind/LICENSE",
+    "sha256": "f9c4c77baa3828004ee54b8a4f2db2e88ed44a6237a493965bf551fac0fcb62d"
+  },
+  {
+    "file": "sharp-31-vips-8.18.6--vips-8.18.6_LICENSE.txt",
+    "archive": "sharp-31-vips-8.18.6.tar.xz",
+    "member": "vips-8.18.6/LICENSE",
+    "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+  },
+  {
+    "file": "fontconfig-2.18.3--fontconfig-2.18.3_COPYING.txt",
+    "archive": "fontconfig-2.18.3.tar.gz",
+    "member": "fontconfig-2.18.3/COPYING",
+    "sha256": "51a51aa9823704fd90bccc616cdd17ebabb5b2b3e9cbde886ca02c7002288067"
+  },
+  {
+    "file": "pdfjs-LICENSE_OPENJPEG.txt",
+    "npmPackage": "pdfjs-dist",
+    "member": "wasm/LICENSE_OPENJPEG",
+    "sha256": "a6af136f3e15038a666b61f376612a07d9a4e48cb7c01adbf3e33b3f14ab49b6"
+  },
+  {
+    "file": "pdfjs-LICENSE_PDFJS_OPENJPEG.txt",
+    "npmPackage": "pdfjs-dist",
+    "member": "wasm/LICENSE_PDFJS_OPENJPEG",
+    "sha256": "717fc62da03292dbb4dd0c8280bd4ce7bb8550dcf31d772bc93455fb50313425"
+  },
+  {
+    "file": "pdfjs-LICENSE_PDFJS_QCMS.txt",
+    "npmPackage": "pdfjs-dist",
+    "member": "wasm/LICENSE_PDFJS_QCMS",
+    "sha256": "eb5104ca33552be007857a28351bc408f379ddd4bfacab1226b09c6d1e9fd7c4"
+  },
+  {
+    "file": "pdfjs-LICENSE_QCMS.txt",
+    "npmPackage": "pdfjs-dist",
+    "member": "wasm/LICENSE_QCMS",
+    "sha256": "36d847ae882f6574ebc72f56a4f354e4f104fde4a584373496482e97d52d31bc"
+  },
+  {
+    "file": "GNU-LGPL-3.0.txt",
+    "archive": "Official GNU licence text",
+    "member": "https://www.gnu.org/licenses/lgpl-3.0.txt",
+    "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118"
+  },
+  {
+    "file": "GNU-GPL-3.0.txt",
+    "archive": "gettext-0.19.8.tar.gz",
+    "member": "gettext-0.19.8/COPYING",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+  },
+  {
+    "file": "proxy-libintl-0.5--COPYING.txt",
+    "archive": "sharp-01-0.5.tar.gz",
+    "member": "proxy-libintl-0.5/COPYING",
+    "sha256": "d245807f90032872d1438d741ed21e2490e1175dc8aa3afa5ddb6c8e529b58e5"
+  },
+  {
+    "file": "NSIS-3.04-COPYING.txt",
+    "archive": "electron-builder-binaries nsis-3.0.4.1.7z",
+    "member": "COPYING",
+    "sha256": "3c8de989f6504d52f5f8dfafedb6668cd47201f5d01f1319570727c091425dd6"
+  },
+  {
+    "file": "StdUtils--stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426_Contrib_StdUtils_src_blake2_COPYING.txt.txt",
+    "archive": "StdUtils-1.14-source.tar.gz",
+    "member": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/blake2/COPYING.txt",
+    "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+  },
+  {
+    "file": "StdUtils--stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426_Contrib_StdUtils_src_rhash_COPYING.txt.txt",
+    "archive": "StdUtils-1.14-source.tar.gz",
+    "member": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/Contrib/StdUtils/src/rhash/COPYING.txt",
+    "sha256": "8cf876d3406a2eed6c17ae804c8958bd78d3a0f63c30d6e2e789ab575e9fde40"
+  },
+  {
+    "file": "StdUtils--stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426_LGPL.txt.txt",
+    "archive": "StdUtils-1.14-source.tar.gz",
+    "member": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/LGPL.txt",
+    "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+  },
+  {
+    "file": "StdUtils--stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426_LGPL_CLARIFICATION.txt.txt",
+    "archive": "StdUtils-1.14-source.tar.gz",
+    "member": "stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426/LGPL_CLARIFICATION.txt",
+    "sha256": "49287ffa37d51910a8cb595d7ab64ebd2d42525384b16d4322783a0e57a77194"
+  },
+  {
+    "file": "Nsis7z--License.txt",
+    "archive": "Nsis7z_19.00.7z",
+    "member": "Contrib/nsis7z/DOC/License.txt",
+    "sha256": "63fcfe54826809b5a9f9df8a8ff53c04330122319ec67a2dd815085586adaf0e"
+  }
+]

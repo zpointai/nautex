@@ -1,0 +1,32 @@
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { inspectPE } from './pe-inspect.mjs';
+const project=fileURLToPath(new URL('..',import.meta.url));
+const payload=path.resolve(process.argv[2]||'releases/win-unpacked');
+const output=path.resolve(process.argv[3]||'releases/native-inventory');
+const installer=process.argv[4]?path.resolve(process.argv[4]):null;
+const plugins=process.argv[5]?path.resolve(process.argv[5]):null;
+const registry=JSON.parse(readFileSync(path.join(project,'third-party/native-components.json'),'utf8'));
+const command=`Get-ChildItem -LiteralPath $env:NAUTEX_NATIVE_AUDIT_ROOT -Recurse -File | Where-Object { $_.Extension -in @('.dll','.exe','.node','.wasm') } | ForEach-Object { [PSCustomObject]@{path=$_.FullName;fileVersion=$_.VersionInfo.FileVersion;productVersion=$_.VersionInfo.ProductVersion} } | ConvertTo-Json -Depth 3`;
+const metadata=JSON.parse(execFileSync('powershell.exe',['-NoProfile','-Command',command],{encoding:'utf8',env:{...process.env,NAUTEX_NATIVE_AUDIT_ROOT:payload},maxBuffer:8*1024*1024,windowsHide:true}).replace(/^\uFEFF/,''));
+if(installer)metadata.push(JSON.parse(execFileSync('powershell.exe',['-NoProfile','-Command',`$f=Get-Item -LiteralPath $env:NAUTEX_INSTALLER_AUDIT; [PSCustomObject]@{path=$f.FullName;fileVersion=$f.VersionInfo.FileVersion;productVersion=$f.VersionInfo.ProductVersion}|ConvertTo-Json`],{encoding:'utf8',env:{...process.env,NAUTEX_INSTALLER_AUDIT:installer},windowsHide:true}).replace(/^\uFEFF/,'')));
+if(plugins)metadata.push(...JSON.parse(execFileSync('powershell.exe',['-NoProfile','-Command',command],{encoding:'utf8',env:{...process.env,NAUTEX_NATIVE_AUDIT_ROOT:plugins},maxBuffer:8*1024*1024,windowsHide:true}).replace(/^\uFEFF/,'')));
+const binaries=[];
+for(const item of metadata){
+  const relative=installer&&path.resolve(item.path)===installer?'installer/'+path.basename(installer):plugins&&path.resolve(item.path).startsWith(plugins+path.sep)?'installer-plugins/'+path.relative(plugins,item.path).replaceAll('\\','/'):path.relative(payload,item.path).replaceAll('\\','/');
+  const component=registry.components.find(c=>new RegExp(c.match,'i').test(relative));
+  if(!component)throw Error('Unclassified native binary: '+relative);
+  const bytes=readFileSync(item.path),pe=inspectPE(item.path);
+  binaries.push({file:relative,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex'),fileVersion:item.fileVersion??null,productVersion:item.productVersion??null,component:component.id,exactVersionEvidence:component.version,provenance:component.origin,license:component.license,requiredNotices:component.requiredNotices,sourceMaterials:component.sourceMaterials,buildMaterials:component.buildMaterials,verificationStatus:component.verificationStatus,remaining:component.remaining,peImports:pe?.imports??[],format:pe?'PE':'WebAssembly'});
+}
+binaries.sort((a,b)=>a.file.localeCompare(b.file));
+mkdirSync(output,{recursive:true});
+writeFileSync(path.join(output,'NATIVE_BINARIES.json'),JSON.stringify({date:registry.date,publicationCleared:false,files:binaries.length,binaries},null,2)+'\n');
+const lines=['# Native binary redistribution inventory','',`Individually enumerated ${binaries.length} PE/WebAssembly files in the final Windows payload. Each record in NATIVE_BINARIES.json includes SHA-256, file/product version, component/source version evidence, provenance, licence, required materials, PE imports and unresolved issues. No unclassified binary is accepted by the audit script.`, '', '**Publication is on hold. Unknown exact source/build versions are marked explicitly; a PE resource version is not treated as a unique source revision.**','', '| Component | Exact version evidence | Licence | Review result / remaining work |','| --- | --- | --- | --- |'];
+for(const c of registry.components.filter(c=>binaries.some(b=>b.component===c.id)))lines.push(`| ${c.id} | ${c.version} | ${c.license} | ${c.verificationStatus}: ${c.remaining||'Required notices retained; no rebuild performed.'} |`);
+lines.push('','Nautex-Native-Materials-0.3.14.zip contains the source/build materials identified in third-party/native-materials.json. Its 53 materials include exact Chromium/Electron/Node sources, upstream PostgreSQL/GNU source archives, Sharp recipes and identified dependency sources. It is explicitly a partial native-materials kit, not a declaration that every binary-source obligation has been satisfied.','', 'The earlier broad pthreads LGPL attribution is corrected to an explicit discrepancy requiring distributor clarification. Bundled PDF.js QCMS is identified from its actual MIT licence. Eight unused wxWidgets DLLs and the unused Sharp Wasm fallback are excluded from the revised Windows-only payload.','');
+writeFileSync(path.join(output,'NATIVE_INVENTORY.md'),lines.join('\n'));
+console.log(JSON.stringify({nativeFiles:binaries.length,components:new Set(binaries.map(x=>x.component)).size,unclassified:0,publicationCleared:false},null,2));

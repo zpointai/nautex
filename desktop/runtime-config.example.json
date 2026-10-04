@@ -1,0 +1,7 @@
+{
+  "deploymentMode": "development",
+  "backendOrigin": "",
+  "updateUrl": "",
+  "crashSubmitUrl": "",
+  "allowLocalhostHttp": false
+}

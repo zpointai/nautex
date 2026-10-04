@@ -1,0 +1,173 @@
+[
+  {
+    "key": "dashboard",
+    "module": "Command Center",
+    "local": "Metrics, record search, notifications and approvals from this workspace.",
+    "ai": "Ask Nautex language routing; individual AI actions.",
+    "data": "User-created operational records; no catalogue required.",
+    "state": "Empty metrics are zero. AI setup is optional.",
+    "source": "components/nautex-erp-app.tsx; lib/command-center/metrics.ts"
+  },
+  {
+    "key": "purchaseOrders",
+    "module": "Purchase Orders",
+    "local": "Create, edit, review and export orders; structured document parsing, receipts and delivery workflows.",
+    "ai": "Ambiguous document intake and order review.",
+    "data": "Own suppliers and orders. Catalogue links are optional.",
+    "state": "Manual entry and deterministic parsing remain available; AI escalation requires a provider.",
+    "source": "lib/purchase-orders/intake-agent.ts; app/api/v1/purchase-orders"
+  },
+  {
+    "key": "suppliers",
+    "module": "Suppliers",
+    "local": "Directory CRUD, filters and deterministic matching.",
+    "ai": "Generated enrichment, expanded discovery and AI ranking.",
+    "data": "Own supplier records. Web enrichment needs internet; Google Places separately needs its own server credential and billing.",
+    "state": "Local records remain available. External/AI enrichment may be unavailable.",
+    "source": "lib/matching; app/api/v1/suppliers"
+  },
+  {
+    "key": "contracts",
+    "module": "Agreements",
+    "local": "Import, versions, comparison, pricing, customer contracts and rule-based enrichment.",
+    "ai": "No general-purpose AI call in the agreement routes; optional Jev advice uses a separate provider.",
+    "data": "Own agreements; catalogue matching needs an authorised import.",
+    "state": "No matches when catalogue is empty; agreement work remains available.",
+    "source": "lib/agreements; app/api/v1/agreements"
+  },
+  {
+    "key": "backorders",
+    "module": "Backorders",
+    "local": "Cases, escalation, status updates and deterministic email drafts.",
+    "ai": "Optional AI drafting.",
+    "data": "Own orders; Microsoft 365 mailbox connection for mailbox actions.",
+    "state": "Drafts are labelled as deterministic fallback when AI is unavailable; email integration is separate.",
+    "source": "lib/backorders/email-draft.ts; app/api/v1/backorders"
+  },
+  {
+    "key": "vessels",
+    "module": "Fleet Tracking",
+    "local": "Saved fleet/watchlist and cached snapshots; order links.",
+    "ai": "None for vessel lookup, map or tracking.",
+    "data": "Live lookup uses public VesselFinder pages and internet; map tiles use external services. No paid AIS feed is bundled.",
+    "state": "Cached data or explicit lookup errors; live data is not guaranteed and is not an AI requirement.",
+    "source": "lib/vessel-provider.ts; components/vessel-tracking-panel.tsx"
+  },
+  {
+    "key": "inventory",
+    "module": "Inventory",
+    "local": "Stock records, movements, reservations, warehouse receipts and reconciliation.",
+    "ai": "No provider needed for inventory operations.",
+    "data": "Own stock; catalogue linking is optional.",
+    "state": "Empty stock list; manual records remain available.",
+    "source": "app/api/v1/inventory; lib/inventory"
+  },
+  {
+    "key": "evidenceAnalyzer",
+    "module": "SLA Evidence",
+    "local": "Upload and parse text/PDF/spreadsheet evidence, review, link orders and retain audit trail.",
+    "ai": "No general-purpose AI call in the evidence route.",
+    "data": "Own evidence files and orders; text extraction is local, scanned-image OCR is not guaranteed.",
+    "state": "Empty evidence list or unsupported-document error; no catalogue requirement.",
+    "source": "lib/evidence/sla-evidence.ts; app/api/v1/evidence/route.ts"
+  },
+  {
+    "key": "finance",
+    "module": "Finance",
+    "local": "Invoices, settlements, matching, aging, exceptions and exports.",
+    "ai": "No provider needed for financial calculations or record workflows; optional Jev advice is separate.",
+    "data": "Own financial records and configured company details.",
+    "state": "Empty records and validation messages; AI is optional.",
+    "source": "app/api/v1/finance; lib/finance"
+  },
+  {
+    "key": "procurementSearch",
+    "module": "Item Search",
+    "local": "Keyword/rule search over inventory, agreements, quotes, orders, RFQs and imported catalogue; history.",
+    "ai": "No embedding or semantic-search provider is implemented in this module.",
+    "data": "User records or authorised catalogue data; no bundled search index.",
+    "state": "No results when data is absent; unrelated records are still searchable.",
+    "source": "lib/item-search/service.ts; app/api/v1/catalog/search/route.ts"
+  },
+  {
+    "key": "impaSearch",
+    "module": "IMPA Catalogue",
+    "local": "Authorised CSV/XLSX import, code/description lookup, favourites and record links.",
+    "ai": "None for import, browsing or lookup.",
+    "data": "User must independently obtain rights to catalogue data. No IMPA rows, images, index or embeddings are supplied.",
+    "state": "Zero items and No catalogue imported, with empty schema template.",
+    "source": "lib/datasets/impa.ts; components/modules/impa-search.tsx"
+  },
+  {
+    "key": "hsCodeFinder",
+    "module": "HS Codes",
+    "local": "History, favourites, authorised HS dataset import and dataset-backed classification where a match exists.",
+    "ai": "AI classification when no applicable local dataset match exists, and AI code verification, require DeepSeek or Gemini.",
+    "data": "Own descriptions; optional authorised HS dataset. Suggestions require human customs review.",
+    "state": "Without a matching HS dataset or provider, no classification is generated; inputs remain available.",
+    "source": "app/api/v1/hs-code; lib/ai/services/hs-code.ts"
+  },
+  {
+    "key": "rfqAutomation",
+    "module": "RFQ Automation",
+    "local": "Structured text/spreadsheet extraction, review/editing, persistence and deterministic supplier routing.",
+    "ai": "Unstructured RFQ extraction and enriched supplier routing.",
+    "data": "Own RFQs and suppliers. Catalogue improves matching but is optional.",
+    "state": "Explicit deterministic fallback; unsupported structured input returns an error instead of a simulated result.",
+    "source": "app/api/v1/rfq/process/route.ts; lib/rfq/deterministic.ts"
+  },
+  {
+    "key": "procurementValidator",
+    "module": "Validator",
+    "local": "Deterministic document parsing, line comparison, persisted review and exceptions.",
+    "ai": "Agent-level procurement/order AI review is separate from this deterministic module.",
+    "data": "Own quotes/orders or uploaded text documents; catalogue is optional.",
+    "state": "Rule comparison remains available; unsupported documents show an error.",
+    "source": "app/api/v1/procurement/validate/route.ts; lib/ai/services/procurement.ts"
+  },
+  {
+    "key": "priceCalculator",
+    "module": "Price Calculator",
+    "local": "Markup, margin, currency and totals calculations; authorised record context.",
+    "ai": "None.",
+    "data": "User inputs; catalogue prices are not supplied.",
+    "state": "Manual inputs work without keys or catalogue.",
+    "source": "components/modules/price-calculator.tsx; app/api/v1/price-calculator/calculate/route.ts"
+  },
+  {
+    "key": "agentMonitor",
+    "module": "Agent Monitor",
+    "local": "Registry, run/task history, approvals, scheduling controls and audit.",
+    "ai": "Only actions that invoke the AI adapter require a provider; deterministic controls do not.",
+    "data": "Workspace records; external services depend on the selected agent action.",
+    "state": "No AI provider configured; controls and history stay available. Human approval rules still apply.",
+    "source": "lib/agents/controls.ts; lib/agents/monitor.ts; lib/ai/engine/actions.ts"
+  },
+  {
+    "key": "exceptionsQueue",
+    "module": "Exceptions",
+    "local": "Review, assign and resolve operational exceptions.",
+    "ai": "No provider required for queue operations.",
+    "data": "Own exception records.",
+    "state": "Empty queue until records exist.",
+    "source": "components/modules/exceptions-queue.tsx; app/api/v1/agents"
+  },
+  {
+    "key": "ask",
+    "module": "Ask Nautex",
+    "local": "Keyword routing to implemented actions and approval/history views.",
+    "ai": "Natural-language routing and individual AI actions require DeepSeek or Gemini.",
+    "data": "Action-specific workspace records and permissions.",
+    "state": "Keyword routing is deterministic; unsupported/unconfigured AI actions fail visibly, never simulate success.",
+    "source": "lib/ai/engine/router.ts; lib/ai/engine/actions.ts"
+  },
+  {
+    "key": "settings",
+    "module": "Settings / optional Jev advice",
+    "local": "Company setup, local employee accounts, profiles, diagnostics and provider settings.",
+    "ai": "Optional Jev typed advice uses TypeSafe jev-1.13.0, separate from DeepSeek/Gemini.",
+    "data": "Separate TypeSafe key, consent and daily limit; Microsoft 365 mailbox needs an Entra app/tenant and user authorisation.",
+    "state": "Unconfigured integrations stay disabled. Jev is experimental; live compatibility is unverified.",
+    "source": "lib/ai/jev-settings.ts; lib/ai/typesafe.ts; lib/mailbox/microsoft365.ts"
+  }
+]

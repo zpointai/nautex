@@ -1,0 +1,695 @@
+{
+  "date": "2026-10-04",
+  "publicationCleared": false,
+  "components": [
+    {
+      "id": "gnu-libiconv",
+      "match": "postgresql/bin/libiconv-2\\.dll$",
+      "version": "1.15 (PE resource; EDB build revision unknown)",
+      "license": "LGPL-2.1-or-later",
+      "origin": "EDB PostgreSQL 16.14-2 windows-x64 archive SHA256 8a7f54c1968d5d49bdcd3f66b1291f736c74b8cb6a26e9874771fcc7837dbf38",
+      "requiredNotices": [
+        "resources/local-runtime/postgresql/server_license.txt",
+        "resources/local-runtime/postgresql/commandlinetools_3rd_party_licenses.txt"
+      ],
+      "sourceMaterials": [
+        "libiconv-1.15.tar.gz"
+      ],
+      "buildMaterials": [
+        "GNU configure/Makefiles in archive; EDB build recipe missing"
+      ],
+      "verificationStatus": "BLOCKED",
+      "remaining": "Exact EDB patches, build scripts and source-to-binary match are unavailable from the public source page. No compatible replacement has been built; a Windows C/C++ compiler and an accessible Linux build engine were unavailable."
+    },
+    {
+      "id": "gnu-gettext-libintl",
+      "match": "postgresql/bin/libintl-9\\.dll$",
+      "version": "0.19.8 (PE resource; EDB build revision unknown)",
+      "license": "LGPL-2.1-or-later (runtime library; gettext tools have different terms)",
+      "origin": "EDB PostgreSQL 16.14-2 windows-x64 archive SHA256 8a7f54c1968d5d49bdcd3f66b1291f736c74b8cb6a26e9874771fcc7837dbf38",
+      "requiredNotices": [
+        "resources/local-runtime/postgresql/server_license.txt",
+        "resources/local-runtime/postgresql/commandlinetools_3rd_party_licenses.txt"
+      ],
+      "sourceMaterials": [
+        "gettext-0.19.8.tar.gz"
+      ],
+      "buildMaterials": [
+        "GNU runtime/intl build files; EDB patches/recipe missing"
+      ],
+      "verificationStatus": "BLOCKED",
+      "remaining": "Exact EDB patches, build scripts and source-to-binary match are unavailable from the public source page. No compatible replacement has been built; a Windows C/C++ compiler and an accessible Linux build engine were unavailable."
+    },
+    {
+      "id": "winpthreads",
+      "match": "postgresql/bin/libwinpthread-1\\.dll$",
+      "version": "PE resource 1.0.0.0; exact mingw-w64 revision UNKNOWN",
+      "license": "Upstream winpthreads: MIT AND BSD-3-Clause; EDB aggregate notice labels pthreads LGPL-2.1",
+      "origin": "EDB PostgreSQL 16.14-2 windows-x64 archive SHA256 8a7f54c1968d5d49bdcd3f66b1291f736c74b8cb6a26e9874771fcc7837dbf38",
+      "requiredNotices": [
+        "resources/local-runtime/postgresql/server_license.txt",
+        "resources/local-runtime/postgresql/commandlinetools_3rd_party_licenses.txt"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Distributor source/build identification required"
+      ],
+      "verificationStatus": "BLOCKED",
+      "remaining": "The resource version is not a unique source revision. Resolve the distributor/upstream licence attribution discrepancy and preserve the correct copyright notices; do not infer LGPL solely from its aggregate heading."
+    },
+    {
+      "id": "openssl",
+      "match": "postgresql/bin/lib(?:ssl|crypto)-3-x64\\.dll$",
+      "version": "3.0.21",
+      "license": "Apache-2.0",
+      "origin": "EDB PostgreSQL 16.14-2 windows-x64 archive SHA256 8a7f54c1968d5d49bdcd3f66b1291f736c74b8cb6a26e9874771fcc7837dbf38",
+      "requiredNotices": [
+        "resources/local-runtime/postgresql/server_license.txt",
+        "resources/local-runtime/postgresql/commandlinetools_3rd_party_licenses.txt"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Unmodified EDB binary; permissive notices must remain"
+      ],
+      "verificationStatus": "NOTICES_RETAINED",
+      "remaining": "No source delivery obligation asserted solely from this permissive licence; complete vendor notices retained."
+    },
+    {
+      "id": "icu",
+      "match": "postgresql/bin/icu(?:dt|in|io|tu|uc)67\\.dll$",
+      "version": "67.1",
+      "license": "Unicode-DFS-2016 / ICU notices",
+      "origin": "EDB PostgreSQL 16.14-2 windows-x64 archive SHA256 8a7f54c1968d5d49bdcd3f66b1291f736c74b8cb6a26e9874771fcc7837dbf38",
+      "requiredNotices": [
+        "resources/local-runtime/postgresql/server_license.txt",
+        "resources/local-runtime/postgresql/commandlinetools_3rd_party_licenses.txt"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Unmodified EDB binary; permissive notices must remain"
+      ],
+      "verificationStatus": "NOTICES_RETAINED",
+      "remaining": "No source delivery obligation asserted solely from this permissive licence; complete vendor notices retained."
+    },
+    {
+      "id": "libxml2",
+      "match": "postgresql/bin/libxml2\\.dll$",
+      "version": "2.15.3",
+      "license": "MIT",
+      "origin": "EDB PostgreSQL 16.14-2 windows-x64 archive SHA256 8a7f54c1968d5d49bdcd3f66b1291f736c74b8cb6a26e9874771fcc7837dbf38",
+      "requiredNotices": [
+        "resources/local-runtime/postgresql/server_license.txt",
+        "resources/local-runtime/postgresql/commandlinetools_3rd_party_licenses.txt"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Unmodified EDB binary; permissive notices must remain"
+      ],
+      "verificationStatus": "NOTICES_RETAINED",
+      "remaining": "No source delivery obligation asserted solely from this permissive licence; complete vendor notices retained."
+    },
+    {
+      "id": "libxslt",
+      "match": "postgresql/bin/libxslt\\.dll$",
+      "version": "1.1.45 (xsltEngineVersion and xsltLibxsltVersion both export 10145)",
+      "license": "MIT",
+      "origin": "EDB PostgreSQL 16.14-2 windows-x64 archive SHA256 8a7f54c1968d5d49bdcd3f66b1291f736c74b8cb6a26e9874771fcc7837dbf38",
+      "requiredNotices": [
+        "resources/local-runtime/postgresql/server_license.txt",
+        "resources/local-runtime/postgresql/commandlinetools_3rd_party_licenses.txt"
+      ],
+      "sourceMaterials": [
+        "libxslt-1.1.45.tar.xz"
+      ],
+      "buildMaterials": [
+        "Unmodified EDB binary; permissive notices must remain"
+      ],
+      "verificationStatus": "VERSION_AND_UPSTREAM_SOURCE_VERIFIED",
+      "remaining": "EDB patch/build revision not published; MIT notices retained. Exact upstream release source acquired; no binary reproducibility claim."
+    },
+    {
+      "id": "lz4",
+      "match": "postgresql/bin/liblz4\\.dll$",
+      "version": "1.10.0",
+      "license": "BSD-2-Clause",
+      "origin": "EDB PostgreSQL 16.14-2 windows-x64 archive SHA256 8a7f54c1968d5d49bdcd3f66b1291f736c74b8cb6a26e9874771fcc7837dbf38",
+      "requiredNotices": [
+        "resources/local-runtime/postgresql/server_license.txt",
+        "resources/local-runtime/postgresql/commandlinetools_3rd_party_licenses.txt"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Unmodified EDB binary; permissive notices must remain"
+      ],
+      "verificationStatus": "NOTICES_RETAINED",
+      "remaining": "No source delivery obligation asserted solely from this permissive licence; complete vendor notices retained."
+    },
+    {
+      "id": "zstd",
+      "match": "postgresql/bin/libzstd\\.dll$",
+      "version": "1.5.7",
+      "license": "BSD-3-Clause",
+      "origin": "EDB PostgreSQL 16.14-2 windows-x64 archive SHA256 8a7f54c1968d5d49bdcd3f66b1291f736c74b8cb6a26e9874771fcc7837dbf38",
+      "requiredNotices": [
+        "resources/local-runtime/postgresql/server_license.txt",
+        "resources/local-runtime/postgresql/commandlinetools_3rd_party_licenses.txt"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Unmodified EDB binary; permissive notices must remain"
+      ],
+      "verificationStatus": "NOTICES_RETAINED",
+      "remaining": "No source delivery obligation asserted solely from this permissive licence; complete vendor notices retained."
+    },
+    {
+      "id": "zlib",
+      "match": "postgresql/bin/zlib1\\.dll$",
+      "version": "1.3.2",
+      "license": "Zlib",
+      "origin": "EDB PostgreSQL 16.14-2 windows-x64 archive SHA256 8a7f54c1968d5d49bdcd3f66b1291f736c74b8cb6a26e9874771fcc7837dbf38",
+      "requiredNotices": [
+        "resources/local-runtime/postgresql/server_license.txt",
+        "resources/local-runtime/postgresql/commandlinetools_3rd_party_licenses.txt"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Unmodified EDB binary; permissive notices must remain"
+      ],
+      "verificationStatus": "NOTICES_RETAINED",
+      "remaining": "No source delivery obligation asserted solely from this permissive licence; complete vendor notices retained."
+    },
+    {
+      "id": "curl",
+      "match": "postgresql/bin/libcurl\\.dll$",
+      "version": "8.20.0",
+      "license": "curl license (MIT-like)",
+      "origin": "EDB PostgreSQL 16.14-2 windows-x64 archive SHA256 8a7f54c1968d5d49bdcd3f66b1291f736c74b8cb6a26e9874771fcc7837dbf38",
+      "requiredNotices": [
+        "resources/local-runtime/postgresql/server_license.txt",
+        "resources/local-runtime/postgresql/commandlinetools_3rd_party_licenses.txt"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Unmodified EDB binary; permissive notices must remain"
+      ],
+      "verificationStatus": "NOTICES_RETAINED",
+      "remaining": "No source delivery obligation asserted solely from this permissive licence; complete vendor notices retained."
+    },
+    {
+      "id": "edb-extra-extensions",
+      "match": "postgresql/lib/(?:plugin_debugger|system_stats)\\.dll$",
+      "version": "Not versioned in PE resources; exact revision UNKNOWN",
+      "license": "Component-specific attribution must be verified",
+      "origin": "EDB PostgreSQL 16.14-2 windows-x64 archive SHA256 8a7f54c1968d5d49bdcd3f66b1291f736c74b8cb6a26e9874771fcc7837dbf38",
+      "requiredNotices": [
+        "resources/local-runtime/postgresql/server_license.txt",
+        "resources/local-runtime/postgresql/commandlinetools_3rd_party_licenses.txt"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Distributor source/provenance required"
+      ],
+      "verificationStatus": "BLOCKED",
+      "remaining": "These optional EDB additions are not identified by the core PostgreSQL version. Their exact licences/source revisions still need distributor evidence."
+    },
+    {
+      "id": "postgresql",
+      "match": "postgresql/.*\\.(?:dll|exe)$",
+      "version": "16.14, EDB packaging revision 2",
+      "license": "PostgreSQL (with bundled component notices)",
+      "origin": "EDB PostgreSQL 16.14-2 windows-x64 archive SHA256 8a7f54c1968d5d49bdcd3f66b1291f736c74b8cb6a26e9874771fcc7837dbf38",
+      "requiredNotices": [
+        "resources/local-runtime/postgresql/server_license.txt",
+        "resources/local-runtime/postgresql/commandlinetools_3rd_party_licenses.txt"
+      ],
+      "sourceMaterials": [
+        "postgresql-16.14.tar.bz2"
+      ],
+      "buildMaterials": [
+        "src/tools/msvc and PostgreSQL build files in source archive"
+      ],
+      "verificationStatus": "SOURCE_OBTAINED",
+      "remaining": "Source release acquired; no full EDB rebuild performed. Per-file PE versions are recorded separately."
+    },
+    {
+      "id": "sharp-libvips",
+      "match": "@img/sharp-win32-x64/lib/libvips.*\\.dll$",
+      "version": "8.18.6; sharp-libvips packaging v1.3.3",
+      "license": "LGPL-3.0-or-later for the distributed combination; embedded permissive/MPL components listed individually",
+      "origin": "npm @img/sharp-win32-x64@0.35.4 (locked SRI), libvips DLL byte-matched to official vips-dev-x64-web-8.18.6-static.zip",
+      "requiredNotices": [
+        "@img/sharp-win32-x64/README.md",
+        "third-party/sharp-components.json",
+        "third-party/licences/"
+      ],
+      "sourceMaterials": [
+        "fontconfig-2.18.3.tar.gz",
+        "sharp-01-0.5.tar.gz",
+        "sharp-02-2.3.3.tar.gz",
+        "sharp-03-libffi-3.8.0.tar.gz",
+        "sharp-04-glib-2.89.4.tar.xz",
+        "sharp-05-glib-without-gregex.patch",
+        "sharp-06-libxml2-2.15.3.tar.xz",
+        "sharp-07-libexif-0.6.26.tar.xz",
+        "sharp-08-lcms2-2.19.1.tar.gz",
+        "libaom-3.14.1.tar.gz",
+        "sharp-10-libheif-1.23.2.tar.gz",
+        "sharp-11-0826579.tar.gz",
+        "sharp-12-f90668e0e4fb79c81e1f24a0ccc0e2090af761bf.patch",
+        "sharp-13-v1.6.58.tar.gz",
+        "sharp-14-v2.4.1.tar.gz",
+        "sharp-15-libwebp-1.6.0.tar.gz",
+        "sharp-16-libtiff-v4.7.2.tar.gz",
+        "sharp-17-1.4.0.tar.gz",
+        "sharp-18-VER-2-14-3.tar.gz",
+        "sharp-19-expat-2.8.3.tar.xz",
+        "sharp-20-libarchive-3.8.9.tar.xz",
+        "sharp-22-14.3.1.tar.gz",
+        "sharp-23-pixman-0.46.4.tar.gz",
+        "sharp-24-cairo-1.18.4.tar.xz",
+        "sharp-25-fribidi-1.0.16.tar.xz",
+        "sharp-26-pango-1.58.2.tar.xz",
+        "sharp-27-librsvg-2.62.91.tar.xz",
+        "sharp-28-v0.5.3.tar.gz",
+        "sharp-29-v2.0.2.tar.gz",
+        "sharp-30-383.patch",
+        "sharp-31-vips-8.18.6.tar.xz",
+        "sharp-32-libvips-cpp-soversion.patch",
+        "sharp-libvips-v1.3.3-build.tar.gz",
+        "sharp-v0.35.4.tar.gz"
+      ],
+      "buildMaterials": [
+        "build-win64-mxe-v8.18.6.tar.gz",
+        "sharp-libvips-v1.3.3-build.tar.gz",
+        "mxe-build-recipes.tar.gz"
+      ],
+      "verificationStatus": "SOURCES_PARTIAL",
+      "remaining": "31 recipe downloads plus Fontconfig Git source obtained; nine upstream hash pins verified. Original base image digest, full static Rust dependency/source closure and exact rebuild remain unverified. A moving MXE branch snapshot is identified by commit and is not falsely labelled the original build commit."
+    },
+    {
+      "id": "sharp-addon",
+      "match": "@img/sharp-win32-x64/.*\\.node$",
+      "version": "0.35.4",
+      "license": "Apache-2.0; dynamically uses LGPL libvips",
+      "origin": "npm @img/sharp-win32-x64@0.35.4 (locked SRI), libvips DLL byte-matched to official vips-dev-x64-web-8.18.6-static.zip",
+      "requiredNotices": [
+        "@img/sharp-win32-x64/LICENSE",
+        "@img/sharp-win32-x64/README.md"
+      ],
+      "sourceMaterials": [
+        "sharp-v0.35.4.tar.gz"
+      ],
+      "buildMaterials": [
+        "binding.gyp/src and patch set; replaceable companion DLLs"
+      ],
+      "verificationStatus": "SOURCE_OBTAINED",
+      "remaining": "No static linking of Nautex into libvips. Replacement/relinking instructions accompany the source kit."
+    },
+    {
+      "id": "canvas-skia",
+      "match": "canvas-win32-x64-msvc/.*\\.node$",
+      "version": "@napi-rs/canvas 0.1.80; exact Skia revision pending transitive audit",
+      "license": "MIT wrapper; Skia and linked libraries retain their own licences",
+      "origin": "npm @napi-rs/canvas-win32-x64-msvc@0.1.80, locked SRI",
+      "requiredNotices": [
+        "canvas/LICENSE",
+        "Transitive native notices require completion"
+      ],
+      "sourceMaterials": [
+        "canvas-v0.1.80.tar.gz"
+      ],
+      "buildMaterials": [
+        "Upstream build/workflow and Skia dependency metadata in archive"
+      ],
+      "verificationStatus": "BLOCKED",
+      "remaining": "Wrapper source acquired; bundled Skia/native dependency notice/source closure not yet verified."
+    },
+    {
+      "id": "pdfjs-openjpeg",
+      "match": "pdfjs-dist/wasm/openjpeg\\.wasm$",
+      "version": "pdfjs-dist 5.4.296 distribution",
+      "license": "BSD-2-Clause OpenJPEG + Apache-2.0 PDF.js glue",
+      "origin": "npm pdfjs-dist@5.4.296, locked SRI",
+      "requiredNotices": [
+        "pdfjs-dist/wasm/LICENSE_OPENJPEG",
+        "pdfjs-dist/wasm/LICENSE_PDFJS_OPENJPEG"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "https://github.com/mozilla/pdf.js/tree/v5.4.296"
+      ],
+      "verificationStatus": "NOTICES_RETAINED",
+      "remaining": ""
+    },
+    {
+      "id": "pdfjs-qcms",
+      "match": "pdfjs-dist/wasm/qcms_bg\\.wasm$",
+      "version": "pdfjs-dist 5.4.296 distribution",
+      "license": "MIT qcms + Apache-2.0 PDF.js glue",
+      "origin": "npm pdfjs-dist@5.4.296, locked SRI",
+      "requiredNotices": [
+        "pdfjs-dist/wasm/LICENSE_QCMS",
+        "pdfjs-dist/wasm/LICENSE_PDFJS_QCMS"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "https://github.com/mozilla/pdf.js/tree/v5.4.296"
+      ],
+      "verificationStatus": "NOTICES_RETAINED",
+      "remaining": "The actual bundled QCMS licence is MIT, not an assumed MPL grant."
+    },
+    {
+      "id": "prisma-engines",
+      "match": "(?:prisma|@prisma|\\.prisma)/.*\\.(?:exe|node|wasm)$",
+      "version": "6.19.3; engine commit c2990dca591cba766e3b7ef5d9e8a84796e47ab7",
+      "license": "Apache-2.0 engines; transitive Rust licences retained separately",
+      "origin": "Prisma locked packages and engine commit metadata",
+      "requiredNotices": [
+        "Prisma Apache licence; native transitive notices still under review"
+      ],
+      "sourceMaterials": [
+        "prisma-engines-c2990dca.tar.gz"
+      ],
+      "buildMaterials": [
+        "Cargo.lock and engine build sources"
+      ],
+      "verificationStatus": "SOURCES_PARTIAL",
+      "remaining": "Exact engine source acquired; full compiled-crate notice closure and rebuild are not claimed."
+    },
+    {
+      "id": "ms-vc-runtime",
+      "match": "prerequisites/vc_redist\\.x64\\.exe$",
+      "version": "14.51.36247.0",
+      "license": "Microsoft Visual C++ Redistributable licence (proprietary redistributable)",
+      "origin": "Official aka.ms/vc14/vc_redist.x64.exe, valid Microsoft signature, pinned SHA256 843068991daaa1f73ad9f6239bce4d0f6a07a51f18c37ea2a867e9beca71295c",
+      "requiredNotices": [
+        "Original Microsoft installer licence/terms embedded and preserved"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Original Microsoft redistributable, unmodified"
+      ],
+      "verificationStatus": "SIGNED_VENDOR_REDISTRIBUTABLE",
+      "remaining": "No source grant claimed; distribution is under Microsoft terms, not AGPL."
+    },
+    {
+      "id": "nsis-elevate",
+      "match": "resources/elevate\\.exe$",
+      "version": "PE 1.0.0.2894; electron-builder 26.15.3 distribution",
+      "license": "Exact helper grant pending; NSIS bundle origin, not inferred from electron-builder MIT",
+      "origin": "Pinned electron-builder-binaries nsis-3.0.4.1.7z; PE 1.0.0.2894",
+      "requiredNotices": [
+        "electron-builder MIT notice"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "https://github.com/electron-userland/electron-builder/tree/v26.15.3"
+      ],
+      "verificationStatus": "VENDOR_TERMS_REVIEW",
+      "remaining": "NSIS bundle COPYING retained. Helper-specific origin/source revision and applicable grant require confirmation."
+    },
+    {
+      "id": "electron-ffmpeg",
+      "match": "^ffmpeg\\.dll$",
+      "version": "Chromium FFmpeg commit ad41607c61898cf7150e0fb20fe4bbabd44922a3",
+      "license": "LGPL-2.1-or-later; permissive linked Opus",
+      "origin": "Electron 43.1.0 verified official binary archive",
+      "requiredNotices": [
+        "LICENSES.chromium.html",
+        "FFmpeg COPYING.LGPLv2.1 / LICENSE.md in material archive"
+      ],
+      "sourceMaterials": [
+        "chromium-ffmpeg-ad41607c.tar.gz",
+        "chromium-opus-150.0.7871.47.tar.gz"
+      ],
+      "buildMaterials": [
+        "electron-v43.1.0-source.tar.gz",
+        "chromium-build-150.0.7871.47.tar.gz",
+        "chromium-150.0.7871.47-DEPS.txt"
+      ],
+      "verificationStatus": "SOURCE_OBTAINED",
+      "remaining": "Inspected Chrome/win/x64 config: CONFIG_GPL=0, CONFIG_GPLV3=0, CONFIG_NONFREE=0. Electron defaults to Chrome branding. Exact full rebuild not performed."
+    },
+    {
+      "id": "electron-shell",
+      "match": "^Nautex Community\\.exe$",
+      "version": "Electron 43.1.0 / Chromium 150.0.7871.47 / Node 24.18.0; Nautex 0.3.14 resource branding",
+      "license": "MIT Electron/Node; Chromium BSD and bundled licences including LGPL Blink",
+      "origin": "Verified Electron archive; only project branding/version resources edited",
+      "requiredNotices": [
+        "LICENSE.electron.txt",
+        "LICENSES.chromium.html",
+        "Node source LICENSE"
+      ],
+      "sourceMaterials": [
+        "electron-v43.1.0-source.tar.gz",
+        "chromium-blink-150.0.7871.47.tar.gz",
+        "node-v24.18.0.tar.xz"
+      ],
+      "buildMaterials": [
+        "chromium-build-150.0.7871.47.tar.gz",
+        "chromium-150.0.7871.47-DEPS.txt",
+        "Electron patches/build files"
+      ],
+      "verificationStatus": "SOURCES_PARTIAL",
+      "remaining": "Exact Blink/Node/Electron source obtained. Chromium contains additional transitive components; complete source/notice closure of all covered code has not been certified."
+    },
+    {
+      "id": "angle",
+      "match": "^lib(?:EGL|GLESv2)\\.dll$",
+      "version": "ANGLE 2.1.27949, bbf3d8a4755268f016087be2f56099fa5a5f3f6e",
+      "license": "BSD-3-Clause and bundled notices",
+      "origin": "Electron 43.1.0 / Chromium DEPS",
+      "requiredNotices": [
+        "LICENSES.chromium.html"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Chromium DEPS pinned ANGLE revision"
+      ],
+      "verificationStatus": "NOTICES_RETAINED",
+      "remaining": ""
+    },
+    {
+      "id": "swiftshader",
+      "match": "^vk_swiftshader\\.dll$",
+      "version": "5.0.0, fce27a96526f54c6d31fdccf57629788e3712220",
+      "license": "Apache-2.0 and third-party notices",
+      "origin": "Electron 43.1.0 / Chromium DEPS",
+      "requiredNotices": [
+        "LICENSES.chromium.html"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Chromium DEPS pinned SwiftShader revision"
+      ],
+      "verificationStatus": "NOTICES_RETAINED",
+      "remaining": ""
+    },
+    {
+      "id": "vulkan-loader",
+      "match": "^vulkan-1\\.dll$",
+      "version": "cf0cf82ea16c0ff0be75940f282540d6085b2d3b",
+      "license": "Apache-2.0",
+      "origin": "Electron 43.1.0 / Chromium DEPS",
+      "requiredNotices": [
+        "LICENSES.chromium.html"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Chromium DEPS pinned Vulkan-Loader revision"
+      ],
+      "verificationStatus": "NOTICES_RETAINED",
+      "remaining": ""
+    },
+    {
+      "id": "d3dcompiler",
+      "match": "^d3dcompiler_47\\.dll$",
+      "version": "10.0.26100.7705",
+      "license": "Microsoft SDK distributable terms",
+      "origin": "Electron 43.1.0 official archive",
+      "requiredNotices": [
+        "Vendor redistribution terms; Windows SDK attribution"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [],
+      "verificationStatus": "VENDOR_TERMS_REVIEW",
+      "remaining": "Confirm the specific SDK redistributable grant and notices for this exact vendor DLL before binary clearance."
+    },
+    {
+      "id": "dxcompiler",
+      "match": "^dxcompiler\\.dll$",
+      "version": "1.9.2602.0",
+      "license": "LLVM/NCSA and MIT components; review bundled DirectX compiler notices",
+      "origin": "Electron 43.1.0 official archive",
+      "requiredNotices": [
+        "LICENSES.chromium.html; DirectXShaderCompiler notices"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Chromium pinned toolchain metadata"
+      ],
+      "verificationStatus": "VENDOR_TERMS_REVIEW",
+      "remaining": "Exact DXC source revision/build and any additional redistribution notices still need confirmation."
+    },
+    {
+      "id": "dxil",
+      "match": "^dxil\\.dll$",
+      "version": "1.8.2502.11",
+      "license": "Microsoft DirectX validator distributable terms",
+      "origin": "Electron 43.1.0 official archive",
+      "requiredNotices": [
+        "Microsoft validator redistribution terms"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Unmodified Microsoft component distributed by Electron"
+      ],
+      "verificationStatus": "VENDOR_TERMS_REVIEW",
+      "remaining": "Do not infer an open-source grant for the validator from dxcompiler next to it."
+    },
+    {
+      "id": "nsis-generated-installer",
+      "match": "^(?:installer/.*|Uninstall Nautex Community)\\.exe$",
+      "version": "Nautex 0.3.14 build revision 2; NSIS compiler v3.04, distributor bundle 3.0.4.1",
+      "license": "zlib/libpng NSIS core and Deflate stub; embedded plugin licences listed separately",
+      "origin": "electron-builder 26.15.3 using pinned nsis-3.0.4.1.7z SHA256 9877df902530f96357d13a7a31ae2b9df67f48b11ffc9a1700a7c961574ec5fa and nsis-resources-3.4.1 SHA256 593a9a92ef958321293ac6a2ee61e64bf1bd543142a5bd6b3d310709cc924103",
+      "requiredNotices": [
+        "third-party/licences/NSIS-3.04-COPYING.txt",
+        "public/legal/THIRD-PARTY-NOTICES.txt"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "electron-builder.yml",
+        "scripts/community-installer.nsh",
+        "Locked app-builder-lib NSIS templates"
+      ],
+      "verificationStatus": "SOURCES_PARTIAL",
+      "remaining": "Archive inspection confirms Deflate outer stub, not the optional CPL LZMA stub. Exact patched NSIS core source/build revision remains unverified. Seven extracted installer plugin DLLs and the generated uninstaller are inventoried individually; Microsoft prerequisite internals remain covered by its vendor package terms."
+    },
+    {
+      "id": "installer-plugin-system",
+      "match": "^installer-plugins/\\$PLUGINSDIR/System\\.dll$",
+      "version": "NSIS v3.04 bundle; no independent PE version",
+      "license": "zlib/libpng",
+      "origin": "Extracted from final NSIS installer; matched to pinned NSIS 3.0.4.1 or nsis-resources 3.4.1 build input",
+      "requiredNotices": [
+        "public/legal/THIRD-PARTY-NOTICES.txt",
+        "third-party/licences/index.json"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Locked app-builder-lib NSIS templates; acquired upstream project files where identified"
+      ],
+      "verificationStatus": "VENDOR_TERMS_REVIEW",
+      "remaining": "Exact distributor patch/build revision unknown; NSIS COPYING retained."
+    },
+    {
+      "id": "installer-plugin-nsdialogs",
+      "match": "^installer-plugins/\\$PLUGINSDIR/nsDialogs\\.dll$",
+      "version": "NSIS v3.04 bundle; no independent PE version",
+      "license": "zlib/libpng",
+      "origin": "Extracted from final NSIS installer; matched to pinned NSIS 3.0.4.1 or nsis-resources 3.4.1 build input",
+      "requiredNotices": [
+        "public/legal/THIRD-PARTY-NOTICES.txt",
+        "third-party/licences/index.json"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Locked app-builder-lib NSIS templates; acquired upstream project files where identified"
+      ],
+      "verificationStatus": "VENDOR_TERMS_REVIEW",
+      "remaining": "Exact distributor patch/build revision unknown; NSIS COPYING retained."
+    },
+    {
+      "id": "installer-plugin-nsexec",
+      "match": "^installer-plugins/\\$PLUGINSDIR/nsExec\\.dll$",
+      "version": "NSIS v3.04 bundle; no independent PE version",
+      "license": "zlib/libpng",
+      "origin": "Extracted from final NSIS installer; matched to pinned NSIS 3.0.4.1 or nsis-resources 3.4.1 build input",
+      "requiredNotices": [
+        "public/legal/THIRD-PARTY-NOTICES.txt",
+        "third-party/licences/index.json"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Locked app-builder-lib NSIS templates; acquired upstream project files where identified"
+      ],
+      "verificationStatus": "VENDOR_TERMS_REVIEW",
+      "remaining": "Exact distributor patch/build revision unknown; NSIS COPYING retained."
+    },
+    {
+      "id": "installer-plugin-stdutils",
+      "match": "^installer-plugins/\\$PLUGINSDIR/StdUtils\\.dll$",
+      "version": "1.1.4.0 PE; upstream tag 1.14 / commit 4e1117321001e54dcd2c52f72d3c359d5215e426",
+      "license": "LGPL-2.1-or-later with installer linking clarification; embedded hash-library notices retained",
+      "origin": "Extracted from final NSIS installer; matched to pinned NSIS 3.0.4.1 or nsis-resources 3.4.1 build input",
+      "requiredNotices": [
+        "public/legal/THIRD-PARTY-NOTICES.txt",
+        "third-party/licences/index.json"
+      ],
+      "sourceMaterials": [
+        "StdUtils-1.14-source.tar.gz"
+      ],
+      "buildMaterials": [
+        "Locked app-builder-lib NSIS templates; acquired upstream project files where identified"
+      ],
+      "verificationStatus": "SOURCES_PARTIAL",
+      "remaining": "Source, build files and full notices acquired; distributor binary-to-build correspondence not independently reproduced."
+    },
+    {
+      "id": "installer-plugin-nsis7z",
+      "match": "^installer-plugins/\\$PLUGINSDIR/nsis7z\\.dll$",
+      "version": "19.00.0.0; byte-matches official x86-unicode distribution",
+      "license": "LZMA SDK public domain notice; plugin-wrapper grant requires confirmation",
+      "origin": "Extracted from final NSIS installer; matched to pinned NSIS 3.0.4.1 or nsis-resources 3.4.1 build input",
+      "requiredNotices": [
+        "public/legal/THIRD-PARTY-NOTICES.txt",
+        "third-party/licences/index.json"
+      ],
+      "sourceMaterials": [
+        "Nsis7z_19.00.7z",
+        "7z1900-src.7z"
+      ],
+      "buildMaterials": [
+        "Locked app-builder-lib NSIS templates; acquired upstream project files where identified"
+      ],
+      "verificationStatus": "SOURCES_PARTIAL",
+      "remaining": "Official byte match and source/project acquired; confirm the wrapper/source component licence scope before publication."
+    },
+    {
+      "id": "installer-plugin-uac",
+      "match": "^installer-plugins/\\$PLUGINSDIR/UAC\\.dll$",
+      "version": "No PE version; exact revision UNKNOWN",
+      "license": "Upstream UAC is zlib; exact bundled revision remains unverified",
+      "origin": "Extracted from final NSIS installer; matched to pinned NSIS 3.0.4.1 or nsis-resources 3.4.1 build input",
+      "requiredNotices": [
+        "public/legal/THIRD-PARTY-NOTICES.txt",
+        "third-party/licences/index.json"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Locked app-builder-lib NSIS templates; acquired upstream project files where identified"
+      ],
+      "verificationStatus": "VENDOR_TERMS_REVIEW",
+      "remaining": "https://nsis.sourceforge.io/UAC_plug-in identifies upstream version 0.2.4c, not proof of this binary revision."
+    },
+    {
+      "id": "installer-plugin-winshell",
+      "match": "^installer-plugins/\\$PLUGINSDIR/WinShell\\.dll$",
+      "version": "No PE version; exact revision UNKNOWN",
+      "license": "Upstream page labels Freeware; precise redistribution grant UNKNOWN",
+      "origin": "Extracted from final NSIS installer; matched to pinned NSIS 3.0.4.1 or nsis-resources 3.4.1 build input",
+      "requiredNotices": [
+        "public/legal/THIRD-PARTY-NOTICES.txt",
+        "third-party/licences/index.json"
+      ],
+      "sourceMaterials": [],
+      "buildMaterials": [
+        "Locked app-builder-lib NSIS templates; acquired upstream project files where identified"
+      ],
+      "verificationStatus": "VENDOR_TERMS_REVIEW",
+      "remaining": "https://nsis.sourceforge.io/WinShell_plug-in is not a sufficient exact binary redistribution grant. Obtain author/distributor terms or replace this helper after installer regression testing."
+    }
+  ]
+}

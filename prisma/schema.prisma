@@ -1,0 +1,3864 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Improvement records are organization scoped and never consumed as live rules.
+model ImprovementObservation {
+  id               String @id @default(cuid())
+  organizationId   String @map("organization_id")
+  legalEntityId    String? @map("legal_entity_id")
+  moduleKey        String @map("module_key")
+  kind             String
+  sourceId         String? @map("source_id")
+  sourceHash       String @map("source_hash")
+  summary          String
+  snapshot         Json
+  actorId          String @map("actor_id")
+  dedupeKey        String @map("dedupe_key")
+  createdAt        DateTime @default(now()) @map("created_at")
+  organization     Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  proposalEvidence ImprovementProposalEvidence[]
+  outcomes         ImprovementOutcome[]
+
+  @@unique([organizationId, id])
+  @@unique([organizationId, dedupeKey])
+  @@index([organizationId, moduleKey, createdAt])
+  @@map("improvement_observations")
+}
+
+model ImprovementProposal {
+  id              String @id @default(cuid())
+  organizationId  String @map("organization_id")
+  legalEntityId   String? @map("legal_entity_id")
+  moduleKey       String @map("module_key")
+  title           String
+  hypothesis      String
+  candidate       String
+  evaluationPlan  String @map("evaluation_plan")
+  successCriteria String @map("success_criteria")
+  stopCondition   String @map("stop_condition")
+  experimentKey   String? @map("experiment_key")
+  candidateConfig Json? @map("candidate_config")
+  status          ImprovementProposalStatus @default(Proposed)
+  revision        Int @default(1)
+  requestKey      String @map("request_key")
+  contentHash     String @map("content_hash")
+  actorId         String @map("actor_id")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  evidence        ImprovementProposalEvidence[]
+  decisions       ImprovementDecision[]
+  outcomeLinks    ImprovementProposalOutcome[]
+  evaluations     ImprovementEvaluation[]
+
+  @@unique([organizationId, id])
+  @@unique([organizationId, requestKey])
+  @@index([organizationId, moduleKey, createdAt])
+  @@map("improvement_proposals")
+}
+
+enum ImprovementProposalStatus {
+  Proposed
+  ExperimentApproved
+  Rejected
+  Revoked
+}
+
+model ImprovementProposalEvidence {
+  organizationId String @map("organization_id")
+  proposalId     String @map("proposal_id")
+  observationId  String @map("observation_id")
+  proposal       ImprovementProposal @relation(fields: [organizationId, proposalId], references: [organizationId, id], onDelete: Restrict)
+  observation    ImprovementObservation @relation(fields: [organizationId, observationId], references: [organizationId, id], onDelete: Restrict)
+
+  @@id([proposalId, observationId])
+  @@index([organizationId, observationId])
+  @@map("improvement_proposal_evidence")
+}
+
+model ImprovementDecision {
+  id             String @id @default(cuid())
+  organizationId String @map("organization_id")
+  proposalId     String @map("proposal_id")
+  revision       Int
+  action         String
+  reason         String
+  actorId        String @map("actor_id")
+  createdAt      DateTime @default(now()) @map("created_at")
+  proposal       ImprovementProposal @relation(fields: [organizationId, proposalId], references: [organizationId, id], onDelete: Restrict)
+
+  @@unique([proposalId, revision])
+  @@map("improvement_decisions")
+}
+
+model ImprovementOutcome {
+  id             String @id @default(cuid())
+  organizationId String @map("organization_id")
+  observationId  String @map("observation_id")
+  finding        String
+  expected       String
+  actual         String
+  basis          String
+  status         String @default("Pending")
+  revision       Int @default(1)
+  actorId        String @map("actor_id")
+  contentHash    String @map("content_hash")
+  requestKey     String @map("request_key")
+  createdAt      DateTime @default(now()) @map("created_at")
+  observation    ImprovementObservation @relation(fields: [organizationId, observationId], references: [organizationId, id], onDelete: Restrict)
+  reviews        ImprovementOutcomeReview[]
+  proposals      ImprovementProposalOutcome[]
+  @@unique([organizationId, id])
+  @@unique([organizationId, requestKey])
+  @@index([organizationId, createdAt])
+  @@map("improvement_outcomes")
+}
+
+model ImprovementOutcomeReview {
+  id             String @id @default(cuid())
+  organizationId String @map("organization_id")
+  outcomeId      String @map("outcome_id")
+  revision       Int
+  action         String
+  reason         String
+  actorId        String @map("actor_id")
+  createdAt      DateTime @default(now()) @map("created_at")
+  outcome        ImprovementOutcome @relation(fields: [organizationId, outcomeId], references: [organizationId, id], onDelete: Restrict)
+  @@unique([outcomeId, revision])
+  @@map("improvement_outcome_reviews")
+}
+
+model ImprovementProposalOutcome {
+  organizationId String @map("organization_id")
+  proposalId     String @map("proposal_id")
+  outcomeId      String @map("outcome_id")
+  outcomeRevision Int @map("outcome_revision")
+  proposal       ImprovementProposal @relation(fields: [organizationId, proposalId], references: [organizationId, id], onDelete: Restrict)
+  outcome        ImprovementOutcome @relation(fields: [organizationId, outcomeId], references: [organizationId, id], onDelete: Restrict)
+  @@id([proposalId, outcomeId])
+  @@map("improvement_proposal_outcomes")
+}
+
+model ImprovementEvaluation {
+  id               String @id @default(cuid())
+  organizationId   String @map("organization_id")
+  proposalId       String @map("proposal_id")
+  proposalRevision Int @map("proposal_revision")
+  requestKey       String @map("request_key")
+  inputHash        String @map("input_hash")
+  actorId          String @map("actor_id")
+  experimentKey    String @map("experiment_key")
+  evaluatorVersion String @map("evaluator_version")
+  suiteHash        String @map("suite_hash")
+  configurationHash String @map("configuration_hash")
+  softwareVersion  String @map("software_version")
+  policyVersion    String @map("policy_version")
+  result           Json
+  createdAt        DateTime @default(now()) @map("created_at")
+  proposal         ImprovementProposal @relation(fields: [organizationId, proposalId], references: [organizationId, id], onDelete: Restrict)
+  @@unique([organizationId, requestKey])
+  @@index([organizationId, createdAt])
+  @@map("improvement_evaluations")
+}
+
+// -- Authentication and RBAC foundation ---------------------------
+
+model User {
+  id              String                   @id
+  name            String
+  email           String                   @unique
+  emailVerified   Boolean                  @default(false) @map("email_verified")
+  image           String?
+  status          UserStatus               @default(Active)
+  lastLoginAt     DateTime?                @map("last_login_at")
+  metadata        Json                     @default("{}")
+  sessions        Session[]
+  accounts        Account[]
+  roleAssignments UserRoleAssignment[]
+  memberships     OrganizationMembership[]
+  assignedRfqs    Rfq[]                    @relation("RfqAssignee")
+  assignedPurchaseOrders PurchaseOrder[]   @relation("PurchaseOrderAssignee")
+  createdAt       DateTime                 @default(now()) @map("created_at")
+  updatedAt       DateTime                 @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@map("users")
+}
+
+model Session {
+  id        String   @id
+  token     String   @unique
+  userId    String   @map("user_id")
+  expiresAt DateTime @map("expires_at")
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("sessions")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String    @map("account_id")
+  providerId            String    @map("provider_id")
+  userId                String    @map("user_id")
+  accessToken           String?   @map("access_token") @db.Text
+  refreshToken          String?   @map("refresh_token") @db.Text
+  idToken               String?   @map("id_token") @db.Text
+  accessTokenExpiresAt  DateTime? @map("access_token_expires_at")
+  refreshTokenExpiresAt DateTime? @map("refresh_token_expires_at")
+  scope                 String?
+  password              String?
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  @@unique([providerId, accountId])
+  @@index([userId])
+  @@map("accounts")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime @map("expires_at")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@index([identifier])
+  @@index([expiresAt])
+  @@map("verifications")
+}
+
+model Role {
+  id                      String                       @id @default(cuid())
+  code                    String                       @unique
+  name                    String
+  description             String?
+  isSystem                Boolean                      @default(true) @map("is_system")
+  permissions             RolePermission[]
+  assignments             UserRoleAssignment[]
+  organizationAssignments OrganizationMembershipRole[]
+  createdAt               DateTime                     @default(now()) @map("created_at")
+  updatedAt               DateTime                     @updatedAt @map("updated_at")
+
+  @@map("roles")
+}
+
+model Permission {
+  id          String           @id @default(cuid())
+  code        String           @unique
+  description String?
+  roles       RolePermission[]
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @updatedAt @map("updated_at")
+
+  @@map("permissions")
+}
+
+model RolePermission {
+  roleId       String     @map("role_id")
+  permissionId String     @map("permission_id")
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  createdAt    DateTime   @default(now()) @map("created_at")
+
+  @@id([roleId, permissionId])
+  @@index([permissionId])
+  @@map("role_permissions")
+}
+
+model UserRoleAssignment {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  roleId    String   @map("role_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role      Role     @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, roleId])
+  @@index([roleId])
+  @@map("user_role_assignments")
+}
+
+enum UserStatus {
+  Active
+  Suspended
+  Disabled
+}
+
+// -- Customer organization and data-access boundary ---------------
+
+model Organization {
+  jevSettings JevSettings?
+  jevReviews JevReview[]
+  agentSchedules AgentSchedule[]
+  itemLearningCorrections ItemLearningCorrection[]
+  mailboxConnections MailboxConnection[]
+  mailboxReplies MailboxReply[]
+  learningCorrections LearningCorrection[]
+  id       String               @id @default(cuid())
+  code     String               @unique
+  name     String
+  status   OrganizationStatus   @default(Active)
+  dataMode OrganizationDataMode @default(Operational) @map("data_mode")
+  metadata Json                 @default("{}")
+
+  memberships        OrganizationMembership[]
+  legalEntities      LegalEntity[]
+  rfqs               Rfq[]
+  suppliers          Supplier[]
+  shippingCompanies  ShippingCompany[]
+  agreementVersions  AgreementVersion[]
+  purchaseOrders     PurchaseOrder[]
+  inventoryItems     InventoryItem[]
+  customerAccounts   CustomerAccount[]
+  supplierInvoices   SupplierInvoice[]
+  financeExceptions  FinanceException[]
+  financeAuditEvents FinanceAuditEvent[]
+  accountingExports  AccountingExportBatch[]
+  auditEvents        AuditEvent[]
+  documents          ErpDocument[]
+  provenance         DataProvenance[]
+  agentRuns          AgentRun[]
+  agentControls      AgentControl[]
+  improvementObservations ImprovementObservation[]
+  improvementProposals    ImprovementProposal[]
+  agentExceptions    AgentException[]
+  validationRuns     ValidationRun[]
+  apiIdempotency     ApiIdempotencyRecord[]
+  backorders         Backorder[]
+  goodsReceipts      GoodsReceipt[]
+  deliveries         Delivery[]
+  supplierInquiries  SupplierInquiry[]
+  customerQuotes     CustomerQuote[]
+  salesOrders        SalesOrder[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@index([dataMode, status])
+  @@map("organizations")
+}
+
+model JevSettings {
+  organizationId String @id @map("organization_id")
+  secretCiphertext Json? @map("secret_ciphertext")
+  enabled Boolean @default(false)
+  dailyLimit Int @default(20) @map("daily_limit")
+  revision Int @default(0)
+  updatedAt DateTime @updatedAt @map("updated_at")
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  @@map("jev_settings")
+}
+
+model JevReview {
+  id String @id @default(cuid())
+  organizationId String @map("organization_id")
+  requestKey String @map("request_key")
+  requestHash String @map("request_hash")
+  sourceHash String @map("source_hash")
+  requestedBy String @map("requested_by")
+  kind String
+  recordId String @map("record_id")
+  status String
+  providerAttempted Boolean @default(false) @map("provider_attempted")
+  result Json?
+  inputTokens Int? @map("input_tokens")
+  outputTokens Int? @map("output_tokens")
+  durationMs Int? @map("duration_ms")
+  createdAt DateTime @default(now()) @map("created_at")
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  @@unique([organizationId, requestKey])
+  @@index([organizationId, createdAt])
+  @@map("jev_reviews")
+}
+
+model OrganizationMembership {
+  id             String                   @id @default(cuid())
+  organizationId String                   @map("organization_id")
+  userId         String                   @map("user_id")
+  status         OrganizationMemberStatus @default(Active)
+  isDefault      Boolean                  @default(false) @map("is_default")
+
+  organization      Organization                 @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user              User                         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  roles             OrganizationMembershipRole[]
+  legalEntityAccess LegalEntityAccess[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([organizationId, userId])
+  @@index([userId, status])
+  @@map("organization_memberships")
+}
+
+model OrganizationMembershipRole {
+  membershipId String @map("membership_id")
+  roleId       String @map("role_id")
+
+  membership OrganizationMembership @relation(fields: [membershipId], references: [id], onDelete: Cascade)
+  role       Role                   @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  createdAt  DateTime               @default(now()) @map("created_at")
+
+  @@id([membershipId, roleId])
+  @@index([roleId])
+  @@map("organization_membership_roles")
+}
+
+model LegalEntityAccess {
+  membershipId  String @map("membership_id")
+  legalEntityId String @map("legal_entity_id")
+
+  membership  OrganizationMembership @relation(fields: [membershipId], references: [id], onDelete: Cascade)
+  legalEntity LegalEntity            @relation(fields: [legalEntityId], references: [id], onDelete: Cascade)
+  createdAt   DateTime               @default(now()) @map("created_at")
+
+  @@id([membershipId, legalEntityId])
+  @@index([legalEntityId])
+  @@map("legal_entity_access")
+}
+
+enum OrganizationStatus {
+  Active
+  Suspended
+  Archived
+}
+
+enum OrganizationDataMode {
+  Operational
+  Demo
+  Screenshot
+  Test
+}
+
+enum OrganizationMemberStatus {
+  Invited
+  Active
+  Suspended
+  Removed
+}
+
+model ApiIdempotencyRecord {
+  id             String               @id @default(cuid())
+  organizationId String               @map("organization_id")
+  route          String
+  key            String
+  requestHash    String               @map("request_hash")
+  status         ApiIdempotencyStatus @default(Processing)
+  responseStatus Int?                 @map("response_status")
+  responseBody   Json?                @map("response_body")
+  expiresAt      DateTime             @map("expires_at")
+  organization   Organization         @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([organizationId, route, key])
+  @@index([expiresAt])
+  @@map("api_idempotency_records")
+}
+
+enum ApiIdempotencyStatus {
+  Processing
+  Completed
+}
+
+// ═══════════════════════════════════════════════════════════════
+// BUSINESS ENTITIES
+// ═══════════════════════════════════════════════════════════════
+
+// ── RFQ Management ──────────────────────────────────────────────
+
+model Rfq {
+  review Json?
+  id             String    @id @default(cuid())
+  organizationId String?   @map("organization_id")
+  vessel         String
+  port           String
+  neededBy       String    @map("needed_by")
+  status         RfqStatus @default(Draft)
+  source         String? // "manual" | "email" | "upload" | "command"
+  assignedToId   String?   @map("assigned_to_id")
+
+  lines             RfqLine[]
+  purchaseOrders    PurchaseOrder[]
+  supplierInquiries SupplierInquiry[]
+  customerQuotes    CustomerQuote[]
+  salesOrders       SalesOrder[]
+  organization      Organization?     @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  assignedTo        User?             @relation("RfqAssignee", fields: [assignedToId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([organizationId, status])
+  @@index([organizationId, assignedToId, status])
+  @@map("rfqs")
+}
+
+model RfqLine {
+  id             String  @id @default(cuid())
+  rfqId          String  @map("rfq_id")
+  lineNumber     Int     @map("line_number")
+  description    String
+  quantity       Float
+  unit           String
+  impaCode       String? @map("impa_code")
+  hsCode         String? @map("hs_code")
+  countryOrigin  String? @map("country_origin")
+  normalizedDesc String? @map("normalized_desc")
+
+  rfq Rfq @relation(fields: [rfqId], references: [id], onDelete: Cascade)
+
+  supplierQuotes       SupplierQuote[]
+  supplierInquiryLines SupplierInquiryLine[]
+  customerQuoteLines   CustomerQuoteLine[]
+  salesOrderLines      SalesOrderLine[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("rfq_lines")
+}
+
+enum RfqStatus {
+  Draft
+  Sent
+  Quoted
+  Awarded
+}
+
+// ── Items / Product Catalog ─────────────────────────────────────
+
+model Item {
+  id             String  @id @default(cuid())
+  description    String
+  normalizedDesc String? @map("normalized_desc")
+  impaCode       String? @map("impa_code")
+  hsCodeEu       String? @map("hs_code_eu")
+  hsCodeUs       String? @map("hs_code_us")
+  countryOrigin  String? @map("country_origin")
+  category       String?
+  unit           String?
+  source         String?
+  edition        String?
+  raw            Json    @default("{}")
+  isDeleted      Boolean @default(false) @map("is_deleted")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([impaCode])
+  @@index([category])
+  @@map("items")
+}
+
+model DatasetImport {
+  id             String  @id @default(cuid())
+  type           String
+  sourceFileName String? @map("source_file_name")
+  sourcePath     String? @map("source_path")
+  status         String  @default("Completed")
+  rowCount       Int     @default(0) @map("row_count")
+  importedCount  Int     @default(0) @map("imported_count")
+  skippedCount   Int     @default(0) @map("skipped_count")
+  errorCount     Int     @default(0) @map("error_count")
+  errors         Json    @default("[]")
+  metadata       Json    @default("{}")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([type, createdAt])
+  @@map("dataset_imports")
+}
+
+model ImpaFavorite {
+  id       String  @id @default(cuid())
+  organizationId String? @map("organization_id")
+  impaCode String  @map("impa_code")
+  itemId   String? @map("item_id")
+  label    String?
+  userId   String? @map("user_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@unique([organizationId, impaCode])
+  @@map("impa_favorites")
+}
+
+// ── Suppliers ───────────────────────────────────────────────────
+
+// -- ERP Core: Party / identity foundation -------------------------
+
+model Party {
+  id             String      @id @default(cuid())
+  displayName    String      @map("display_name")
+  legalName      String?     @map("legal_name")
+  normalizedName String      @map("normalized_name")
+  kind           PartyKind   @default(Organization)
+  status         PartyStatus @default(Active)
+  country        String?
+  city           String?
+  address        String?
+  phone          String?
+  email          String?
+  website        String?
+  vatId          String?     @map("vat_id")
+  companyNumber  String?     @map("company_number")
+  metadata       Json        @default("{}")
+
+  roles              PartyRoleAssignment[]
+  aliases            PartyAlias[]
+  externalReferences ExternalReference[]
+  suppliers          Supplier[]
+  shippingCompanies  ShippingCompany[]
+  customerAccounts   CustomerAccount[]
+  goodsReceipts      GoodsReceipt[]
+  deliveries         Delivery[]
+  supplierInquiries  SupplierInquiry[]
+  customerQuotes     CustomerQuote[]
+  salesOrders        SalesOrder[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([normalizedName])
+  @@index([kind, status])
+  @@map("parties")
+}
+
+model PartyRoleAssignment {
+  id          String        @id @default(cuid())
+  partyId     String        @map("party_id")
+  role        PartyRoleType
+  sourceModel String?       @map("source_model")
+  sourceId    String?       @map("source_id")
+  isPrimary   Boolean       @default(false) @map("is_primary")
+  validFrom   DateTime?     @map("valid_from")
+  validTo     DateTime?     @map("valid_to")
+  metadata    Json          @default("{}")
+
+  party Party @relation(fields: [partyId], references: [id], onDelete: Cascade)
+
+  @@index([partyId, role])
+  @@index([sourceModel, sourceId])
+  @@map("party_role_assignments")
+}
+
+model PartyAlias {
+  id              String  @id @default(cuid())
+  partyId         String  @map("party_id")
+  alias           String
+  normalizedAlias String  @map("normalized_alias")
+  aliasType       String  @default("name") @map("alias_type")
+  sourceModule    String? @map("source_module")
+  confidence      Float?
+  metadata        Json    @default("{}")
+
+  party Party @relation(fields: [partyId], references: [id], onDelete: Cascade)
+
+  @@unique([partyId, normalizedAlias])
+  @@index([normalizedAlias])
+  @@map("party_aliases")
+}
+
+model ExternalReference {
+  id             String  @id @default(cuid())
+  partyId        String? @map("party_id")
+  entityType     String  @map("entity_type")
+  entityId       String  @map("entity_id")
+  system         String
+  referenceType  String  @map("reference_type")
+  referenceValue String  @map("reference_value")
+  metadata       Json    @default("{}")
+
+  party Party? @relation(fields: [partyId], references: [id], onDelete: SetNull)
+
+  @@unique([system, referenceType, referenceValue])
+  @@index([entityType, entityId])
+  @@index([partyId])
+  @@map("external_references")
+}
+
+enum PartyKind {
+  Organization
+  Person
+  Unknown
+}
+
+enum PartyStatus {
+  Active
+  Inactive
+  Watch
+  Blocked
+  Archived
+}
+
+enum PartyRoleType {
+  Customer
+  Supplier
+  Vendor
+  ShippingCompany
+  Owner
+  Agent
+  Broker
+  LegalEntity
+  Contact
+  Other
+}
+
+model Supplier {
+  learningCorrections LearningCorrection[]
+  id             String  @id @default(cuid())
+  organizationId String? @map("organization_id")
+  partyId        String? @map("party_id")
+  supplierCode   String  @unique @map("supplier_code") // e.g. SUP-0042
+  name           String
+  region         String
+  country        String?
+  city           String?
+  address        String?
+  phone          String?
+  email          String?
+  website        String?
+  contactPerson  String? @map("contact_person")
+  description    String?
+
+  // Classification
+  categories   String[] @default([])
+  portsCovered String[] @default([]) @map("ports_covered")
+
+  // Performance
+  score        Int @default(0)
+  leadTimeDays Int @default(0) @map("lead_time_days")
+
+  // Coordinates (for map view)
+  lat Float?
+  lng Float?
+
+  // Status & enrichment
+  status           SupplierStatus  @default(Active)
+  enrichmentStatus EnrichmentState @default(None) @map("enrichment_status")
+  confidence       Float? // 0.0–1.0, AI enrichment confidence
+  sourceReferences String[]        @default([]) @map("source_references") // URLs or source IDs
+
+  contracts         Contract[]
+  agreementVersions AgreementVersion[]
+  supplierQuotes    SupplierQuote[]
+  supplierInquiries SupplierInquiry[]
+  purchaseOrders    PurchaseOrder[]
+  supplierInvoices  SupplierInvoice[]
+  backorders        Backorder[]
+  goodsReceipts     GoodsReceipt[]
+  party             Party?             @relation(fields: [partyId], references: [id], onDelete: SetNull)
+  organization      Organization?      @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@index([region])
+  @@index([supplierCode])
+  @@index([partyId])
+  @@index([organizationId, status])
+  @@map("suppliers")
+}
+
+enum SupplierStatus {
+  Suggested
+  Active
+  Inactive
+  Verified
+  Watch
+  Blocked
+  Rejected
+  Needs_Review @map("Needs Review")
+}
+
+enum EnrichmentState {
+  None
+  Pending
+  Enriching
+  Enriched
+  Failed
+}
+
+model ShippingCompany {
+  id             String  @id @default(cuid())
+  organizationId String? @map("organization_id")
+  partyId        String? @map("party_id")
+  name           String
+  legalName      String? @map("legal_name")
+  address        String?
+  postalCode     String? @map("postal_code")
+  city           String?
+  country        String?
+  contactName    String? @map("contact_name")
+  email          String?
+  phone          String?
+  vatId          String? @map("vat_id")
+  companyNumber  String? @map("company_number")
+  paymentTerms   String? @map("payment_terms")
+  invoiceEmail   String? @map("invoice_email")
+  notes          String?
+  source         String  @default("manual")
+  website        String?
+  sourceReview   Json?   @map("source_review")
+
+  customerContracts CustomerContract[]
+  fleetVessels      ShippingCompanyVessel[]
+  deliveries        Delivery[]
+  party             Party?             @relation(fields: [partyId], references: [id], onDelete: SetNull)
+  organization      Organization?      @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([name])
+  @@index([partyId])
+  @@index([organizationId])
+  @@map("shipping_companies")
+  @@unique([organizationId, name])
+}
+
+// Customer fleet registration is independent of AIS observations and purchase orders.
+model ShippingCompanyVessel {
+  id                String @id @default(cuid())
+  shippingCompanyId String @map("shipping_company_id")
+  name              String
+  nameKey           String @map("name_key")
+  imo               String?
+  mmsi              String?
+  notes             String?
+  shippingCompany   ShippingCompany @relation(fields: [shippingCompanyId], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  @@unique([shippingCompanyId, nameKey])
+  @@unique([shippingCompanyId, imo])
+  @@unique([shippingCompanyId, mmsi])
+  @@map("shipping_company_vessels")
+}
+
+// ── Supplier Quotes ─────────────────────────────────────────────
+
+model SupplierQuote {
+  id                    String      @id @default(cuid())
+  supplierId            String      @map("supplier_id")
+  rfqLineId             String?     @map("rfq_line_id")
+  description           String
+  unitPrice             Float       @map("unit_price")
+  currency              String      @default("EUR")
+  leadTimeDays          Int?        @map("lead_time_days")
+  stockStatus           String?     @map("stock_status")
+  status                QuoteStatus @default(Received)
+  supplierInquiryLineId String?     @unique @map("supplier_inquiry_line_id")
+
+  supplier            Supplier             @relation(fields: [supplierId], references: [id])
+  rfqLine             RfqLine?             @relation(fields: [rfqLineId], references: [id])
+  supplierInquiryLine SupplierInquiryLine? @relation(fields: [supplierInquiryLineId], references: [id], onDelete: SetNull)
+  customerQuoteLines  CustomerQuoteLine[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("supplier_quotes")
+}
+
+model SupplierInquiry {
+  id             String                @id @default(cuid())
+  organizationId String                @map("organization_id")
+  legalEntityId  String?               @map("legal_entity_id")
+  rfqId          String                @map("rfq_id")
+  supplierId     String                @map("supplier_id")
+  partyId        String?               @map("party_id")
+  inquiryNumber  String?               @map("inquiry_number")
+  sourceKey      String                @unique @map("source_key")
+  status         SupplierInquiryStatus @default(Draft)
+  subject        String
+  message        String?
+  responseDueAt  DateTime?             @map("response_due_at")
+  sentAt         DateTime?             @map("sent_at")
+  respondedAt    DateTime?             @map("responded_at")
+  closedAt       DateTime?             @map("closed_at")
+  cancelledAt    DateTime?             @map("cancelled_at")
+  createdById    String?               @map("created_by_id")
+  createdByName  String?               @map("created_by_name")
+  version        Int                   @default(1)
+
+  organization Organization          @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  legalEntity  LegalEntity?          @relation(fields: [legalEntityId], references: [id], onDelete: Restrict)
+  rfq          Rfq                   @relation(fields: [rfqId], references: [id], onDelete: Restrict)
+  supplier     Supplier              @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+  party        Party?                @relation(fields: [partyId], references: [id], onDelete: SetNull)
+  lines        SupplierInquiryLine[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([organizationId, inquiryNumber])
+  @@index([organizationId, status, responseDueAt])
+  @@index([rfqId, status])
+  @@index([supplierId, status])
+  @@index([partyId])
+  @@map("supplier_inquiries")
+}
+
+model SupplierInquiryLine {
+  id           String                    @id @default(cuid())
+  inquiryId    String                    @map("inquiry_id")
+  rfqLineId    String                    @map("rfq_line_id")
+  lineNumber   Int                       @map("line_number")
+  description  String
+  quantity     Float
+  unit         String
+  impaCode     String?                   @map("impa_code")
+  status       SupplierInquiryLineStatus @default(Pending)
+  responseNote String?                   @map("response_note")
+  respondedAt  DateTime?                 @map("responded_at")
+
+  inquiry       SupplierInquiry @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+  rfqLine       RfqLine         @relation(fields: [rfqLineId], references: [id], onDelete: Restrict)
+  supplierQuote SupplierQuote?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([inquiryId, rfqLineId])
+  @@unique([inquiryId, lineNumber])
+  @@index([rfqLineId])
+  @@index([inquiryId, status])
+  @@map("supplier_inquiry_lines")
+}
+
+enum SupplierInquiryStatus {
+  Draft
+  Sent
+  PartiallyResponded
+  Responded
+  Closed
+  Cancelled
+}
+
+enum SupplierInquiryLineStatus {
+  Pending
+  Quoted
+  Unavailable
+  NoResponse
+}
+
+enum QuoteStatus {
+  Draft
+  Sent
+  Received
+  Accepted
+  Rejected
+}
+
+// ── Contracts (legacy — kept for backward compat) ──────────────
+
+model Contract {
+  id          String         @id @default(cuid())
+  supplierId  String         @map("supplier_id")
+  title       String
+  startDate   String         @map("start_date")
+  endDate     String         @map("end_date")
+  discountPct Float          @map("discount_pct")
+  status      ContractStatus @default(Active)
+
+  supplier Supplier @relation(fields: [supplierId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("contracts")
+}
+
+enum ContractStatus {
+  Active
+  Expiring
+  Expired
+}
+
+// ═══════════════════════════════════════════════════════════════
+// AGREEMENTS MODULE
+// ═══════════════════════════════════════════════════════════════
+
+// ── Agreement Versions ─────────────────────────────────────────
+// Versioned supplier agreements with pricing, markup, and lifecycle.
+// Each version represents a snapshot of the agreement at a point in time.
+
+model AgreementVersion {
+  id             String          @id @default(cuid())
+  organizationId String?         @map("organization_id")
+  supplierId     String          @map("supplier_id")
+  supplierName   String          @map("supplier_name") // denormalized for fast display
+  versionNumber  Int             @default(1) @map("version_number")
+  status         AgreementStatus @default(Draft)
+
+  // Pricing
+  markupPercent      Float  @default(0) @map("markup_percent")
+  totalBaseValue     Float  @default(0) @map("total_base_value")
+  totalMarkedUpValue Float  @default(0) @map("total_marked_up_value")
+  currency           String @default("EUR")
+
+  // Validity
+  validFrom DateTime? @map("valid_from")
+  validTo   DateTime? @map("valid_to")
+
+  // Tracking
+  sentAt           DateTime? @map("sent_at")
+  exportedFileName String?   @map("exported_file_name")
+  notes            String?
+
+  // Relations
+  supplier                Supplier                          @relation(fields: [supplierId], references: [id])
+  organization            Organization?                     @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  items                   AgreementItem[]
+  comparisons             AgreementComparison[]
+  customerContractSources CustomerContractSourceAgreement[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([supplierId])
+  @@index([status])
+  @@index([validTo])
+  @@index([organizationId, status])
+  @@map("agreement_versions")
+}
+
+enum AgreementStatus {
+  Draft
+  Sent
+  AgreementActive  @map("Active")
+  AgreementExpired @map("Expired")
+  Archived
+}
+
+// ── Agreement Items ────────────────────────────────────────────
+// Line items attached to an agreement version.
+
+model AgreementItem {
+  id         String @id @default(cuid())
+  versionId  String @map("version_id")
+  lineNumber Int    @map("line_number")
+
+  // Item identification
+  offiNumber       String? @map("offi_number")
+  systemId         String? @map("system_id")
+  vendorPartNumber String? @map("vendor_part_number")
+  description      String
+
+  // Pricing
+  basePrice     Float  @map("base_price")
+  markedUpPrice Float? @map("marked_up_price")
+  currency      String @default("EUR")
+
+  // Details
+  unit            String?
+  moq             Int?
+  leadTimeDays    Int?    @map("lead_time_days")
+  hsCode          String? @map("hs_code") // 8-digit TARIC format, e.g. "73269098"
+  countryOfOrigin String? @map("country_of_origin") // ISO 3166-1 alpha-3, e.g. "DEU"
+  cooConfidence   String? @map("coo_confidence") // "High" | "Medium" | "Low"
+  manufacturer    String?
+
+  version               AgreementVersion       @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  customerContractItems CustomerContractItem[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([versionId])
+  @@map("agreement_items")
+}
+
+// Customer contracts combine supplier trade agreements into shipping-company price commitments.
+// These are the agreements Nautex, as ship chandler, has with shipping-company customers.
+
+model CustomerContract {
+  id                  String                 @id @default(cuid())
+  contractNumber      String                 @unique @map("contract_number")
+  shippingCompanyId   String                 @map("shipping_company_id")
+  shippingCompanyName String                 @map("shipping_company_name")
+  title               String
+  status              CustomerContractStatus @default(Draft)
+  markupPercent       Float                  @default(0) @map("markup_percent")
+  currency            String                 @default("EUR")
+  validFrom           DateTime?              @map("valid_from")
+  validTo             DateTime?              @map("valid_to")
+  paymentTerms        String?                @map("payment_terms")
+  deliveryTerms       String?                @map("delivery_terms")
+  notes               String?
+  totalBaseValue      Float                  @default(0) @map("total_base_value")
+  totalSellValue      Float                  @default(0) @map("total_sell_value")
+  itemCount           Int                    @default(0) @map("item_count")
+  createdBy           String                 @default("operator") @map("created_by")
+  reviewedAt          DateTime?              @map("reviewed_at")
+  activatedAt         DateTime?              @map("activated_at")
+  archivedAt          DateTime?              @map("archived_at")
+
+  shippingCompany  ShippingCompany                   @relation(fields: [shippingCompanyId], references: [id])
+  sourceAgreements CustomerContractSourceAgreement[]
+  items            CustomerContractItem[]
+  auditEvents      CustomerContractAuditEvent[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([shippingCompanyId])
+  @@index([status])
+  @@index([validTo])
+  @@map("customer_contracts")
+}
+
+enum CustomerContractStatus {
+  Draft
+  UnderReview
+  Active
+  Expired
+  Archived
+}
+
+model CustomerContractSourceAgreement {
+  id                 String @id @default(cuid())
+  contractId         String @map("contract_id")
+  agreementVersionId String @map("agreement_version_id")
+  supplierId         String @map("supplier_id")
+  supplierName       String @map("supplier_name")
+  includedItemCount  Int    @default(0) @map("included_item_count")
+
+  contract         CustomerContract       @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  agreementVersion AgreementVersion       @relation(fields: [agreementVersionId], references: [id])
+  items            CustomerContractItem[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([contractId, agreementVersionId])
+  @@index([agreementVersionId])
+  @@index([supplierId])
+  @@map("customer_contract_source_agreements")
+}
+
+model CustomerContractItem {
+  id                    String                     @id @default(cuid())
+  contractId            String                     @map("contract_id")
+  sourceAgreementId     String?                    @map("source_agreement_id")
+  agreementItemId       String?                    @map("agreement_item_id")
+  supplierId            String                     @map("supplier_id")
+  supplierName          String                     @map("supplier_name")
+  lineNumber            Int                        @map("line_number")
+  itemCode              String?                    @map("item_code")
+  vendorPartNumber      String?                    @map("vendor_part_number")
+  description           String
+  basePrice             Float                      @map("base_price")
+  contractMarkupPercent Float                      @map("contract_markup_percent")
+  sellPrice             Float                      @map("sell_price")
+  currency              String                     @default("EUR")
+  unit                  String?
+  moq                   Int?
+  leadTimeDays          Int?                       @map("lead_time_days")
+  hsCode                String?                    @map("hs_code")
+  countryOfOrigin       String?                    @map("country_of_origin")
+  manufacturer          String?
+  status                CustomerContractItemStatus @default(Active)
+  reviewNote            String?                    @map("review_note")
+
+  contract        CustomerContract                 @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  sourceAgreement CustomerContractSourceAgreement? @relation(fields: [sourceAgreementId], references: [id], onDelete: SetNull)
+  agreementItem   AgreementItem?                   @relation(fields: [agreementItemId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([contractId])
+  @@index([sourceAgreementId])
+  @@index([agreementItemId])
+  @@index([supplierId])
+  @@map("customer_contract_items")
+}
+
+enum CustomerContractItemStatus {
+  Active
+  Excluded
+  NeedsReview
+}
+
+model CustomerContractAuditEvent {
+  id         String @id @default(cuid())
+  contractId String @map("contract_id")
+  action     String
+  summary    String
+  actor      String @default("operator")
+  metadata   Json   @default("{}")
+
+  contract CustomerContract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([contractId, createdAt])
+  @@map("customer_contract_audit_events")
+}
+
+// ── Agreement Comparisons ──────────────────────────────────────
+// Comparison job: uploaded file diffed against baseline agreement items.
+
+model AgreementComparison {
+  id        String           @id @default(cuid())
+  versionId String           @map("version_id")
+  status    ComparisonStatus @default(Queued)
+
+  // Source file
+  sourceFileName String @map("source_file_name")
+  sourceFileType String @map("source_file_type") // csv | xlsx
+  sourceRowCount Int?   @map("source_row_count")
+
+  // Summary
+  totalChanges     Int    @default(0) @map("total_changes")
+  newItems         Int    @default(0) @map("new_items")
+  removedItems     Int    @default(0) @map("removed_items")
+  changedItems     Int    @default(0) @map("changed_items")
+  priceChanges     Int    @default(0) @map("price_changes")
+  totalPriceImpact Float? @map("total_price_impact")
+
+  // Timing
+  startedAt       DateTime? @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  durationMs      Int?      @map("duration_ms")
+  progressPct     Int       @default(0) @map("progress_pct")
+  progressMessage String?   @map("progress_message")
+  error           String?
+
+  // Relations
+  version AgreementVersion  @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  changes AgreementChange[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([versionId])
+  @@index([status])
+  @@map("agreement_comparisons")
+}
+
+enum ComparisonStatus {
+  Queued
+  Processing
+  ComparisonCompleted @map("Completed")
+  ComparisonFailed    @map("Failed")
+}
+
+// ── Agreement Changes ──────────────────────────────────────────
+// Individual change detected by a comparison job.
+
+model AgreementChange {
+  id           String @id @default(cuid())
+  comparisonId String @map("comparison_id")
+
+  // Change classification
+  changeType ChangeType @map("change_type")
+  matchKey   String     @map("match_key") // OFFI/CSI/vendor part that links old→new
+
+  // Item identification
+  offiNumber       String? @map("offi_number")
+  systemId         String? @map("system_id")
+  vendorPartNumber String? @map("vendor_part_number")
+  description      String?
+
+  // Diff values (JSON: { field: value })
+  oldValues     Json     @default("{}") @map("old_values")
+  newValues     Json     @default("{}") @map("new_values")
+  changedFields String[] @default([]) @map("changed_fields")
+
+  // Price specifics (denormalized for fast display)
+  priceOld     Float? @map("price_old")
+  priceNew     Float? @map("price_new")
+  priceDiffPct Float? @map("price_diff_pct")
+
+  // Review
+  reviewStatus    ReviewStatus @default(Pending) @map("review_status")
+  reviewedAt      DateTime?    @map("reviewed_at")
+  reviewedBy      String?      @map("reviewed_by")
+  appliedToItemId String?      @map("applied_to_item_id") // AgreementItem.id after apply
+
+  // Link to baseline item if matched
+  baselineItemId String? @map("baseline_item_id")
+
+  comparison AgreementComparison @relation(fields: [comparisonId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([comparisonId])
+  @@index([reviewStatus])
+  @@map("agreement_changes")
+}
+
+enum ChangeType {
+  New
+  Removed
+  PriceChange @map("Price Change")
+  FieldChange @map("Field Change")
+}
+
+enum ReviewStatus {
+  Pending
+  Accepted
+  RejectedReview @map("Rejected")
+  AutoApplied    @map("Auto Applied")
+}
+
+// ── Agreement Insights ─────────────────────────────────────────
+// Agent-generated insights for the agreements module.
+
+model AgreementInsight {
+  organizationId String? @map("organization_id")
+  id         String  @id @default(cuid())
+  type       String // comparison_result, agreement_created, agreement_status_changed, contract_expiring, contract_expired, stale_drafts, agreement_updated
+  severity   String  @default("info") // info, warning, critical
+  title      String
+  message    String
+  suggestion String?
+
+  // Context
+  supplierId   String? @map("supplier_id")
+  supplierName String? @map("supplier_name")
+  versionId    String? @map("version_id")
+  comparisonId String? @map("comparison_id")
+
+  // Payload (structured data for frontend rendering)
+  payload Json @default("{}")
+
+  // State
+  dismissed   Boolean   @default(false)
+  dismissedAt DateTime? @map("dismissed_at")
+  dedupeKey   String?   @unique @map("dedupe_key")
+  expiresAt   DateTime? @map("expires_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([dismissed, type])
+  @@index([supplierId])
+  @@map("agreement_insights")
+}
+
+// ── Purchase Orders ─────────────────────────────────────────────
+
+model PurchaseOrder {
+  id             String  @id @default(cuid())
+  organizationId String? @map("organization_id")
+  poNumber       String  @unique @map("po_number")
+
+  // Order classification (supply chain tier)
+  orderType OrderType @default(DirectPO) @map("order_type")
+
+  // Vessel context
+  vessel      String
+  vesselImo   String? @map("vessel_imo")
+  vesselOwner String? @map("vessel_owner")
+
+  // Supplier context
+  supplier    String // display name (backward-compat)
+  supplierRef String? @map("supplier_ref")
+  supplierId  String? @map("supplier_id") // FK to Supplier table
+
+  // Buyer context (for BuyerPO type — the shipping company that sent the order)
+  buyerName String? @map("buyer_name")
+  buyerRef  String? @map("buyer_ref")
+
+  // Parent-child lineage (one buyer PO → many sub-supplier POs)
+  parentOrderId String? @map("parent_order_id")
+
+  // External platform identifiers (ShipServ-ready)
+  shipservRfqId     String?            @map("shipserv_rfq_id")
+  shipservPoId      String?            @map("shipserv_po_id")
+  shipservQuoteId   String?            @map("shipserv_quote_id")
+  shipservLifecycle ShipServLifecycle? @map("shipserv_lifecycle")
+
+  // Link to internal RFQ
+  rfqId String? @map("rfq_id")
+
+  // Logistics
+  port          String?
+  eta           DateTime
+  requestedDate DateTime? @map("requested_date")
+  confirmedDate DateTime? @map("confirmed_date")
+
+  // Financials
+  total     Float
+  currency  String @default("EUR")
+  marginPct Float  @map("margin_pct")
+  markupPct Float? @map("markup_pct") // markup applied on sub-POs relative to buyer price
+
+  // Status
+  status        OrderStatus   @default(Pending_Approval)
+  confirmStatus ConfirmStatus @default(Unconfirmed)
+  priority      Priority      @default(Normal)
+
+  // Financials — margin
+  costTotal      Float?  @map("cost_total")
+  marginOverride Boolean @default(false) @map("margin_override")
+
+  // Content
+  legacyNotes String? @map("notes")
+  assignedToId String? @map("assigned_to_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  supplierRel  Supplier?       @relation(fields: [supplierId], references: [id])
+  parentOrder  PurchaseOrder?  @relation("OrderLineage", fields: [parentOrderId], references: [id])
+  childOrders  PurchaseOrder[] @relation("OrderLineage")
+  rfq          Rfq?            @relation(fields: [rfqId], references: [id])
+  organization Organization?   @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  assignedTo   User?           @relation("PurchaseOrderAssignee", fields: [assignedToId], references: [id], onDelete: SetNull)
+
+  lines               PurchaseOrderLine[]
+  events              PurchaseOrderEvent[]
+  orderNotes          PurchaseOrderNote[]
+  documents           PurchaseOrderDocument[]
+  primarySlaEvidence  SlaEvidence[]              @relation("PrimarySlaEvidence")
+  slaEvidenceLinks    SlaEvidencePurchaseOrder[]
+  pricingIssues       PricingIssue[]
+  financeRecords      FinanceRecord[]
+  customerInvoices    CustomerInvoice[]
+  supplierInvoices    SupplierInvoice[]
+  marginSnapshots     OrderMarginSnapshot[]
+  financeExceptions   FinanceException[]
+  backorder           Backorder?
+  goodsReceipts       GoodsReceipt[]
+  deliveries          Delivery[]
+  canonicalSalesOrder SalesOrder?
+
+  @@index([orderType])
+  @@index([parentOrderId])
+  @@index([shipservPoId])
+  @@index([supplierId])
+  @@index([organizationId, status])
+  @@index([organizationId, assignedToId, status])
+  @@map("purchase_orders")
+}
+
+model PurchaseOrderNote {
+  id        String   @id @default(cuid())
+  orderId   String   @map("order_id")
+  text      String
+  author    String   @default("operator") // operator | system | agent
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  order PurchaseOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId, createdAt])
+  @@map("purchase_order_notes")
+}
+
+model PurchaseOrderEvent {
+  id        String   @id @default(cuid())
+  orderId   String   @map("order_id")
+  type      String // created, status_changed, eta_updated, note_added, exception_flagged, confirmation_requested, line_updated, approval, document_attached
+  summary   String // Human-readable description
+  detail    String? // Optional structured detail (JSON or freetext)
+  actor     String   @default("operator") // operator, system, agent
+  createdAt DateTime @default(now()) @map("created_at")
+
+  order PurchaseOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId, createdAt])
+  @@map("purchase_order_events")
+}
+
+model PurchaseOrderDocument {
+  id              String   @id @default(cuid())
+  orderId         String   @map("order_id")
+  fileName        String   @map("file_name")
+  originalName    String?  @map("original_name")
+  mimeType        String   @map("mime_type")
+  sizeBytes       Int      @map("size_bytes")
+  storageProvider String   @default("local") @map("storage_provider")
+  storageKey      String   @map("storage_key")
+  category        String   @default("other")
+  description     String?
+  uploadedBy      String   @default("operator") @map("uploaded_by")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  order       PurchaseOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  slaEvidence SlaEvidence?
+
+  @@index([orderId, createdAt])
+  @@map("purchase_order_documents")
+}
+
+model SlaEvidence {
+  id             String            @id @default(cuid())
+  documentId     String?           @unique @map("document_id")
+  primaryOrderId String?           @map("primary_order_id")
+  vendorName     String            @map("vendor_name")
+  fileName       String            @map("file_name")
+  originalName   String?           @map("original_name")
+  fileType       String            @map("file_type")
+  sizeBytes      Int?              @map("size_bytes")
+  evidenceDate   DateTime?         @map("evidence_date")
+  source         String            @default("upload")
+  status         SlaEvidenceStatus @default(Completed)
+  extractedText  String?           @map("extracted_text")
+  extractedPOs   Json              @default("[]") @map("extracted_pos")
+  parserWarnings Json              @default("[]") @map("parser_warnings")
+  metrics        Json              @default("{}")
+  reviewedAt     DateTime?         @map("reviewed_at")
+  reviewedBy     String?           @map("reviewed_by")
+  archivedAt     DateTime?         @map("archived_at")
+  createdAt      DateTime          @default(now()) @map("created_at")
+  updatedAt      DateTime          @updatedAt @map("updated_at")
+
+  document     PurchaseOrderDocument?     @relation(fields: [documentId], references: [id], onDelete: SetNull)
+  primaryOrder PurchaseOrder?             @relation("PrimarySlaEvidence", fields: [primaryOrderId], references: [id], onDelete: SetNull)
+  links        SlaEvidencePurchaseOrder[]
+
+  @@index([status, createdAt])
+  @@index([primaryOrderId])
+  @@map("sla_evidence")
+}
+
+model SlaEvidencePurchaseOrder {
+  id         String   @id @default(cuid())
+  evidenceId String   @map("evidence_id")
+  orderId    String   @map("order_id")
+  matchedBy  String   @default("operator") @map("matched_by")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  evidence SlaEvidence   @relation(fields: [evidenceId], references: [id], onDelete: Cascade)
+  order    PurchaseOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@unique([evidenceId, orderId])
+  @@index([orderId])
+  @@map("sla_evidence_purchase_orders")
+}
+
+model PurchaseOrderLine {
+  id         String @id @default(cuid())
+  orderId    String @map("order_id")
+  lineNumber Int    @map("line_number")
+
+  // Item
+  itemCode       String? @map("item_code")
+  description    String
+  supplierPartNo String? @map("supplier_part_no")
+
+  // Quantities
+  qtyOrdered   Float  @map("qty_ordered")
+  qtyConfirmed Float? @map("qty_confirmed")
+  qtyDelivered Float  @default(0) @map("qty_delivered")
+  uom          String @default("EA")
+
+  // Pricing
+  unitPrice Float  @map("unit_price")
+  lineTotal Float  @map("line_total")
+  currency  String @default("EUR")
+
+  // Supply chain line lineage (sub-PO line → parent buyer PO line)
+  parentLineId       String? @map("parent_line_id")
+  buyerUnitPrice     Float?  @map("buyer_unit_price") // the buyer's price (for margin calc)
+  forwardedToOrderId String? @map("forwarded_to_order_id") // set on buyer PO line once forwarded
+
+  // Dates
+  requestedDate DateTime? @map("requested_date")
+  confirmedDate DateTime? @map("confirmed_date")
+
+  // Status
+  status  LineStatus @default(Open)
+  remarks String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  order PurchaseOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  // Self-referential line lineage
+  parentLine           PurchaseOrderLine?    @relation("LineLineage", fields: [parentLineId], references: [id])
+  childLines           PurchaseOrderLine[]   @relation("LineLineage")
+  customerInvoiceLines CustomerInvoiceLine[]
+  supplierInvoiceLines SupplierInvoiceLine[]
+  backorderLines       BackorderLine[]
+  goodsReceiptLines    GoodsReceiptLine[]
+  deliveryLines        DeliveryLine[]
+  salesOrderLine       SalesOrderLine?
+
+  @@unique([orderId, lineNumber])
+  @@index([parentLineId])
+  @@map("purchase_order_lines")
+}
+
+model Backorder {
+  mailboxReplies MailboxReply[]
+  id              String            @id @default(cuid())
+  organizationId  String            @map("organization_id")
+  legalEntityId   String?           @map("legal_entity_id")
+  purchaseOrderId String            @unique @map("purchase_order_id")
+  supplierId      String?           @map("supplier_id")
+  backorderNumber String?           @map("backorder_number")
+  sourceKey       String            @unique @map("source_key")
+  status          BackorderStatus   @default(Open)
+  priority        BackorderPriority @default(Normal)
+  reason          String?
+  notes           String?
+  ownerId         String?           @map("owner_id")
+  ownerName       String?           @map("owner_name")
+  openedAt        DateTime          @default(now()) @map("opened_at")
+  escalatedAt     DateTime?         @map("escalated_at")
+  resolvedAt      DateTime?         @map("resolved_at")
+  dismissedAt     DateTime?         @map("dismissed_at")
+  lastReviewedAt  DateTime?         @map("last_reviewed_at")
+  source          String            @default("purchase_order_lines")
+  version         Int               @default(1)
+
+  organization  Organization    @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  legalEntity   LegalEntity?    @relation(fields: [legalEntityId], references: [id], onDelete: Restrict)
+  purchaseOrder PurchaseOrder   @relation(fields: [purchaseOrderId], references: [id], onDelete: Restrict)
+  supplier      Supplier?       @relation(fields: [supplierId], references: [id], onDelete: SetNull)
+  lines         BackorderLine[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([organizationId, backorderNumber])
+  @@index([organizationId, status, priority])
+  @@index([supplierId, status])
+  @@map("backorders")
+}
+
+model BackorderLine {
+  id                  String              @id @default(cuid())
+  backorderId         String              @map("backorder_id")
+  purchaseOrderLineId String              @map("purchase_order_line_id")
+  quantity            Float
+  requestedDate       DateTime?           @map("requested_date")
+  expectedDate        DateTime?           @map("expected_date")
+  status              BackorderLineStatus @default(Open)
+  notes               String?
+  resolvedAt          DateTime?           @map("resolved_at")
+
+  backorder         Backorder         @relation(fields: [backorderId], references: [id], onDelete: Cascade)
+  purchaseOrderLine PurchaseOrderLine @relation(fields: [purchaseOrderLineId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([backorderId, purchaseOrderLineId])
+  @@index([purchaseOrderLineId])
+  @@index([backorderId, status])
+  @@map("backorder_lines")
+}
+
+enum BackorderStatus {
+  Open
+  Escalated
+  Resolved
+  Dismissed
+}
+
+enum BackorderPriority {
+  Normal
+  High
+  Critical
+}
+
+enum BackorderLineStatus {
+  Open
+  Resolved
+  Cancelled
+}
+
+model GoodsReceipt {
+  id                   String             @id @default(cuid())
+  organizationId       String             @map("organization_id")
+  legalEntityId        String?            @map("legal_entity_id")
+  purchaseOrderId      String             @map("purchase_order_id")
+  supplierId           String?            @map("supplier_id")
+  partyId              String?            @map("party_id")
+  receiptNumber        String?            @map("receipt_number")
+  sourceKey            String             @unique @map("source_key")
+  supplierDeliveryNote String?            @map("supplier_delivery_note")
+  status               GoodsReceiptStatus @default(Draft)
+  warehouse            String?
+  notes                String?
+  receivedAt           DateTime           @default(now()) @map("received_at")
+  receivedById         String?            @map("received_by_id")
+  receivedByName       String?            @map("received_by_name")
+  postedAt             DateTime?          @map("posted_at")
+  cancelledAt          DateTime?          @map("cancelled_at")
+  version              Int                @default(1)
+
+  organization  Organization       @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  legalEntity   LegalEntity?       @relation(fields: [legalEntityId], references: [id], onDelete: Restrict)
+  purchaseOrder PurchaseOrder      @relation(fields: [purchaseOrderId], references: [id], onDelete: Restrict)
+  supplier      Supplier?          @relation(fields: [supplierId], references: [id], onDelete: SetNull)
+  party         Party?             @relation(fields: [partyId], references: [id], onDelete: SetNull)
+  lines         GoodsReceiptLine[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([organizationId, receiptNumber])
+  @@index([organizationId, status, receivedAt])
+  @@index([purchaseOrderId, status])
+  @@index([supplierId, receivedAt])
+  @@index([partyId])
+  @@map("goods_receipts")
+}
+
+model GoodsReceiptLine {
+  orderUnit           String? @map("order_unit")
+  stockUnit           String? @map("stock_unit")
+  stockPerOrderUnit    Decimal @default(1) @map("stock_per_order_unit") @db.Decimal(18, 6)
+  conversionId        String? @map("conversion_id")
+  id                  String  @id @default(cuid())
+  goodsReceiptId      String  @map("goods_receipt_id")
+  purchaseOrderLineId String  @map("purchase_order_line_id")
+  inventoryItemId     String? @map("inventory_item_id")
+  inventoryMovementId String? @unique @map("inventory_movement_id")
+  quantity            Float
+  notes               String?
+
+  goodsReceipt      GoodsReceipt       @relation(fields: [goodsReceiptId], references: [id], onDelete: Cascade)
+  purchaseOrderLine PurchaseOrderLine  @relation(fields: [purchaseOrderLineId], references: [id], onDelete: Restrict)
+  inventoryItem     InventoryItem?     @relation(fields: [inventoryItemId], references: [id], onDelete: SetNull)
+  inventoryMovement InventoryMovement? @relation(fields: [inventoryMovementId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([goodsReceiptId, purchaseOrderLineId])
+  @@index([purchaseOrderLineId])
+  @@index([inventoryItemId])
+  @@map("goods_receipt_lines")
+}
+
+enum GoodsReceiptStatus {
+  Draft
+  Posted
+  Cancelled
+}
+
+model Delivery {
+  id                String         @id @default(cuid())
+  organizationId    String         @map("organization_id")
+  legalEntityId     String?        @map("legal_entity_id")
+  purchaseOrderId   String         @map("purchase_order_id")
+  shippingCompanyId String?        @map("shipping_company_id")
+  partyId           String?        @map("party_id")
+  deliveryNumber    String?        @map("delivery_number")
+  sourceKey         String         @unique @map("source_key")
+  customerName      String         @map("customer_name")
+  vessel            String
+  vesselImo         String?        @map("vessel_imo")
+  port              String?
+  deliveryAddress   String?        @map("delivery_address")
+  status            DeliveryStatus @default(Draft)
+  scheduledAt       DateTime?      @map("scheduled_at")
+  dispatchedAt      DateTime?      @map("dispatched_at")
+  deliveredAt       DateTime?      @map("delivered_at")
+  deliveredToName   String?        @map("delivered_to_name")
+  notes             String?
+  createdById       String?        @map("created_by_id")
+  createdByName     String?        @map("created_by_name")
+  cancelledAt       DateTime?      @map("cancelled_at")
+  version           Int            @default(1)
+
+  organization    Organization     @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  legalEntity     LegalEntity?     @relation(fields: [legalEntityId], references: [id], onDelete: Restrict)
+  purchaseOrder   PurchaseOrder    @relation(fields: [purchaseOrderId], references: [id], onDelete: Restrict)
+  shippingCompany ShippingCompany? @relation(fields: [shippingCompanyId], references: [id], onDelete: SetNull)
+  party           Party?           @relation(fields: [partyId], references: [id], onDelete: SetNull)
+  lines           DeliveryLine[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([organizationId, deliveryNumber])
+  @@index([organizationId, status, scheduledAt])
+  @@index([purchaseOrderId, status])
+  @@index([shippingCompanyId, status])
+  @@index([partyId])
+  @@map("deliveries")
+}
+
+model DeliveryLine {
+  id                     String  @id @default(cuid())
+  deliveryId             String  @map("delivery_id")
+  purchaseOrderLineId    String  @map("purchase_order_line_id")
+  inventoryItemId        String? @map("inventory_item_id")
+  inventoryReservationId String? @map("inventory_reservation_id")
+  inventoryMovementId    String? @unique @map("inventory_movement_id")
+  quantity               Float
+  notes                  String?
+
+  delivery             Delivery              @relation(fields: [deliveryId], references: [id], onDelete: Cascade)
+  purchaseOrderLine    PurchaseOrderLine     @relation(fields: [purchaseOrderLineId], references: [id], onDelete: Restrict)
+  inventoryItem        InventoryItem?        @relation(fields: [inventoryItemId], references: [id], onDelete: SetNull)
+  inventoryReservation InventoryReservation? @relation(fields: [inventoryReservationId], references: [id], onDelete: SetNull)
+  inventoryMovement    InventoryMovement?    @relation(fields: [inventoryMovementId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([deliveryId, purchaseOrderLineId])
+  @@index([purchaseOrderLineId])
+  @@index([inventoryItemId])
+  @@index([inventoryReservationId])
+  @@map("delivery_lines")
+}
+
+enum DeliveryStatus {
+  Draft
+  Ready
+  Dispatched
+  Delivered
+  Cancelled
+}
+
+// ── Supply Chain Enums ──────────────────────────────────────────
+
+enum OrderType {
+  BuyerPO // Inbound PO from buyer (shipping company) to chandler
+  SubPO // Outbound PO from chandler to sub-supplier
+  DirectPO // Manual standalone PO (legacy/default)
+}
+
+enum ShipServLifecycle {
+  RFQ_Received    @map("RFQ Received")
+  Quote_Sent      @map("Quote Sent")
+  PO_Received     @map("PO Received")
+  Order_Confirmed @map("Order Confirmed")
+  Invoiced
+  Closed
+}
+
+// ── Order Line Allocations (buyer PO line → sub-PO line split) ──
+
+model OrderLineAllocation {
+  id                String @id @default(cuid())
+  buyerLineId       String @map("buyer_line_id")
+  subPoLineId       String @map("sub_po_line_id")
+  allocatedQty      Float  @map("allocated_qty")
+  buyerUnitPrice    Float  @map("buyer_unit_price")
+  supplierUnitPrice Float  @map("supplier_unit_price")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([buyerLineId, subPoLineId])
+  @@index([buyerLineId])
+  @@index([subPoLineId])
+  @@map("order_line_allocations")
+}
+
+enum OrderStatus {
+  Pending_Approval @map("Pending Approval")
+  Procurement
+  In_Transit       @map("In Transit")
+  Delivered
+  At_Risk          @map("At Risk")
+}
+
+enum ConfirmStatus {
+  Unconfirmed
+  Partially_Confirmed @map("Partially Confirmed")
+  Confirmed
+  Rejected
+}
+
+enum LineStatus {
+  Open
+  Confirmed
+  Partially_Delivered @map("Partially Delivered")
+  Delivered
+  Backordered
+  Cancelled
+}
+
+enum SlaEvidenceStatus {
+  Processing
+  Completed
+  NeedsReview
+  Reviewed
+  Archived
+  Failed
+}
+
+enum Priority {
+  High
+  Normal
+  Low
+}
+
+// ── Inventory ───────────────────────────────────────────────────
+
+model InventoryItem {
+  learningCorrections ItemLearningCorrection[]
+  id             String    @id @default(cuid())
+  organizationId String?   @map("organization_id")
+  itemCode       String?   @map("item_code")
+  catalogItemId  String?   @map("catalog_item_id")
+  description    String
+  category       String?
+  warehouse      String
+  locationBin    String?   @map("location_bin")
+  uom            String
+  onHand         Int       @map("on_hand")
+  reserved       Int       @default(0)
+  inbound        Int       @default(0)
+  reorderPoint   Int       @map("reorder_point")
+  dangerousGoods Boolean   @default(false) @map("dangerous_goods")
+  notes          String?
+  lastCountedAt  DateTime? @map("last_counted_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  movements            InventoryMovement[]
+  unitConversions      InventoryUnitConversion[]
+  reservations         InventoryReservation[]
+  sourceTransfers      InventoryTransfer[]    @relation("InventoryTransferSource")
+  destinationTransfers InventoryTransfer[]    @relation("InventoryTransferDestination")
+  cycleCounts          InventoryCycleCount[]
+  goodsReceiptLines    GoodsReceiptLine[]
+  deliveryLines        DeliveryLine[]
+  organization         Organization?          @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  @@index([itemCode])
+  @@index([warehouse])
+  @@index([catalogItemId])
+  @@index([organizationId, warehouse])
+  @@map("inventory_items")
+}
+
+model InventoryMovement {
+  id              String   @id @default(cuid())
+  inventoryItemId String   @map("inventory_item_id")
+  movementType    String   @map("movement_type")
+  quantity        Int
+  quantityBefore  Int      @map("quantity_before")
+  quantityAfter   Int      @map("quantity_after")
+  source          String   @default("manual")
+  referenceType   String?  @map("reference_type")
+  referenceId     String?  @map("reference_id")
+  referenceLabel  String?  @map("reference_label")
+  idempotencyKey  String?  @unique @map("idempotency_key")
+  note            String?
+  actor           String   @default("operator")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  inventoryItem    InventoryItem     @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
+  goodsReceiptLine GoodsReceiptLine?
+  deliveryLine     DeliveryLine?
+
+  @@index([inventoryItemId, createdAt])
+  @@index([referenceType, referenceId])
+  @@map("inventory_movements")
+}
+
+model InventoryReservation {
+  id              String    @id @default(cuid())
+  inventoryItemId String    @map("inventory_item_id")
+  orderId         String    @map("order_id")
+  orderLineId     String    @map("order_line_id")
+  quantity        Int
+  orderUnit       String?   @map("order_unit")
+  stockUnit       String?   @map("stock_unit")
+  stockPerOrderUnit Decimal  @default(1) @map("stock_per_order_unit") @db.Decimal(18, 6)
+  conversionId    String?   @map("conversion_id")
+  status          String    @default("Active")
+  referenceLabel  String?   @map("reference_label")
+  note            String?
+  actor           String    @default("operator")
+  reservedAt      DateTime  @default(now()) @map("reserved_at")
+  releasedAt      DateTime? @map("released_at")
+  issuedAt        DateTime? @map("issued_at")
+
+  inventoryItem InventoryItem  @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
+  deliveryLines DeliveryLine[]
+
+  @@index([inventoryItemId, status])
+  @@index([orderId])
+  @@index([orderLineId])
+  @@map("inventory_reservations")
+}
+
+model InventoryTransfer {
+  id                   String   @id @default(cuid())
+  sourceItemId         String   @map("source_item_id")
+  destinationItemId    String   @map("destination_item_id")
+  quantity             Int
+  sourceWarehouse      String   @map("source_warehouse")
+  sourceBin            String?  @map("source_bin")
+  destinationWarehouse String   @map("destination_warehouse")
+  destinationBin       String?  @map("destination_bin")
+  note                 String?
+  actor                String   @default("operator")
+  createdAt            DateTime @default(now()) @map("created_at")
+
+  sourceItem      InventoryItem @relation("InventoryTransferSource", fields: [sourceItemId], references: [id], onDelete: Cascade)
+  destinationItem InventoryItem @relation("InventoryTransferDestination", fields: [destinationItemId], references: [id], onDelete: Cascade)
+
+  @@index([sourceItemId, createdAt])
+  @@index([destinationItemId, createdAt])
+  @@map("inventory_transfers")
+}
+
+model InventoryCycleCount {
+  id               String                    @id @default(cuid())
+  inventoryItemId  String                    @map("inventory_item_id")
+  expectedQuantity Int                       @map("expected_quantity")
+  countedQuantity  Int                       @map("counted_quantity")
+  variance         Int
+  status           InventoryCycleCountStatus @default(PendingReview)
+  note             String?
+  reviewNote       String?                   @map("review_note")
+  countedBy        String                    @default("operator") @map("counted_by")
+  reviewedBy       String?                   @map("reviewed_by")
+  countedAt        DateTime                  @default(now()) @map("counted_at")
+  reviewedAt       DateTime?                 @map("reviewed_at")
+  createdAt        DateTime                  @default(now()) @map("created_at")
+  updatedAt        DateTime                  @updatedAt @map("updated_at")
+
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
+
+  @@index([inventoryItemId, status])
+  @@index([status, countedAt])
+  @@map("inventory_cycle_counts")
+}
+
+enum InventoryCycleCountStatus {
+  PendingReview
+  Approved
+  Rejected
+}
+
+// ── Pricing Issues ──────────────────────────────────────────────
+
+model PricingIssue {
+  id                String        @id @default(cuid())
+  orderId           String        @map("order_id")
+  expectedMarginPct Float         @map("expected_margin_pct")
+  actualMarginPct   Float         @map("actual_margin_pct")
+  severity          IssueSeverity @default(Low)
+
+  order PurchaseOrder @relation(fields: [orderId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("pricing_issues")
+}
+
+enum IssueSeverity {
+  Low
+  Medium
+  High
+}
+
+// ── Finance Records ─────────────────────────────────────────────
+
+model FinanceRecord {
+  id       String        @id @default(cuid())
+  orderId  String        @map("order_id")
+  type     FinanceType
+  amount   Float
+  currency String        @default("EUR")
+  status   FinanceStatus @default(Pending)
+
+  order PurchaseOrder @relation(fields: [orderId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("finance_records")
+}
+
+enum FinanceType {
+  Invoice
+  Credit_Note @map("Credit Note")
+  Accrual
+}
+
+enum FinanceStatus {
+  Pending
+  Posted
+  Failed
+}
+
+// ── Finance & Accounting ───────────────────────────────────────
+
+model LegalEntity {
+  id              String  @id @default(cuid())
+  organizationId  String? @map("organization_id")
+  code            String?
+  name            String
+  addressLine1    String  @map("address_line_1")
+  addressLine2    String? @map("address_line_2")
+  postalCode      String? @map("postal_code")
+  city            String
+  country         String
+  vatId           String  @map("vat_id")
+  kvkNumber       String? @map("kvk_number")
+  bankName        String? @map("bank_name")
+  bankIban        String? @map("bank_iban")
+  bankBic         String? @map("bank_bic")
+  defaultCurrency String  @default("EUR") @map("default_currency")
+
+  invoices          CustomerInvoice[]
+  sequences         InvoiceNumberSequence[]
+  numberSequences   NumberSequence[]
+  accessAssignments LegalEntityAccess[]
+  backorders        Backorder[]
+  goodsReceipts     GoodsReceipt[]
+  deliveries        Delivery[]
+  supplierInquiries SupplierInquiry[]
+  customerQuotes    CustomerQuote[]
+  salesOrders       SalesOrder[]
+  organization      Organization?           @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([organizationId, code])
+  @@index([organizationId])
+  @@map("legal_entities")
+}
+
+model CustomerAccount {
+  id              String  @id @default(cuid())
+  organizationId  String? @map("organization_id")
+  partyId         String? @map("party_id")
+  customerCode    String  @unique @map("customer_code")
+  name            String
+  addressLine1    String  @map("address_line_1")
+  addressLine2    String? @map("address_line_2")
+  postalCode      String? @map("postal_code")
+  city            String
+  country         String
+  vatId           String? @map("vat_id")
+  paymentTerms    String  @default("Net 30") @map("payment_terms")
+  defaultCurrency String  @default("EUR") @map("default_currency")
+  status          String  @default("Active")
+
+  invoices        CustomerInvoice[]
+  creditNotes     CreditNote[]
+  marginSnapshots OrderMarginSnapshot[]
+  quotes          CustomerQuote[]
+  salesOrders     SalesOrder[]
+  party           Party?                @relation(fields: [partyId], references: [id], onDelete: SetNull)
+  organization    Organization?         @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@index([partyId])
+  @@index([organizationId, status])
+  @@map("customer_accounts")
+}
+
+model CustomerQuote {
+  id                String              @id @default(cuid())
+  organizationId    String              @map("organization_id")
+  legalEntityId     String?             @map("legal_entity_id")
+  customerId        String              @map("customer_id")
+  partyId           String?             @map("party_id")
+  rfqId             String?             @map("rfq_id")
+  quoteNumber       String?             @map("quote_number")
+  sourceKey         String              @unique @map("source_key")
+  status            CustomerQuoteStatus @default(Draft)
+  currency          String              @default("EUR")
+  validUntil        DateTime            @map("valid_until")
+  paymentTerms      String              @map("payment_terms")
+  vesselName        String?             @map("vessel_name")
+  vesselImo         String?             @map("vessel_imo")
+  port              String?
+  customerReference String?             @map("customer_reference")
+  subject           String
+  notes             String?
+  markupPct         Decimal             @map("markup_pct") @db.Decimal(8, 2)
+  marginPct         Decimal             @map("margin_pct") @db.Decimal(8, 2)
+  netAmount         Decimal             @map("net_amount") @db.Decimal(14, 2)
+  vatRate           Decimal             @map("vat_rate") @db.Decimal(5, 2)
+  vatAmount         Decimal             @map("vat_amount") @db.Decimal(14, 2)
+  grossAmount       Decimal             @map("gross_amount") @db.Decimal(14, 2)
+  createdById       String?             @map("created_by_id")
+  createdByName     String?             @map("created_by_name")
+  submittedAt       DateTime?           @map("submitted_at")
+  approvedAt        DateTime?           @map("approved_at")
+  approvedById      String?             @map("approved_by_id")
+  approvedByName    String?             @map("approved_by_name")
+  sentAt            DateTime?           @map("sent_at")
+  respondedAt       DateTime?           @map("responded_at")
+  acceptedAt        DateTime?           @map("accepted_at")
+  declinedAt        DateTime?           @map("declined_at")
+  expiredAt         DateTime?           @map("expired_at")
+  cancelledAt       DateTime?           @map("cancelled_at")
+  version           Int                 @default(1)
+
+  organization Organization        @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  legalEntity  LegalEntity?        @relation(fields: [legalEntityId], references: [id], onDelete: Restrict)
+  customer     CustomerAccount     @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  party        Party?              @relation(fields: [partyId], references: [id], onDelete: SetNull)
+  rfq          Rfq?                @relation(fields: [rfqId], references: [id], onDelete: Restrict)
+  lines        CustomerQuoteLine[]
+  salesOrder   SalesOrder?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([organizationId, quoteNumber])
+  @@index([organizationId, status, validUntil])
+  @@index([customerId, status])
+  @@index([partyId])
+  @@index([rfqId])
+  @@map("customer_quotes")
+}
+
+model CustomerQuoteLine {
+  id                    String  @id @default(cuid())
+  quoteId               String  @map("quote_id")
+  rfqLineId             String? @map("rfq_line_id")
+  sourceSupplierQuoteId String? @map("source_supplier_quote_id")
+  lineNumber            Int     @map("line_number")
+  description           String
+  quantity              Decimal @db.Decimal(14, 3)
+  unit                  String
+  impaCode              String? @map("impa_code")
+  unitCost              Decimal @map("unit_cost") @db.Decimal(14, 4)
+  unitPrice             Decimal @map("unit_price") @db.Decimal(14, 4)
+  netAmount             Decimal @map("net_amount") @db.Decimal(14, 2)
+  marginPct             Decimal @map("margin_pct") @db.Decimal(8, 2)
+  currency              String  @default("EUR")
+
+  quote               CustomerQuote   @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  rfqLine             RfqLine?        @relation(fields: [rfqLineId], references: [id], onDelete: Restrict)
+  sourceSupplierQuote SupplierQuote?  @relation(fields: [sourceSupplierQuoteId], references: [id], onDelete: SetNull)
+  salesOrderLine      SalesOrderLine?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([quoteId, lineNumber])
+  @@unique([quoteId, rfqLineId])
+  @@index([rfqLineId])
+  @@index([sourceSupplierQuoteId])
+  @@map("customer_quote_lines")
+}
+
+enum CustomerQuoteStatus {
+  Draft
+  PendingApproval
+  Approved
+  Sent
+  Accepted
+  Declined
+  Expired
+  Cancelled
+}
+
+model SalesOrder {
+  id                   String           @id @default(cuid())
+  organizationId       String           @map("organization_id")
+  legalEntityId        String?          @map("legal_entity_id")
+  customerId           String           @map("customer_id")
+  partyId              String?          @map("party_id")
+  quoteId              String           @unique @map("quote_id")
+  rfqId                String?          @map("rfq_id")
+  fulfillmentOrderId   String           @unique @map("fulfillment_order_id")
+  salesOrderNumber     String?          @map("sales_order_number")
+  sourceKey            String           @unique @map("source_key")
+  status               SalesOrderStatus @default(Confirmed)
+  customerPoReference  String?          @map("customer_po_reference")
+  vesselName           String?          @map("vessel_name")
+  vesselImo            String?          @map("vessel_imo")
+  port                 String?
+  requestedDeliveryAt  DateTime         @map("requested_delivery_at")
+  currency             String           @default("EUR")
+  paymentTerms         String           @map("payment_terms")
+  netAmount            Decimal          @map("net_amount") @db.Decimal(14, 2)
+  vatAmount            Decimal          @map("vat_amount") @db.Decimal(14, 2)
+  grossAmount          Decimal          @map("gross_amount") @db.Decimal(14, 2)
+  costAmount           Decimal          @map("cost_amount") @db.Decimal(14, 2)
+  marginPct            Decimal          @map("margin_pct") @db.Decimal(8, 2)
+  createdById          String?          @map("created_by_id")
+  createdByName        String?          @map("created_by_name")
+  confirmedAt          DateTime         @default(now()) @map("confirmed_at")
+  fulfillmentStartedAt DateTime?        @map("fulfillment_started_at")
+  deliveredAt          DateTime?        @map("delivered_at")
+  cancelledAt          DateTime?        @map("cancelled_at")
+  version              Int              @default(1)
+
+  organization     Organization     @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  legalEntity      LegalEntity?     @relation(fields: [legalEntityId], references: [id], onDelete: Restrict)
+  customer         CustomerAccount  @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  party            Party?           @relation(fields: [partyId], references: [id], onDelete: SetNull)
+  quote            CustomerQuote    @relation(fields: [quoteId], references: [id], onDelete: Restrict)
+  rfq              Rfq?             @relation(fields: [rfqId], references: [id], onDelete: Restrict)
+  fulfillmentOrder PurchaseOrder    @relation(fields: [fulfillmentOrderId], references: [id], onDelete: Restrict)
+  lines            SalesOrderLine[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([organizationId, salesOrderNumber])
+  @@index([organizationId, status, requestedDeliveryAt])
+  @@index([customerId, status])
+  @@index([partyId])
+  @@index([rfqId])
+  @@map("sales_orders")
+}
+
+model SalesOrderLine {
+  id                     String               @id @default(cuid())
+  salesOrderId           String               @map("sales_order_id")
+  quoteLineId            String               @unique @map("quote_line_id")
+  rfqLineId              String?              @map("rfq_line_id")
+  fulfillmentOrderLineId String               @unique @map("fulfillment_order_line_id")
+  lineNumber             Int                  @map("line_number")
+  description            String
+  quantity               Decimal              @db.Decimal(14, 3)
+  deliveredQuantity      Decimal              @default(0) @map("delivered_quantity") @db.Decimal(14, 3)
+  unit                   String
+  impaCode               String?              @map("impa_code")
+  unitCost               Decimal              @map("unit_cost") @db.Decimal(14, 4)
+  unitPrice              Decimal              @map("unit_price") @db.Decimal(14, 4)
+  netAmount              Decimal              @map("net_amount") @db.Decimal(14, 2)
+  marginPct              Decimal              @map("margin_pct") @db.Decimal(8, 2)
+  currency               String               @default("EUR")
+  status                 SalesOrderLineStatus @default(Open)
+
+  salesOrder           SalesOrder        @relation(fields: [salesOrderId], references: [id], onDelete: Cascade)
+  quoteLine            CustomerQuoteLine @relation(fields: [quoteLineId], references: [id], onDelete: Restrict)
+  rfqLine              RfqLine?          @relation(fields: [rfqLineId], references: [id], onDelete: Restrict)
+  fulfillmentOrderLine PurchaseOrderLine @relation(fields: [fulfillmentOrderLineId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([salesOrderId, lineNumber])
+  @@index([salesOrderId, status])
+  @@index([rfqLineId])
+  @@map("sales_order_lines")
+}
+
+enum SalesOrderStatus {
+  Confirmed
+  InFulfillment
+  PartiallyDelivered
+  Delivered
+  Cancelled
+}
+
+enum SalesOrderLineStatus {
+  Open
+  PartiallyDelivered
+  Delivered
+  Cancelled
+}
+
+model InvoiceNumberSequence {
+  id            String    @id @default(cuid())
+  legalEntityId String    @map("legal_entity_id")
+  prefix        String
+  fiscalYear    Int       @map("fiscal_year")
+  nextNumber    Int       @default(1) @map("next_number")
+  lastIssuedAt  DateTime? @map("last_issued_at")
+
+  legalEntity LegalEntity @relation(fields: [legalEntityId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([legalEntityId, prefix, fiscalYear])
+  @@map("invoice_number_sequences")
+}
+
+model NumberSequence {
+  id            String                     @id @default(cuid())
+  legalEntityId String                     @map("legal_entity_id")
+  documentType  NumberSequenceDocumentType @map("document_type")
+  fiscalYear    Int                        @map("fiscal_year")
+  prefix        String
+  padding       Int                        @default(5)
+  nextNumber    Int                        @default(1) @map("next_number")
+  lastIssuedAt  DateTime?                  @map("last_issued_at")
+  isActive      Boolean                    @default(true) @map("is_active")
+  metadata      Json                       @default("{}")
+
+  legalEntity LegalEntity @relation(fields: [legalEntityId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([legalEntityId, documentType, fiscalYear, prefix])
+  @@index([documentType, fiscalYear])
+  @@map("number_sequences")
+}
+
+enum NumberSequenceDocumentType {
+  Rfq
+  Quote
+  SupplierInquiry
+  PurchaseOrder
+  SalesOrder
+  CustomerInvoice
+  SupplierInvoice
+  CreditNote
+  Agreement
+  ValidationRun
+  Exception
+  AgentRun
+  ExportBatch
+  Document
+  GoodsReceipt
+  Delivery
+  Backorder
+  SupplierConfirmation
+  ImportBatch
+}
+
+model LearningCorrection {
+  id                String   @id @default(cuid())
+  organizationId    String   @map("organization_id")
+  supplierId        String   @map("supplier_id")
+  originalQuery     String   @map("original_query")
+  normalizedAlias   String   @map("normalized_alias")
+  originalOutput    Json     @map("original_output")
+  expectedName      String   @map("expected_name")
+  reason            String
+  sourceFingerprint String   @map("source_fingerprint")
+  status            String   @default("Pending")
+  active            Boolean  @default(false)
+  revision          Int      @default(1)
+  createdBy         String   @map("created_by")
+  requestKey        String   @map("request_key")
+  reviewedBy        String?  @map("reviewed_by")
+  reviewedAt        DateTime? @map("reviewed_at")
+  evaluation        Json?
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+  organization      Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  supplier          Supplier @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+
+  @@unique([organizationId, requestKey])
+  @@index([organizationId, normalizedAlias, active])
+  @@map("learning_corrections")
+}
+
+model CustomerInvoice {
+  id                   String                @id @default(cuid())
+  legalEntityId        String                @map("legal_entity_id")
+  customerId           String                @map("customer_id")
+  orderId              String?               @map("order_id")
+  invoiceNo            String                @map("invoice_no")
+  invoiceDate          DateTime              @map("invoice_date")
+  deliveryDate         DateTime              @map("delivery_date")
+  dueDate              DateTime              @map("due_date")
+  customerPoRef        String?               @map("customer_po_ref")
+  vesselName           String?               @map("vessel_name")
+  vesselImo            String?               @map("vessel_imo")
+  currency             String                @default("EUR")
+  paymentTerms         String                @map("payment_terms")
+  bankPaymentReference String                @map("bank_payment_reference")
+  netAmount            Decimal               @default(0) @map("net_amount") @db.Decimal(14, 2)
+  vatAmount            Decimal               @default(0) @map("vat_amount") @db.Decimal(14, 2)
+  grossAmount          Decimal               @default(0) @map("gross_amount") @db.Decimal(14, 2)
+  paidAmount           Decimal               @default(0) @map("paid_amount") @db.Decimal(14, 2)
+  creditedAmount       Decimal               @default(0) @map("credited_amount") @db.Decimal(14, 2)
+  outstandingAmount    Decimal               @default(0) @map("outstanding_amount") @db.Decimal(14, 2)
+  status               CustomerInvoiceStatus @default(Draft)
+  marginPct            Decimal?              @map("margin_pct") @db.Decimal(8, 2)
+  exceptionFlag        Boolean               @default(false) @map("exception_flag")
+  postedAt             DateTime?             @map("posted_at")
+  sentAt               DateTime?             @map("sent_at")
+  lockedAt             DateTime?             @map("locked_at")
+
+  legalEntity  LegalEntity           @relation(fields: [legalEntityId], references: [id])
+  customer     CustomerAccount       @relation(fields: [customerId], references: [id])
+  order        PurchaseOrder?        @relation(fields: [orderId], references: [id])
+  lines        CustomerInvoiceLine[]
+  vatSummaries InvoiceVatSummary[]
+  payments     CustomerPayment[]
+  creditNotes  CreditNote[]
+  exceptions   FinanceException[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([customerId])
+  @@index([orderId])
+  @@index([status])
+  @@index([dueDate])
+  @@unique([legalEntityId, invoiceNo])
+  @@map("customer_invoices")
+}
+
+model CustomerInvoiceLine {
+  id          String      @id @default(cuid())
+  invoiceId   String      @map("invoice_id")
+  orderLineId String?     @map("order_line_id")
+  lineNumber  Int         @map("line_number")
+  description String
+  quantity    Decimal     @db.Decimal(14, 3)
+  unit        String
+  unitPrice   Decimal     @map("unit_price") @db.Decimal(14, 4)
+  netAmount   Decimal     @map("net_amount") @db.Decimal(14, 2)
+  vatCategory VatCategory @map("vat_category")
+  vatRate     Decimal     @map("vat_rate") @db.Decimal(5, 2)
+  vatAmount   Decimal     @map("vat_amount") @db.Decimal(14, 2)
+  grossAmount Decimal     @map("gross_amount") @db.Decimal(14, 2)
+
+  invoice         CustomerInvoice    @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  orderLine       PurchaseOrderLine? @relation(fields: [orderLineId], references: [id])
+  creditNoteLines CreditNoteLine[]
+
+  @@unique([invoiceId, lineNumber])
+  @@index([orderLineId])
+  @@map("customer_invoice_lines")
+}
+
+model InvoiceVatSummary {
+  id            String      @id @default(cuid())
+  invoiceId     String      @map("invoice_id")
+  vatCategory   VatCategory @map("vat_category")
+  vatRate       Decimal     @map("vat_rate") @db.Decimal(5, 2)
+  taxableAmount Decimal     @map("taxable_amount") @db.Decimal(14, 2)
+  vatAmount     Decimal     @map("vat_amount") @db.Decimal(14, 2)
+  grossAmount   Decimal     @map("gross_amount") @db.Decimal(14, 2)
+
+  invoice CustomerInvoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@unique([invoiceId, vatCategory, vatRate])
+  @@map("invoice_vat_summaries")
+}
+
+model CustomerPayment {
+  id               String   @id @default(cuid())
+  requestKey       String?  @unique @map("request_key")
+  invoiceId        String   @map("invoice_id")
+  amount           Decimal  @db.Decimal(14, 2)
+  currency         String   @default("EUR")
+  receivedAt       DateTime @map("received_at")
+  paymentReference String?  @map("payment_reference")
+  method           String?
+  status           String   @default("Posted")
+
+  invoice CustomerInvoice @relation(fields: [invoiceId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([invoiceId])
+  @@map("customer_payments")
+}
+
+model SupplierInvoice {
+  id                 String                     @id @default(cuid())
+  organizationId     String?                    @map("organization_id")
+  supplierId         String?                    @map("supplier_id")
+  purchaseOrderId    String?                    @map("purchase_order_id")
+  supplierName       String                     @map("supplier_name")
+  supplierInvoiceNo  String                     @map("supplier_invoice_no")
+  invoiceDate        DateTime                   @map("invoice_date")
+  dueDate            DateTime                   @map("due_date")
+  currency           String                     @default("EUR")
+  expectedCost       Decimal                    @default(0) @map("expected_cost") @db.Decimal(14, 2)
+  invoicedCost       Decimal                    @default(0) @map("invoiced_cost") @db.Decimal(14, 2)
+  varianceAmount     Decimal                    @default(0) @map("variance_amount") @db.Decimal(14, 2)
+  vatAmount          Decimal                    @default(0) @map("vat_amount") @db.Decimal(14, 2)
+  grossAmount        Decimal                    @default(0) @map("gross_amount") @db.Decimal(14, 2)
+  matchStatus        SupplierInvoiceMatchStatus @default(AwaitingApproval) @map("match_status")
+  approvalStatus     FinanceApprovalStatus      @default(Pending) @map("approval_status")
+  duplicateRiskScore Decimal?                   @map("duplicate_risk_score") @db.Decimal(5, 2)
+  evidenceRef        String?                    @map("evidence_ref")
+  legalEntityId      String?                    @map("legal_entity_id")
+  intakeRequestKey   String?                    @map("intake_request_key")
+  intakeFingerprint  String?                    @map("intake_fingerprint")
+  reviewNote         String?                    @map("review_note")
+  isFinalInvoice     Boolean                    @default(false) @map("is_final_invoice")
+  sourceDocumentId   String?                    @map("source_document_id")
+  payments           SupplierPayment[]
+
+  supplierRel   Supplier?             @relation(fields: [supplierId], references: [id])
+  purchaseOrder PurchaseOrder?        @relation(fields: [purchaseOrderId], references: [id])
+  lines         SupplierInvoiceLine[]
+  exceptions    FinanceException[]
+  organization  Organization?         @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([organizationId, supplierName, supplierInvoiceNo], map: "supplier_invoices_org_supplier_number_key")
+  @@unique([organizationId, intakeRequestKey])
+  @@index([purchaseOrderId])
+  @@index([matchStatus])
+  @@index([approvalStatus])
+  @@index([organizationId, approvalStatus])
+  @@map("supplier_invoices")
+}
+
+model SupplierInvoiceLine {
+  id                  String      @id @default(cuid())
+  supplierInvoiceId   String      @map("supplier_invoice_id")
+  purchaseOrderLineId String?     @map("purchase_order_line_id")
+  lineNumber          Int         @map("line_number")
+  description         String
+  quantity            Decimal     @db.Decimal(14, 3)
+  unit                String
+  unitPrice           Decimal     @map("unit_price") @db.Decimal(14, 4)
+  netAmount           Decimal     @map("net_amount") @db.Decimal(14, 2)
+  vatCategory         VatCategory @map("vat_category")
+  vatRate             Decimal     @map("vat_rate") @db.Decimal(5, 2)
+  vatAmount           Decimal     @map("vat_amount") @db.Decimal(14, 2)
+  quantityVariance    Decimal     @default(0) @map("quantity_variance") @db.Decimal(14, 3)
+  priceVariance       Decimal     @default(0) @map("price_variance") @db.Decimal(14, 2)
+
+  supplierInvoice   SupplierInvoice    @relation(fields: [supplierInvoiceId], references: [id], onDelete: Cascade)
+  purchaseOrderLine PurchaseOrderLine? @relation(fields: [purchaseOrderLineId], references: [id])
+
+  @@unique([supplierInvoiceId, lineNumber])
+  @@index([purchaseOrderLineId])
+  @@map("supplier_invoice_lines")
+}
+
+model OrderMarginSnapshot {
+  id                    String       @id @default(cuid())
+  orderId               String       @unique @map("order_id")
+  customerId            String?      @map("customer_id")
+  revenue               Decimal      @db.Decimal(14, 2)
+  supplierCost          Decimal      @map("supplier_cost") @db.Decimal(14, 2)
+  freightDeliveryCost   Decimal      @default(0) @map("freight_delivery_cost") @db.Decimal(14, 2)
+  customsBondedCost     Decimal      @default(0) @map("customs_bonded_cost") @db.Decimal(14, 2)
+  warehouseHandlingCost Decimal      @default(0) @map("warehouse_handling_cost") @db.Decimal(14, 2)
+  otherCosts            Decimal      @default(0) @map("other_costs") @db.Decimal(14, 2)
+  grossProfit           Decimal      @map("gross_profit") @db.Decimal(14, 2)
+  marginPct             Decimal      @map("margin_pct") @db.Decimal(8, 2)
+  targetMarginPct       Decimal      @map("target_margin_pct") @db.Decimal(8, 2)
+  marginVariance        Decimal      @map("margin_variance") @db.Decimal(8, 2)
+  status                MarginStatus
+  calculationBasis      Json?        @map("calculation_basis")
+  inputFingerprint      String?      @map("input_fingerprint")
+  costReviewNote        String?      @map("cost_review_note")
+  costsReviewedAt       DateTime?    @map("costs_reviewed_at")
+
+  order    PurchaseOrder    @relation(fields: [orderId], references: [id])
+  customer CustomerAccount? @relation(fields: [customerId], references: [id])
+
+  computedAt DateTime @default(now()) @map("computed_at")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@map("order_margin_snapshots")
+}
+
+model CreditNote {
+  id                String                @id @default(cuid())
+  creditNoteNo      String                @unique @map("credit_note_no")
+  requestKey        String?               @unique @map("request_key")
+  reviewNote        String?               @map("review_note")
+  originalInvoiceId String                @map("original_invoice_id")
+  customerId        String                @map("customer_id")
+  vesselName        String?               @map("vessel_name")
+  vesselImo         String?               @map("vessel_imo")
+  reasonCode        CreditNoteReasonCode  @map("reason_code")
+  currency          String                @default("EUR")
+  netAmount         Decimal               @map("net_amount") @db.Decimal(14, 2)
+  vatAmount         Decimal               @map("vat_amount") @db.Decimal(14, 2)
+  grossAmount       Decimal               @map("gross_amount") @db.Decimal(14, 2)
+  status            CreditNoteStatus      @default(Draft)
+  approvalStatus    FinanceApprovalStatus @default(Pending) @map("approval_status")
+  approvedAt        DateTime?             @map("approved_at")
+  issuedAt          DateTime?             @map("issued_at")
+  appliedToInvoiceAt DateTime?            @map("applied_to_invoice_at")
+  refundAmount      Decimal               @default(0) @map("refund_amount") @db.Decimal(14, 2)
+  reconciliationMethod String?            @map("reconciliation_method")
+  reconciliationReason String?            @map("reconciliation_reason")
+  reconciledBy      String?                @map("reconciled_by")
+  refunds           CustomerRefund[]
+
+  originalInvoice CustomerInvoice    @relation(fields: [originalInvoiceId], references: [id])
+  customer        CustomerAccount    @relation(fields: [customerId], references: [id])
+  lines           CreditNoteLine[]
+  exceptions      FinanceException[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([originalInvoiceId])
+  @@index([status])
+  @@map("credit_notes")
+}
+
+model CreditNoteLine {
+  id            String      @id @default(cuid())
+  creditNoteId  String      @map("credit_note_id")
+  invoiceLineId String?     @map("invoice_line_id")
+  lineNumber    Int         @map("line_number")
+  description   String
+  quantity      Decimal     @db.Decimal(14, 3)
+  unit          String
+  unitPrice     Decimal     @map("unit_price") @db.Decimal(14, 4)
+  netAmount     Decimal     @map("net_amount") @db.Decimal(14, 2)
+  vatCategory   VatCategory @map("vat_category")
+  vatRate       Decimal     @map("vat_rate") @db.Decimal(5, 2)
+  vatAmount     Decimal     @map("vat_amount") @db.Decimal(14, 2)
+  grossAmount   Decimal     @map("gross_amount") @db.Decimal(14, 2)
+
+  creditNote  CreditNote           @relation(fields: [creditNoteId], references: [id], onDelete: Cascade)
+  invoiceLine CustomerInvoiceLine? @relation(fields: [invoiceLineId], references: [id])
+
+  @@unique([creditNoteId, lineNumber])
+  @@map("credit_note_lines")
+}
+
+model FinanceException {
+  id                String                 @id @default(cuid())
+  organizationId    String?                @map("organization_id")
+  type              FinanceExceptionType
+  severity          String                 @default("Medium")
+  status            FinanceExceptionStatus @default(Open)
+  title             String
+  description       String
+  orderId           String?                @map("order_id")
+  customerInvoiceId String?                @map("customer_invoice_id")
+  supplierInvoiceId String?                @map("supplier_invoice_id")
+  creditNoteId      String?                @map("credit_note_id")
+  resolvedAt        DateTime?              @map("resolved_at")
+  ruleKey           String?                @map("rule_key")
+  sourceFingerprint String?                @map("source_fingerprint")
+  lastDetectedAt    DateTime?              @map("last_detected_at")
+
+  order           PurchaseOrder?   @relation(fields: [orderId], references: [id])
+  customerInvoice CustomerInvoice? @relation(fields: [customerInvoiceId], references: [id])
+  supplierInvoice SupplierInvoice? @relation(fields: [supplierInvoiceId], references: [id])
+  creditNote      CreditNote?      @relation(fields: [creditNoteId], references: [id])
+  organization    Organization?    @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@index([type])
+  @@index([organizationId, status])
+  @@unique([organizationId, ruleKey])
+  @@map("finance_exceptions")
+}
+
+model FinanceAuditEvent {
+  id             String             @id @default(cuid())
+  organizationId String?            @map("organization_id")
+  entityType     String             @map("entity_type")
+  entityId       String             @map("entity_id")
+  action         FinanceAuditAction
+  actorType      String             @default("operator") @map("actor_type")
+  actorId        String?            @map("actor_id")
+  before         Json?
+  after          Json?
+  metadata       Json               @default("{}")
+  organization   Organization?      @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([entityType, entityId])
+  @@index([action])
+  @@index([organizationId, createdAt])
+  @@map("finance_audit_events")
+}
+
+model AccountingExportBatch {
+  id               String                 @id @default(cuid())
+  organizationId   String?                @map("organization_id")
+  target           AccountingExportTarget
+  status           AccountingExportStatus @default(NotReady)
+  recordsReady     Int                    @default(0) @map("records_ready")
+  recordsBlocked   Int                    @default(0) @map("records_blocked")
+  validationErrors Json                   @default("[]") @map("validation_errors")
+  exportedAt       DateTime?              @map("exported_at")
+  fileUrl          String?                @map("file_url")
+  legalEntityId    String?                @map("legal_entity_id")
+  periodFrom       DateTime?              @map("period_from")
+  periodTo         DateTime?              @map("period_to")
+  requestKey       String?                @map("request_key")
+  sourceFingerprint String?               @map("source_fingerprint")
+  preparedCsv      String?                @map("prepared_csv")
+
+  records      AccountingExportRecord[]
+  organization Organization?            @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([target])
+  @@index([status])
+  @@index([organizationId, createdAt])
+  @@unique([organizationId, requestKey])
+  @@map("accounting_export_batches")
+}
+
+model AccountingExportRecord {
+  id         String                 @id @default(cuid())
+  batchId    String                 @map("batch_id")
+  entityType String                 @map("entity_type")
+  entityId   String                 @map("entity_id")
+  status     AccountingExportStatus @default(NotReady)
+  error      String?
+
+  batch AccountingExportBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([entityType, entityId])
+  @@map("accounting_export_records")
+}
+
+// -- ERP Core: audit, documents, provenance ------------------------
+
+model AuditEvent {
+  id             String         @id @default(cuid())
+  organizationId String?        @map("organization_id")
+  entityType     String         @map("entity_type")
+  entityId       String         @map("entity_id")
+  entityNumber   String?        @map("entity_number")
+  eventType      String         @map("event_type")
+  actorType      AuditActorType @default(Operator) @map("actor_type")
+  actorId        String?        @map("actor_id")
+  actorName      String?        @map("actor_name")
+  sourceModule   String         @map("source_module")
+  before         Json?
+  after          Json?
+  metadata       Json           @default("{}")
+  aiAssisted     Boolean        @default(false) @map("ai_assisted")
+  agentRunId     String?        @map("agent_run_id")
+  requestId      String?        @map("request_id")
+  organization   Organization?  @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([entityType, entityId, createdAt])
+  @@index([eventType, createdAt])
+  @@index([sourceModule, createdAt])
+  @@index([organizationId, createdAt])
+  @@map("audit_events")
+}
+
+model ErpDocument {
+  id               String         @id @default(cuid())
+  organizationId   String?        @map("organization_id")
+  documentNo       String?        @unique @map("document_no")
+  documentType     String         @map("document_type")
+  title            String?
+  originalFileName String?        @map("original_file_name")
+  fileName         String?        @map("file_name")
+  mimeType         String?        @map("mime_type")
+  sizeBytes        Int?           @map("size_bytes")
+  checksumSha256   String?        @map("checksum_sha256")
+  storageProvider  String         @default("local") @map("storage_provider")
+  storageKey       String?        @map("storage_key")
+  sourceModule     String         @map("source_module")
+  status           DocumentStatus @default(Active)
+  metadata         Json           @default("{}")
+  archivedAt       DateTime?      @map("archived_at")
+  deletedAt        DateTime?      @map("deleted_at")
+
+  links        DocumentLink[]
+  organization Organization?  @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([documentType])
+  @@index([sourceModule, createdAt])
+  @@index([checksumSha256])
+  @@index([organizationId, documentType])
+  @@map("documents")
+}
+
+model DocumentLink {
+  id           String  @id @default(cuid())
+  documentId   String  @map("document_id")
+  entityType   String  @map("entity_type")
+  entityId     String  @map("entity_id")
+  entityNumber String? @map("entity_number")
+  linkRole     String  @default("source") @map("link_role")
+  sourceModule String  @map("source_module")
+  metadata     Json    @default("{}")
+
+  document ErpDocument @relation(fields: [documentId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([documentId, entityType, entityId, linkRole])
+  @@index([entityType, entityId])
+  @@map("document_links")
+}
+
+model DataProvenance {
+  id             String         @id @default(cuid())
+  organizationId String?        @map("organization_id")
+  entityType     String         @map("entity_type")
+  entityId       String         @map("entity_id")
+  kind           ProvenanceKind
+  source         String?
+  scenario       String?
+  metadata       Json           @default("{}")
+  organization   Organization?  @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([entityType, entityId])
+  @@index([kind])
+  @@index([entityType, entityId])
+  @@index([organizationId, kind])
+  @@map("data_provenance")
+}
+
+enum AuditActorType {
+  Operator
+  User
+  System
+  Agent
+  Import
+  Api
+}
+
+enum DocumentStatus {
+  Active
+  Archived
+  Deleted
+}
+
+enum ProvenanceKind {
+  Operational
+  Seed
+  Demo
+  Imported
+  Screenshot
+  System
+  Test
+}
+
+enum VatCategory {
+  Standard21
+  Reduced9
+  Zero
+  ReverseCharge
+  Exempt
+  OutsideScope
+  BondedCustoms
+}
+
+enum CustomerInvoiceStatus {
+  Draft
+  Reviewed
+  Posted
+  Sent
+  PartiallyPaid
+  Paid
+  Overdue
+  Disputed
+  Cancelled
+}
+
+enum SupplierInvoiceMatchStatus {
+  Matched
+  PriceVariance
+  QuantityVariance
+  MissingPO
+  MissingGoodsReceipt
+  DuplicateRisk
+  AwaitingApproval
+  Approved
+  Rejected
+}
+
+enum FinanceApprovalStatus {
+  NotRequired
+  Pending
+  Approved
+  Rejected
+}
+
+enum CreditNoteReasonCode {
+  WrongItemDelivered
+  QuantityMismatch
+  PriceCorrection
+  LateDelivery
+  DamagedGoods
+  RejectedSubstitute
+  DuplicateInvoice
+  CustomerDispute
+  SupplierCorrection
+}
+
+enum CreditNoteStatus {
+  Draft
+  AwaitingApproval
+  Approved
+  Issued
+  Rejected
+}
+
+enum MarginStatus {
+  Healthy
+  Watchlist
+  MarginLeakage
+  NegativeMargin
+  MissingCost
+}
+
+enum FinanceExceptionType {
+  OrderCostIncomplete
+  SupplierInvoicePriceVariance
+  SupplierInvoiceQuantityVariance
+  CustomerInvoiceOverdue
+  DeliveredOrderNotInvoiced
+  MarginBelowThreshold
+  MissingDeliveryEvidence
+  DuplicateSupplierInvoiceRisk
+  CreditNoteAwaitingApproval
+  VatDataIncomplete
+  InvoiceMissingLegalField
+}
+
+enum FinanceExceptionStatus {
+  Open
+  InReview
+  Resolved
+  Dismissed
+}
+
+enum FinanceAuditAction {
+  SupplierInvoiceCreated
+  SupplierInvoiceEdited
+  SupplierEvidenceAttached
+  AccountingExportCreated
+  MarginCalculated
+  MarginCostsReviewed
+  FinanceChecksCompleted
+  SupplierPaymentRecorded
+  CustomerRefundRecorded
+  SettlementReversed
+  CreditNoteReconciled
+  SupplierEntityAssigned
+  InvoiceCreated
+  InvoiceReviewed
+  InvoicePosted
+  InvoiceSent
+  PaymentReceived
+  PartialPaymentReceived
+  SupplierInvoiceApproved
+  SupplierInvoiceRejected
+  CreditNoteCreated
+  CreditNoteApproved
+  CreditNoteIssued
+  CreditNoteRejected
+  ExceptionCreated
+  ExceptionResolved
+  AccountingExportPrepared
+  ExportedToAccountingSystem
+}
+
+enum AccountingExportTarget {
+  CsvXlsx
+  ExactOnline
+  Twinfield
+  Afas
+  BusinessCentral
+  SapBusinessOne
+  Peppol
+}
+
+enum AccountingExportStatus {
+  NotReady
+  Ready
+  Prepared
+  Exported
+  Failed
+  Blocked
+}
+
+// ── Documents ───────────────────────────────────────────────────
+
+model DocumentRecord {
+  id         String       @id @default(cuid())
+  type       DocumentType
+  relatedId  String       @map("related_id")
+  uploadedAt DateTime     @map("uploaded_at")
+  extracted  Boolean      @default(false)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("document_records")
+}
+
+enum DocumentType {
+  RFQ
+  Quote
+  PO
+  Invoice
+  SDS
+  POD
+}
+
+// ── Compliance ──────────────────────────────────────────────────
+
+model ComplianceCase {
+  id      String           @id @default(cuid())
+  type    ComplianceType
+  vessel  String
+  status  ComplianceStatus @default(Open)
+  details String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("compliance_cases")
+}
+
+enum ComplianceType {
+  DG
+  Sanctions
+  UoM
+  Document
+}
+
+enum ComplianceStatus {
+  Open
+  Under_Review @map("Under Review")
+  Resolved
+}
+
+// ── Vessels ─────────────────────────────────────────────────────
+
+model Vessel {
+  id          String   @id @default(cuid())
+  mmsi        String   @unique
+  imo         String?
+  name        String
+  callsign    String?
+  flag        String?
+  type        String?
+  lat         Float
+  lng         Float
+  speed       Float
+  heading     Int
+  course      Int
+  destination String
+  eta         String
+  status      String
+  timestamp   DateTime
+  zone        String?
+  src         String?
+  draught     Float?
+  length      Int?
+  beam        Int?
+
+  orderLinks VesselOrderLink[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("vessels")
+}
+
+model VesselWatchlist {
+  organizationId String? @map("organization_id")
+  id       String  @id @default(cuid())
+  vesselId String? @map("vessel_id")
+  mmsi     String
+  imo      String?
+  name     String
+  note     String?
+  userId   String? @map("user_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([organizationId, mmsi, userId])
+  @@index([createdAt])
+  @@map("vessel_watchlist")
+}
+
+model VesselTrackHistory {
+  id        String   @id @default(cuid())
+  vesselId  String?  @map("vessel_id")
+  mmsi      String
+  lat       Float
+  lng       Float
+  speed     Float
+  heading   Int?
+  source    String?
+  timestamp DateTime
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([mmsi, timestamp])
+  @@map("vessel_track_history")
+}
+
+model VesselOrderLink {
+  id       String      @id @default(cuid())
+  vesselId String      @map("vessel_id")
+  orderId  String      @map("order_id")
+  stage    LinkStage
+  port     String
+  impact   ImpactLevel @default(Medium)
+
+  vessel Vessel @relation(fields: [vesselId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("vessel_order_links")
+}
+
+enum LinkStage {
+  RFQ
+  PO
+  Delivery
+}
+
+enum ImpactLevel {
+  Low
+  Medium
+  High
+}
+
+// ═══════════════════════════════════════════════════════════════
+// AUTOMATION / AGENT ENTITIES
+// ═══════════════════════════════════════════════════════════════
+
+// ── Agent Runs ──────────────────────────────────────────────────
+// One record per agent invocation (a "run" may contain multiple tasks)
+
+model AgentRun {
+  id             String         @id @default(cuid())
+  organizationId String?        @map("organization_id")
+  agent          String // e.g. "command_router", "rfq_intake", "classification"
+  domain         String // e.g. "procurement", "classification"
+  trigger        String // "command", "module", "scheduled", "webhook"
+  commandText    String?        @map("command_text") // original user command if any
+  status         AgentRunStatus @default(Running)
+  requestKey     String?        @map("request_key")
+  requestedBy    String?        @map("requested_by")
+  retryOfId      String?        @map("retry_of_id")
+  parentRunId    String?        @map("parent_run_id")
+  leaseExpiresAt DateTime?      @map("lease_expires_at")
+  cancelRequestedAt DateTime?   @map("cancel_requested_at")
+
+  tasks        AgentTask[]
+  auditLogs    AuditLog[]
+  organization Organization? @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  startedAt   DateTime  @default(now()) @map("started_at")
+  completedAt DateTime? @map("completed_at")
+  durationMs  Int?      @map("duration_ms")
+
+  @@index([agent])
+  @@unique([organizationId, requestKey])
+  @@index([status])
+  @@index([organizationId, status])
+  @@map("agent_runs")
+}
+
+enum AgentRunStatus {
+  Running
+  Cancelled
+  Completed
+  Failed
+  AwaitingApproval @map("Awaiting Approval")
+}
+
+// ── Agent Tasks ─────────────────────────────────────────────────
+// Individual steps within an agent run
+
+model AgentTask {
+  id         String          @id @default(cuid())
+  runId      String          @map("run_id")
+  agent      String
+  action     String // e.g. "classify_hs", "find_suppliers", "parse_rfq"
+  input      Json            @default("{}")
+  output     Json?
+  status     AgentTaskStatus @default(Pending)
+  confidence Float? // 0.0–1.0
+  model      String? // AI model used
+  provider   String? // AI provider used
+  error      String?
+
+  run        AgentRun         @relation(fields: [runId], references: [id], onDelete: Cascade)
+  approvals  Approval[]
+  exceptions AgentException[]
+
+  startedAt   DateTime  @default(now()) @map("started_at")
+  completedAt DateTime? @map("completed_at")
+  durationMs  Int?      @map("duration_ms")
+
+  @@index([runId])
+  @@index([status])
+  @@map("agent_tasks")
+}
+
+enum AgentTaskStatus {
+  Pending
+  Running
+  Cancelled
+  Completed
+  Failed
+  AwaitingApproval @map("Awaiting Approval")
+  AutoCommitted    @map("Auto Committed")
+}
+
+model AgentControl {
+  organizationId String @map("organization_id")
+  agentId String @map("agent_id")
+  enabled Boolean
+  revision Int @default(0)
+  updatedBy String @map("updated_by")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  @@id([organizationId, agentId])
+  @@map("agent_controls")
+}
+
+// ── Approvals ───────────────────────────────────────────────────
+
+model Approval {
+  id          String         @id @default(cuid())
+  taskId      String         @map("task_id")
+  agent       String
+  domain      String
+  description String
+  impact      String         @default("medium") // "low" | "medium" | "high"
+  status      ApprovalStatus @default(Pending)
+  data        Json? // the proposed change for review
+  resolvedBy  String?        @map("resolved_by")
+
+  task AgentTask @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  requestedAt DateTime  @default(now()) @map("requested_at")
+  resolvedAt  DateTime? @map("resolved_at")
+
+  @@index([status])
+  @@map("approvals")
+}
+
+enum ApprovalStatus {
+  Pending
+  Approved
+  Rejected
+  AutoApproved @map("Auto Approved")
+}
+
+// ── Exceptions ──────────────────────────────────────────────────
+
+model AgentException {
+  id              String            @id @default(cuid())
+  organizationId  String?           @map("organization_id")
+  taskId          String?           @map("task_id")
+  agent           String
+  domain          String
+  severity        ExceptionSeverity @default(Warning)
+  title           String
+  description     String
+  suggestedAction String?           @map("suggested_action")
+  status          ExceptionStatus   @default(Open)
+  resolvedBy      String?           @map("resolved_by")
+
+  task         AgentTask?    @relation(fields: [taskId], references: [id], onDelete: SetNull)
+  organization Organization? @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  createdAt  DateTime  @default(now()) @map("created_at")
+  resolvedAt DateTime? @map("resolved_at")
+
+  @@index([status])
+  @@index([severity])
+  @@index([organizationId, status])
+  @@map("agent_exceptions")
+}
+
+enum ExceptionSeverity {
+  Critical
+  Warning
+  Info
+}
+
+enum ExceptionStatus {
+  Open
+  Reviewing
+  Resolved
+  Dismissed
+}
+
+// ── Audit Log ───────────────────────────────────────────────────
+
+model AuditLog {
+  id         String  @id @default(cuid())
+  runId      String? @map("run_id")
+  agent      String
+  action     String
+  target     String? // e.g. "RFQ-123", "PO-456"
+  input      Json    @default("{}")
+  output     Json    @default("{}")
+  model      String?
+  provider   String?
+  durationMs Int?    @map("duration_ms")
+  committed  Boolean @default(false) // whether data was written to business tables
+
+  run AgentRun? @relation(fields: [runId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([agent])
+  @@index([action])
+  @@index([createdAt])
+  @@map("audit_log")
+}
+
+// ── Enrichment Results ──────────────────────────────────────────
+// Cached AI enrichment results (HS codes, IMPA, COO, etc.)
+
+model EnrichmentResult {
+  id          String           @id @default(cuid())
+  type        String // "hs_code" | "impa" | "coo" | "normalize"
+  inputHash   String           @map("input_hash") // hash of input for dedup
+  input       Json
+  output      Json
+  confidence  Float // 0.0–1.0
+  model       String?
+  provider    String?
+  status      EnrichmentStatus @default(Draft)
+  committedTo String?          @map("committed_to") // e.g. "items:abc123"
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([type, inputHash])
+  @@index([type])
+  @@map("enrichment_results")
+}
+
+enum EnrichmentStatus {
+  Draft
+  Committed
+  Rejected
+}
+
+// ── Command History ─────────────────────────────────────────────
+
+model CommandHistory {
+  organizationId String? @map("organization_id")
+  id            String  @id @default(cuid())
+  command       String
+  userId        String? @map("user_id")
+  routedTo      String  @map("routed_to") // agent that handled it
+  runId         String? @map("run_id")
+  status        String  @default("completed") // "completed" | "failed" | "pending"
+  resultSummary String? @map("result_summary")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@map("command_history")
+}
+
+model SearchHistory {
+  organizationId String? @map("organization_id")
+  id          String  @id @default(cuid())
+  query       String
+  module      String  @default("catalog_search")
+  resultCount Int     @default(0) @map("result_count")
+  topResults  Json    @default("[]") @map("top_results")
+  userId      String? @map("user_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([module, createdAt])
+  @@index([query])
+  @@map("search_history")
+}
+
+model HsCodeHistory {
+  organizationId String? @map("organization_id")
+  id       String  @id @default(cuid())
+  type     String
+  query    Json
+  result   Json
+  code     String?
+  favorite Boolean @default(false)
+  model    String?
+  provider String?
+  userId   String? @map("user_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([createdAt])
+  @@index([favorite])
+  @@index([code])
+  @@map("hs_code_history")
+}
+
+model HsCode {
+  id          String  @id @default(cuid())
+  code        String
+  system      String  @default("generic")
+  chapter     String?
+  heading     String?
+  description String
+  notes       String?
+  source      String?
+  raw         Json    @default("{}")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([code, system])
+  @@index([code])
+  @@index([chapter])
+  @@map("hs_codes")
+}
+
+model ValidationRun {
+  id                String           @id @default(cuid())
+  organizationId    String?          @map("organization_id")
+  quoteFileName     String?          @map("quote_file_name")
+  poFileName        String?          @map("po_file_name")
+  status            ValidationStatus @default(Completed)
+  source            String           @default("manual_upload")
+  comparisonResults Json             @default("[]") @map("comparison_results")
+  summary           Json             @default("{}")
+  model             String?
+  provider          String?
+  error             String?
+  organization      Organization?    @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@index([status])
+  @@index([organizationId, createdAt])
+  @@map("validation_runs")
+}
+
+enum ValidationStatus {
+  Completed
+  Failed
+}
+
+// ═══════════════════════════════════════════════════════════════
+// SUPPLIER MATCHING PIPELINE
+// ═══════════════════════════════════════════════════════════════
+
+// ── Match Runs — one per supplier search / discovery request ────
+
+model MatchRun {
+  id                  String         @id @default(cuid())
+  query               Json // { name?, country?, region?, category?, keywords?, context? }
+  source              String // "manual_search" | "create_form" | "po_context" | "enrich"
+  status              MatchRunStatus @default(Running)
+  candidateCount      Int            @default(0) @map("candidate_count")
+  acceptedCandidateId String?        @map("accepted_candidate_id")
+  savedSupplierId     String?        @map("saved_supplier_id") // The supplier record created from accepted candidate
+
+  candidates MatchCandidate[]
+
+  createdAt   DateTime  @default(now()) @map("created_at")
+  completedAt DateTime? @map("completed_at")
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("match_runs")
+}
+
+enum MatchRunStatus {
+  Running
+  Ranked // Candidates ranked, awaiting user decision
+  Accepted // User accepted a candidate
+  AllRejected // User rejected all candidates
+  Expired // Auto-expired (no user action)
+  Failed // Pipeline error
+}
+
+// ── Match Candidates — individual supplier candidates per run ───
+
+model MatchCandidate {
+  id        String @id @default(cuid())
+  runId     String @map("run_id")
+  rank      Int // 1 = best match
+  sourceTag String @map("source_tag") // "internal_db" | "ai_generated" | "ai_enrichment"
+
+  // Candidate profile
+  name          String
+  region        String?
+  country       String?
+  city          String?
+  address       String?
+  phone         String?
+  email         String?
+  website       String?
+  contactPerson String?  @map("contact_person")
+  description   String?
+  categories    String[] @default([])
+  portsCovered  String[] @default([]) @map("ports_covered")
+  lat           Float?
+  lng           Float?
+
+  // Scoring
+  overallScore   Float  @map("overall_score") // 0.0 – 1.0
+  confidenceBand String @map("confidence_band") // "high" | "medium" | "low"
+  scoreBreakdown Json   @map("score_breakdown") // { nameMatch, locationMatch, categoryFit, ... }
+  explanation    String // Human-readable ranking rationale
+
+  // Validation
+  conflicts     Json? // { field: { issue, severity } }
+  missingFields String[] @default([]) @map("missing_fields")
+
+  // Link to existing supplier if matched
+  existingSupplierId String? @map("existing_supplier_id")
+
+  // Outcome
+  outcome   CandidateOutcome @default(Pending)
+  userEdits Json?            @map("user_edits") // { field: { from, to } }
+
+  run MatchRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([runId, rank])
+  @@map("match_candidates")
+}
+
+enum CandidateOutcome {
+  Pending
+  Accepted
+  AcceptedWithEdits @map("Accepted With Edits")
+  Rejected
+}
+
+// ── Match Feedback — learning signals from user decisions ────────
+
+model MatchFeedback {
+  id                String  @id @default(cuid())
+  runId             String  @map("run_id")
+  candidateId       String  @map("candidate_id")
+  action            String // "accept" | "reject" | "edit_accept"
+  correctedFields   Json?   @map("corrected_fields") // { field: { from, to } }
+  rejectionReason   String? @map("rejection_reason")
+  querySnapshot     Json    @map("query_snapshot")
+  candidateSnapshot Json    @map("candidate_snapshot")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([action])
+  @@index([createdAt])
+  @@map("match_feedback")
+}
+
+// ── Source Reliability — learned source quality over time ────────
+
+model SourceReliability {
+  id         String @id @default(cuid())
+  sourceType String @map("source_type") // "internal_db" | "ai_generated" | "ai_enrichment"
+  sourceKey  String @map("source_key") // More specific: model name, search method, etc.
+
+  totalUses   Int   @default(0) @map("total_uses")
+  accepts     Int   @default(0)
+  rejects     Int   @default(0)
+  edits       Int   @default(0)
+  reliability Float @default(0.5) // 0.0 – 1.0 computed
+
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([sourceType, sourceKey])
+  @@map("source_reliability")
+}
+
+// ── Legacy (kept for backward compatibility) ────────────────────
+
+model AiCheckResult {
+  id             String    @id @default(cuid())
+  orderId        String    @map("order_id")
+  risk           RiskLevel @default(Low)
+  findings       String[]
+  recommendation String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("ai_check_results")
+}
+
+enum RiskLevel {
+  Low
+  Medium
+  High
+}
+
+model SupplierPayment {
+  id String @id @default(cuid())
+  invoiceId String @map("invoice_id")
+  amount Decimal @db.Decimal(14, 2)
+  currency String
+  paidAt DateTime @map("paid_at")
+  reference String
+  requestKey String @unique @map("request_key")
+  recordedBy String @map("recorded_by")
+  createdAt DateTime @default(now()) @map("created_at")
+  reversedAt DateTime? @map("reversed_at")
+  reversedBy String? @map("reversed_by")
+  reversalReason String? @map("reversal_reason")
+  invoice SupplierInvoice @relation(fields: [invoiceId], references: [id], onDelete: Restrict)
+  @@index([invoiceId])
+  @@map("supplier_payments")
+}
+
+model CustomerRefund {
+  id String @id @default(cuid())
+  creditNoteId String @map("credit_note_id")
+  amount Decimal @db.Decimal(14, 2)
+  currency String
+  paidAt DateTime @map("paid_at")
+  reference String
+  requestKey String @unique @map("request_key")
+  recordedBy String @map("recorded_by")
+  createdAt DateTime @default(now()) @map("created_at")
+  reversedAt DateTime? @map("reversed_at")
+  reversedBy String? @map("reversed_by")
+  reversalReason String? @map("reversal_reason")
+  creditNote CreditNote @relation(fields: [creditNoteId], references: [id], onDelete: Restrict)
+  @@index([creditNoteId])
+  @@map("customer_refunds")
+}
+
+model InventoryUnitConversion {
+  id String @id @default(cuid())
+  inventoryItemId String @map("inventory_item_id")
+  orderUnit String @map("order_unit")
+  stockUnit String @map("stock_unit")
+  stockPerOrderUnit Decimal @map("stock_per_order_unit") @db.Decimal(18, 6)
+  status String @default("Pending")
+  reason String
+  createdBy String @map("created_by")
+  reviewedBy String? @map("reviewed_by")
+  reviewedAt DateTime? @map("reviewed_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id], onDelete: Restrict)
+  @@index([inventoryItemId, orderUnit])
+  @@map("inventory_unit_conversions")
+}
+
+model AgentSchedule {
+  id              String       @id @default(cuid())
+  organizationId  String       @map("organization_id")
+  agentId         String       @map("agent_id")
+  action          String
+  params          Json
+  intervalMinutes Int          @map("interval_minutes")
+  maxDailyRuns    Int          @default(24) @map("max_daily_runs")
+  allowProvider   Boolean      @default(false) @map("allow_provider")
+  enabled         Boolean      @default(true)
+  revision        Int          @default(1)
+  requestKey      String       @map("request_key")
+  createdBy       String       @map("created_by")
+  nextRunAt       DateTime     @map("next_run_at")
+  occurrenceAt    DateTime?    @map("occurrence_at")
+  leaseUntil      DateTime?    @map("lease_until")
+  attempts        Int          @default(0)
+  activeKey       String?      @map("active_key")
+  lastRunId       String?      @map("last_run_id")
+  lastError       String?      @map("last_error")
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  @@unique([organizationId, requestKey])
+  @@index([enabled, nextRunAt])
+  @@map("agent_schedules")
+}
+
+model ItemLearningCorrection {
+  id                String        @id @default(cuid())
+  organizationId    String        @map("organization_id")
+  inventoryItemId   String        @map("inventory_item_id")
+  originalQuery     String        @map("original_query")
+  normalizedAlias   String        @map("normalized_alias")
+  expectedName      String        @map("expected_name")
+  originalOutput    Json          @map("original_output")
+  reason            String
+  sourceFingerprint String        @map("source_fingerprint")
+  status            String        @default("Pending")
+  active            Boolean       @default(false)
+  revision          Int           @default(1)
+  createdBy         String        @map("created_by")
+  requestKey        String        @map("request_key")
+  reviewedBy        String?       @map("reviewed_by")
+  reviewedAt        DateTime?     @map("reviewed_at")
+  evaluation        Json?
+  createdAt         DateTime      @default(now()) @map("created_at")
+  updatedAt         DateTime      @updatedAt @map("updated_at")
+  organization      Organization  @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  inventoryItem     InventoryItem @relation(fields: [inventoryItemId], references: [id], onDelete: Restrict)
+
+  @@unique([organizationId, requestKey])
+  @@index([organizationId, normalizedAlias, active])
+  @@map("item_learning_corrections")
+}
+
+model MailboxConnection {
+  id               String       @id @default(cuid())
+  organizationId   String       @unique @map("organization_id")
+  provider         String       @default("microsoft365")
+  clientId         String       @map("client_id")
+  tenantId         String       @map("tenant_id")
+  secretCiphertext String?      @map("secret_ciphertext")
+  enabled          Boolean      @default(false)
+  createdBy        String       @map("created_by")
+  revision         Int          @default(1)
+  createdAt        DateTime     @default(now()) @map("created_at")
+  updatedAt        DateTime     @updatedAt @map("updated_at")
+  organization     Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  @@map("mailbox_connections")
+}
+
+model MailboxReply {
+  id             String       @id @default(cuid())
+  organizationId String       @map("organization_id")
+  backorderId    String       @map("backorder_id")
+  messageId      String       @map("message_id")
+  subject        String
+  sender         String
+  receivedAt     DateTime     @map("received_at")
+  status         String
+  reviewedBy     String       @map("reviewed_by")
+  runId          String       @map("run_id")
+  createdAt      DateTime     @default(now()) @map("created_at")
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  backorder      Backorder    @relation(fields: [backorderId], references: [id], onDelete: Restrict)
+
+  @@unique([organizationId, messageId, backorderId])
+  @@map("mailbox_replies")
+}

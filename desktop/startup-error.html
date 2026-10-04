@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nautex startup error</title>
+    <style>
+      :root { color-scheme: light; font-family: "Segoe UI", Arial, sans-serif; background: #f4f7f8; color: #172126; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 32px; }
+      main { width: min(560px, 100%); border-left: 4px solid #d74f37; padding: 8px 0 8px 28px; }
+      h1 { margin: 0 0 12px; font-size: 28px; font-weight: 650; letter-spacing: 0; }
+      p { margin: 0 0 18px; color: #536169; line-height: 1.55; }
+      code { display: block; margin: 0 0 24px; padding: 12px; background: #e8edef; color: #253239; overflow-wrap: anywhere; }
+      button { border: 0; border-radius: 4px; background: #00a892; color: #052e2a; padding: 10px 16px; font: inherit; font-weight: 600; cursor: pointer; }
+      button:hover { background: #008f80; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Nautex could not load its desktop interface</h1>
+      <p>The local application files are unavailable or damaged. Restart Nautex. If the problem continues, reinstall the application.</p>
+      <code id="failed-url"></code>
+      <button id="retry" type="button">Retry startup</button>
+    </main>
+    <script>
+      const failedUrl = new URLSearchParams(window.location.search).get("failedUrl") || "Local renderer";
+      document.getElementById("failed-url").textContent = failedUrl;
+      document.getElementById("retry").addEventListener("click", () => window.location.reload());
+    </script>
+  </body>
+</html>

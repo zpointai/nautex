@@ -1,0 +1,63 @@
+{
+  "name": "nautex-ai-erp",
+  "version": "0.3.14",
+  "description": "Nautex ship-chandler ERP and operations platform",
+  "author": "Zlatin Gorov",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit --pretty false",
+    "lint": "eslint .",
+    "desktop:renderer:build": "vite build --config vite.desktop.config.ts",
+    "desktop:backend:build": "npm run build && node scripts/build-desktop-backend.mjs",
+    "desktop:icons": "node scripts/build-nautex-brand-final.mjs && node scripts/generate-desktop-icon.mjs",
+    "desktop:postgres:prepare": "node scripts/prepare-postgres-runtime.mjs",
+    "desktop:prisma:prepare": "npm ci --prefix desktop-runtime && node scripts/prepare-prisma-runtime.mjs",
+    "impa:import": "tsx scripts/import-impa.ts",
+    "hs:import": "tsx scripts/import-hs.ts",
+    "release:source": "node scripts/release-source.mjs",
+    "release:scan": "node scripts/scan-release.mjs",
+    "release:build": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-community.ps1",
+    "test:community": "tsx --test tests/community.test.ts"
+  },
+  "dependencies": {
+    "@better-auth/prisma-adapter": "^1.6.23",
+    "@prisma/client": "^6.19.3",
+    "@types/leaflet": "^1.9.21",
+    "better-auth": "^1.6.23",
+    "leaflet": "^1.9.4",
+    "mammoth": "^1.12.0",
+    "next": "^16.2.6",
+    "pdf-parse": "^2.4.5",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.61.1",
+    "@tailwindcss/postcss": "^4.2.2",
+    "@types/node": "^20.17.0",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^5.0.0",
+    "electron": "^43.1.0",
+    "electron-builder": "^26.15.3",
+    "eslint": "^9.17.0",
+    "eslint-config-next": "^16.2.6",
+    "png-to-ico": "^3.0.2",
+    "postcss": "^8.5.8",
+    "prisma": "^6.19.3",
+    "sharp": "^0.35.3",
+    "tailwindcss": "^4.2.2",
+    "tsx": "^4.23.13",
+    "typescript": "^5.7.2",
+    "vite": "^6.4.3"
+  },
+  "overrides": {
+    "deepmerge-ts": "8.0.2"
+  },
+  "license": "AGPL-3.0-only"
+}

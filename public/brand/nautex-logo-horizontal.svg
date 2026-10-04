@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1940 500" role="img" aria-labelledby="title">
+  <title id="title">Nautex AI</title>
+  <g transform="translate(-40 0)"><g transform="scale(.5)">
+
+  <path fill="#00CDB7" d="M220 180 370 295 620 520 620 300 780 180 780 720 620 600 370 380 370 620 220 735Z"/>
+  <path fill="#0B1D34" d="M490 645 405 715 300 780 405 780Z"/>
+  <path fill="#0B1D34" d="M510 645 595 715 700 780 595 780Z"/>
+  <path fill="#F4C542" d="M500 650 540 730 500 820 460 730Z"/>
+
+  </g></g>
+
+    <g fill="#0B1D34">
+      <rect x="430" y="150" width="45" height="200"/>
+      <rect x="545" y="150" width="45" height="200"/>
+      <path d="M468 150h48l39 200h-48Z"/>
+
+      <path d="M620 350 690 150h45l-60 200Z"/>
+      <path d="M705 150h45l70 200h-55Z"/>
+      <rect x="671" y="268" width="98" height="28"/>
+
+      <path d="M850 150h45v122c0 37 14 53 37 53s38-16 38-53V150h45v126c0 50-32 79-83 79s-82-29-82-79Z"/>
+
+      <rect x="1045" y="150" width="170" height="42"/>
+      <rect x="1108" y="150" width="44" height="200"/>
+
+      <rect x="1245" y="150" width="45" height="200"/>
+      <rect x="1245" y="150" width="150" height="42"/>
+      <rect x="1245" y="229" width="126" height="40"/>
+      <rect x="1245" y="308" width="150" height="42"/>
+
+      <path d="M1420 150h55l115 200h-55Z"/>
+      <path d="M1535 150h55l-115 200h-55Z"/>
+    </g>
+    <g fill="#F4C542">
+      <path d="M1641 350 1706 150h45l-55 200Z"/>
+      <path d="M1721 150h45l65 200h-55Z"/>
+      <rect x="1692" y="268" width="92" height="28"/>
+      <rect x="1858" y="150" width="45" height="200"/>
+    </g>
+
+</svg>

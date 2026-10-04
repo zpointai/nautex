@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-labelledby="title">
+  <title id="title">Nautex application icon</title>
+  <rect x="28" y="28" width="944" height="944" rx="190" fill="#00CDB7"/>
+
+  <path fill="#FFFFFF" d="M220 180 370 295 620 520 620 300 780 180 780 720 620 600 370 380 370 620 220 735Z"/>
+  <path fill="#FFFFFF" d="M490 645 405 715 300 780 405 780Z"/>
+  <path fill="#FFFFFF" d="M510 645 595 715 700 780 595 780Z"/>
+  <path fill="#F4C542" d="M500 650 540 730 500 820 460 730Z"/>
+
+</svg>

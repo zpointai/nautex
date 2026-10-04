@@ -1,0 +1,281 @@
+@import "tailwindcss";
+
+/* ── Global: restore pointer cursor on interactive elements ────── */
+button, [role="button"], a, select, summary, [tabindex]:not([tabindex="-1"]) {
+  cursor: pointer;
+}
+
+body {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+button, select, summary, [role="button"] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+input, textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* ── Design System: "Obsidian Architect" ───────────────────────── */
+
+@theme {
+  /* Surface Hierarchy — subtle depth steps.
+     Values realigned to the dominant in-app palette so components can migrate
+     from hardcoded hex classes to these tokens with no visible color change. */
+  --color-surface-lowest: #070e1c;
+  --color-surface-base: #080f1e;
+  --color-surface-low: #0e1525;
+  --color-surface-container: #19202e;
+  --color-surface-high: #232a39;
+  --color-surface-highest: #2e3544;
+  --color-surface-bright: #323949;
+
+  /* Primary - Nautex aqua */
+  --color-primary: #00cdb7;
+  --color-primary-container: #00a892;
+  --color-on-primary: #052e1a;
+  --color-primary-dim: #008f80;
+
+  /* Text — clear hierarchy */
+  --color-on-surface: #dce2f6;
+  --color-on-surface-variant: #aeb7c9;
+  --color-outline: #9da8bb;
+  --color-outline-variant: #424754;
+
+  /* Semantic */
+  --color-success: #4edea3;
+  --color-success-dim: #10b981;
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+  --color-warning: #ffb786;
+  --color-warning-container: #df7412;
+
+  /* Info — light blue, previously an untokened one-off */
+  --color-info: #adc6ff;
+
+  /* AI / enrichment accent — marks AI-assisted actions (enrich, suggest,
+     auto-fill). Previously stock Tailwind violet in supplier-directory. */
+  --color-ai: #c4b5fd;
+
+  /* Secondary */
+  --color-secondary: #c2c6d6;
+  --color-secondary-container: #363d4d;
+
+  /* Accent palette */
+  --color-accent-green: #4edea3;
+  --color-accent-green-dim: #2da87a;
+  --color-accent-lime: #a3e635;
+  --color-accent-cyan: #67e8f9;
+  --color-accent-amber: #ffde6a;
+
+  /* Typography */
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --text-xs: 0.875rem;
+  --text-xs--line-height: 1.45;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.5;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+/* ── Base Styles ───────────────────────────────────────────────── */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  background: var(--color-surface-base);
+  color: var(--color-on-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-outline-variant); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-outline); }
+
+/* ── Typography Utilities ──────────────────────────────────────── */
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.label-xs {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-on-surface-variant);
+}
+
+.label-section {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-outline);
+}
+
+/* ── Subtle Background ─────────────────────────────────────────── */
+
+.bg-gradient-subtle {
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 20%, rgba(78, 222, 163, 0.03) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 90% 80%, rgba(16, 185, 129, 0.02) 0%, transparent 70%),
+    var(--color-surface-base);
+}
+
+/* ── Ghost Border ──────────────────────────────────────────────── */
+
+.ghost-border {
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+.ghost-border-hover:hover {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Pulse animation for status dots ───────────────────────────── */
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ── Entrance Animations ───────────────────────────────────────── */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease both;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Stagger children — use with animation-delay */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+
+/* ── Glow accent ───────────────────────────────────────────────── */
+
+.btn-glow {
+  box-shadow: 0 0 12px rgba(78, 222, 163, 0.12);
+  transition: box-shadow 0.2s, filter 0.2s;
+}
+.btn-glow:hover {
+  box-shadow: 0 0 20px rgba(78, 222, 163, 0.22);
+  filter: brightness(1.05);
+}
+
+/* Shared reading scale for remaining legacy utility sizes.
+   Supporting text is at least 14 px; working text is 15–16 px at 100% zoom. */
+:where([class~="text-[0.5rem]"]):not(.material-symbols-outlined),
+:where([class~="text-[0.52rem]"]):not(.material-symbols-outlined),
+:where([class~="text-[0.54rem]"]):not(.material-symbols-outlined),
+:where([class~="text-[0.55rem]"]):not(.material-symbols-outlined),
+:where([class~="text-[0.56rem]"]):not(.material-symbols-outlined),
+:where([class~="text-[0.58rem]"]):not(.material-symbols-outlined),
+:where([class~="text-[0.6rem]"]):not(.material-symbols-outlined),
+:where([class~="text-[0.62rem]"]):not(.material-symbols-outlined),
+:where([class~="text-[0.64rem]"]):not(.material-symbols-outlined),
+:where([class~="text-[0.65rem]"]):not(.material-symbols-outlined),
+:where([class~="text-[10px]"]):not(.material-symbols-outlined),
+:where([class~="text-[11px]"]):not(.material-symbols-outlined) { font-size: var(--text-xs); line-height: 1.45; }
+:where([class~="text-[0.66rem]"]):not(.material-symbols-outlined),
+:where([class~="text-[0.68rem]"]):not(.material-symbols-outlined),
+:where([class~="text-[0.7rem]"]):not(.material-symbols-outlined),
+:where([class~="text-[0.75rem]"]):not(.material-symbols-outlined) { font-size: var(--text-sm); line-height: 1.5; }
+:where([class~="text-[0.8rem]"]):not(.material-symbols-outlined),
+:where([class~="text-[0.82rem]"]):not(.material-symbols-outlined),
+:where([class~="text-[0.85rem]"]):not(.material-symbols-outlined) { font-size: var(--text-base); line-height: 1.5; }
+
+/* Small icons use a 20 px control scale. Larger icons retain their utility size. */
+.material-symbols-outlined:is(.text-xs, .text-sm, .text-base, .text-lg,
+  [class~="text-[0.5rem]"],
+  [class~="text-[0.52rem]"],
+  [class~="text-[0.54rem]"],
+  [class~="text-[0.55rem]"],
+  [class~="text-[0.56rem]"],
+  [class~="text-[0.58rem]"],
+  [class~="text-[0.6rem]"],
+  [class~="text-[0.62rem]"],
+  [class~="text-[0.64rem]"],
+  [class~="text-[0.65rem]"],
+  [class~="text-[10px]"],
+  [class~="text-[11px]"],
+  [class~="text-[0.66rem]"],
+  [class~="text-[0.68rem]"],
+  [class~="text-[0.7rem]"],
+  [class~="text-[0.75rem]"],
+  [class~="text-[0.8rem]"],
+  [class~="text-[0.82rem]"],
+  [class~="text-[0.85rem]"],
+  [class~="text-[1rem]"],
+  [class~="text-[1.1rem]"]) {
+  font-size: 1.25rem;
+}
+
+button, [role="button"] { min-height: 2.25rem; }
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]):not([type="file"]), select {
+  min-height: 2.5rem;
+  font-size: var(--text-sm);
+}
+textarea { font-size: var(--text-sm); line-height: 1.5; }
+button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

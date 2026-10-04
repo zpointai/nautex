@@ -1,0 +1,50 @@
+appId: org.oasisai.nautex.community
+productName: Nautex Community
+copyright: Copyright (c) 2026 Zlatin Gorov
+asar: true
+directories:
+  app: desktop
+  output: releases
+  buildResources: build
+files:
+  - "*.mjs"
+  - "*.cjs"
+  - "*.html"
+  - "*.js"
+  - "package.json"
+extraResources:
+  - from: .desktop-build/runtime-config.json
+    to: runtime-config.json
+  - from: .desktop-build/renderer
+    to: renderer
+  - from: build/nautex-icon-256.png
+    to: nautex-icon.png
+  - from: .desktop-build/backend
+    to: local-runtime/backend
+  - from: .desktop-build/postgresql
+    to: local-runtime/postgresql
+  - from: .desktop-build/prisma-runtime
+    to: local-runtime/prisma-runtime
+  - from: public/legal
+    to: legal
+  - from: .desktop-build/prerequisites
+    to: prerequisites
+win:
+  icon: build/nautex.ico
+  target:
+    - target: nsis
+      arch: [x64]
+  requestedExecutionLevel: asInvoker
+  signAndEditExecutable: true
+  artifactName: Nautex-AI-Setup-${version}-${arch}.${ext}
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: false
+  createStartMenuShortcut: true
+  shortcutName: Nautex Community
+  uninstallDisplayName: Nautex Community
+  deleteAppDataOnUninstall: false
+  license: LICENSE
+  include: scripts/community-installer.nsh

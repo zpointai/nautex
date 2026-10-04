@@ -1,0 +1,14 @@
+{
+  "name": "nautex-desktop-runtime-tools",
+  "version": "0.3.14",
+  "private": true,
+  "description": "Pinned migration tooling for the customer-owned Nautex desktop runtime",
+  "dependencies": {
+    "prisma": "6.19.3"
+  },
+  "overrides": {
+    "deepmerge-ts": "8.0.2"
+  },
+  "license": "AGPL-3.0-only",
+  "author": "Zlatin Gorov"
+}

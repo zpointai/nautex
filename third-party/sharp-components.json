@@ -1,0 +1,201 @@
+{
+  "basis": "@img/sharp-win32-x64@0.35.4 versions.json and README; matching libvips binary independently verified",
+  "components": [
+    {
+      "name": "aom",
+      "version": "3.14.1",
+      "license": "BSD-2-Clause + AOM Patent License 1.0",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "archive",
+      "version": "3.8.9",
+      "license": "BSD-2-Clause",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "cairo",
+      "version": "1.18.4",
+      "license": "LGPL-2.1 OR MPL-1.1 per matching 1.18.4 source COPYING; packaged Sharp table labels MPL-2.0 (discrepancy)",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "Matching archive hash verified; full source COPYING, COPYING-LGPL-2.1 and COPYING-MPL-1.1 retained. Use the LGPL alternative for this review; resolve downstream table discrepancy and full static closure before publication."
+    },
+    {
+      "name": "cgif",
+      "version": "0.5.3",
+      "license": "MIT",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "exif",
+      "version": "0.6.26",
+      "license": "LGPL-3.0-or-later",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "expat",
+      "version": "2.8.3",
+      "license": "MIT",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "ffi",
+      "version": "3.8.0",
+      "license": "MIT",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "fontconfig",
+      "version": "2.18.3",
+      "license": "Fontconfig licence",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "freetype",
+      "version": "2.14.3",
+      "license": "FTL",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "fribidi",
+      "version": "1.0.16",
+      "license": "LGPL-3.0-or-later",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "glib",
+      "version": "2.89.4",
+      "license": "LGPL-3.0-or-later",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "harfbuzz",
+      "version": "14.3.1",
+      "license": "MIT",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "heif",
+      "version": "1.23.2",
+      "license": "LGPL-3.0-or-later",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "highway",
+      "version": "1.4.0",
+      "license": "BSD-3-Clause",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "imagequant",
+      "version": "2.4.1",
+      "license": "BSD-2-Clause",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "lcms",
+      "version": "2.19.1",
+      "license": "MIT",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "mozjpeg",
+      "version": "0826579",
+      "license": "Zlib / IJG / BSD-3-Clause",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "pango",
+      "version": "1.58.2",
+      "license": "LGPL-3.0-or-later",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "pixman",
+      "version": "0.46.4",
+      "license": "MIT",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "png",
+      "version": "1.6.58",
+      "license": "libpng licence",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "proxy-libintl",
+      "version": "0.5",
+      "license": "LGPL-3.0-or-later",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "rsvg",
+      "version": "2.62.91",
+      "license": "LGPL-3.0-or-later",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "tiff",
+      "version": "4.7.2",
+      "license": "libtiff licence",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "uhdr",
+      "version": "2.0.2",
+      "license": "MIT",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "vips",
+      "version": "8.18.6",
+      "license": "LGPL-3.0-or-later",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "webp",
+      "version": "1.6.0",
+      "license": "BSD-3-Clause",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "xml2",
+      "version": "2.15.3",
+      "license": "MIT",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    },
+    {
+      "name": "zlib-ng",
+      "version": "2.3.3",
+      "license": "Zlib",
+      "linkage": "compiled into libvips-42.dll except the separate libvips C++ wrapper",
+      "sourceReview": "See native-materials.json and native-components.json; no complete Rust/static dependency closure is claimed"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "nautex-desktop",
+  "version": "0.3.14",
+  "nautexBuildRevision": 2,
+  "description": "Secure Nautex Windows desktop client",
+  "author": "Zlatin Gorov",
+  "private": true,
+  "type": "module",
+  "main": "main.mjs",
+  "dependencies": {
+    "electron-updater": "^6.8.9"
+  },
+  "license": "AGPL-3.0-only"
+}

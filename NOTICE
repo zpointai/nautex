@@ -1,0 +1,16 @@
+Nautex AI 0.3.14
+Copyright (c) 2026 Zlatin Gorov
+SPDX-License-Identifier: AGPL-3.0-only
+
+Nautex is a project under the OASIS AI umbrella. This wording does not assert
+that OASIS AI is an incorporated copyright holder.
+
+Owner-authored application code is licensed under GNU AGPL version 3 only.
+This software comes without warranty. Third-party components retain their own
+copyrights and licences. The full AGPL text is in LICENSE. Bundled runtime
+notices are in Help > Corresponding source and licences and alongside PostgreSQL.
+
+No IMPA catalogue, catalogue imagery, owner credentials, operational records,
+or historical private release evidence is included. IMPA is a third-party name;
+this project does not grant any rights to its catalogue. Import only data you
+are authorised to use.

@@ -1,0 +1,14 @@
+import { readFile, mkdir, copyFile } from 'node:fs/promises';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+const root=fileURLToPath(new URL('..',import.meta.url));
+const list=JSON.parse(await readFile(path.join(root,'release-files.json'),'utf8'));
+if(!Array.isArray(list) || !list.includes('LICENSE') || !list.includes('package-lock.json')) throw Error('Missing release allowlist');
+for(const f of list) if(!/^[a-zA-Z0-9_.\-/\[\]]+$/.test(f) || f.split('/').includes('..') || /(?:^|\/)(?:node_modules|\.git|\.env|releases|\.desktop-build)(?:\/|$)/.test(f)) throw Error('Unsafe allowlist entry');
+const scan=spawnSync(process.execPath,['scripts/scan-release.mjs'],{cwd:root,stdio:'inherit'});if(scan.status!==0)process.exit(1);
+await mkdir(path.join(root,'public/legal'),{recursive:true});
+await copyFile(path.join(root,'LICENSE'),path.join(root,'public/legal/LICENSE.txt'));
+const result=spawnSync('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File',path.join(root,'scripts/source-archive.ps1')],{cwd:root,stdio:'inherit',windowsHide:true});
+if(result.status!==0)process.exit(result.status||1);
+console.log('Exact allowlisted source archive prepared. No private Git history is included.');
