@@ -12,7 +12,7 @@ The source-only snapshot changes publication documentation and adds the existing
 
 ## Pending checks and binary blockers
 
-Follow-up user report, 4 October 2026: the privately supplied candidate installed successfully in almost 10 minutes, Avast showed several alerts, and the application subsequently appeared to work normally. This report has not been independently reproduced. Warning screenshots/logs, affected files, final antivirus verdict and the machine's prerequisite baseline remain unverified. See the [installation-time and antivirus disclosure](RELEASE_NOTES.md). This does not certify missing-prerequisite installation or all clean-Windows lifecycle checks.
+Follow-up user report, 4 October 2026: the privately supplied candidate installed successfully in almost 10 minutes, Avast showed several alerts, and the application subsequently appeared to work normally. Four supplied photos have now been reviewed: Avast shows an active scan of `Nautex Community.exe` and a Threat Labs referral, followed by photos of Nautex 0.3.14 setup, About and a post-setup dashboard with AI disconnected and zero activity metrics. The alert photo shows no named malware detection or final verdict. The other alerts, exact file hash, OS build, prerequisite baseline and full lifecycle checks remain unverified; installation duration is user-reported. Photos remain private. See the [installation-time and antivirus disclosure](RELEASE_NOTES.md). This evidence does not certify missing-prerequisite installation or all clean-Windows lifecycle checks.
 
 | Area | Status and exact missing evidence/action |
 | --- | --- |
