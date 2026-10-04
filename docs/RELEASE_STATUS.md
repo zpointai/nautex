@@ -12,6 +12,8 @@ The source-only snapshot changes publication documentation and adds the existing
 
 ## Pending checks and binary blockers
 
+Follow-up user report, 4 October 2026: the privately supplied candidate installed successfully in almost 10 minutes, Avast showed several alerts, and the application subsequently appeared to work normally. This report has not been independently reproduced. Warning screenshots/logs, affected files, final antivirus verdict and the machine's prerequisite baseline remain unverified. See the [installation-time and antivirus disclosure](RELEASE_NOTES.md). This does not certify missing-prerequisite installation or all clean-Windows lifecycle checks.
+
 | Area | Status and exact missing evidence/action |
 | --- | --- |
 | Native redistribution | Incomplete. See [per-binary inventory](../third-party/NATIVE_BINARIES.json), [readable inventory](../third-party/NATIVE_INVENTORY.md) and [component blockers](THIRD_PARTY.md). Unknown revisions and vendor terms are explicitly marked. No inference of clearance from adjacent components' licences. |

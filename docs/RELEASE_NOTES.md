@@ -1,5 +1,16 @@
 # Nautex Community 0.3.14 — source release
 
+## Installation time and antivirus alerts — update 4 October 2026
+
+A tester reports that the privately supplied Windows candidate installed successfully, took almost 10 minutes, triggered several Avast alerts, and then appeared to run normally. This is one user-reported result, not a typical installation-time benchmark or a completed clean-Windows qualification. The exact warning text, affected filenames, Avast version/verdict and machine prerequisite baseline have not yet been verified.
+
+The candidate is **unsigned** and bundles Electron/Node, PostgreSQL and other native runtime files. Extracting and scanning those files can take time; the cause of this installation's delay has not been measured. Avast's [CyberCapture documentation](https://support.avast.com/en-ca/article/antivirus-cybercapture/) explains that unfamiliar files may be held for analysis. Separately, [Microsoft documents reputation warnings for new or unsigned applications](https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/smartscreen-reputation). These are possible explanations for security prompts, not a diagnosis of the reported Avast alerts. No Avast false-positive determination or antivirus clearance is claimed; successful installation alone does not establish either.
+
+Keep antivirus protection enabled. If a file is blocked or quarantined, leave it blocked pending review and record the detection name, affected filename, file SHA-256 and final antivirus verdict. Share screenshots only after removing personal paths, account details and private data. A matching release checksum establishes that a file matches the published artifact; it does not establish that the file is harmless. Signing may help establish publisher identity, but does not guarantee that antivirus alerts disappear.
+
+The installer remains unavailable as a public release asset while native redistribution and outstanding installation checks remain unresolved. This dated note updates the release page; the original source tag, archived source and checksums are unchanged.
+
+
 Tag: `v0.3.14-source.1`. Repository: https://github.com/zpointai/nautex.
 
 **The Windows installer is pending verification. No installer or native-materials archive is published with this source release.** GitHub's generated source archives contain code and are not executable installers.
