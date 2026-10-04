@@ -8,7 +8,7 @@ This repository contains the sanitised application source under AGPL-3.0-only. N
 
 [![Watch the Community overview](docs/screenshots/community-overview.png)](https://github.com/zpointai/nautex/releases/download/v0.3.14-source.2/Nautex-Community-Overview.mp4)
 
-[Video, editable project and suggested announcement](docs/COMMUNITY_VIDEO.md).
+[Watch or download the Community overview video](https://github.com/zpointai/nautex/releases/download/v0.3.14-source.2/Nautex-Community-Overview.mp4).
 
 ![Fresh workspace setup](docs/screenshots/first-run.png)
 ![Empty catalogue](docs/screenshots/empty-catalogue.png)
