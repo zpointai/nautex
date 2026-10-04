@@ -1,4 +1,4 @@
-# Nautex Community
+# Nautex AI
 
 Local Windows software for ship-chandler procurement, inventory and operations, with optional user-configured AI assistance. Copyright 2026 Zlatin Gorov; an OASIS AI project.
 
@@ -6,9 +6,9 @@ Local Windows software for ship-chandler procurement, inventory and operations, 
 
 This repository contains the sanitised application source under AGPL-3.0-only. Native dependency redistribution review and clean-Windows installation qualification remain incomplete. No installer or native-materials archive is published. GitHub's “Source code (zip)” contains source, not an installer. See the [release status and verified results](docs/RELEASE_STATUS.md).
 
-[![Watch the Community overview](docs/screenshots/community-overview.png)](https://github.com/zpointai/nautex/releases/download/v0.3.14-source.2/Nautex-Community-Overview.mp4)
+[![Watch the Nautex AI overview](docs/screenshots/community-overview.png)](https://github.com/zpointai/nautex/releases/download/v0.3.14-source.2/Nautex-Community-Overview.mp4)
 
-[Watch or download the Community overview video](https://github.com/zpointai/nautex/releases/download/v0.3.14-source.2/Nautex-Community-Overview.mp4).
+[Watch or download the Nautex AI overview video](https://github.com/zpointai/nautex/releases/download/v0.3.14-source.2/Nautex-Community-Overview.mp4).
 
 ![Fresh workspace setup](docs/screenshots/first-run.png)
 ![Empty catalogue](docs/screenshots/empty-catalogue.png)
@@ -33,7 +33,7 @@ There are no business records, personal profiles, owner API keys or IMPA catalog
 
 ## Storage, updates and support
 
-Community data lives in `%APPDATA%\Nautex Community`, outside the installation. Upgrades reuse this community profile and create recovery material where the existing migration workflow requires it. Uninstall preserves data. Private Nautex profiles are never automatically adopted or migrated. Use protected backups; recovery copies may contain confidential records and credentials and are not public support attachments. Automatic update and crash-upload endpoints are disabled in this candidate.
+Public-release data lives in `%APPDATA%\Nautex Community`, outside the installation. Upgrades reuse this separate profile and create recovery material where the existing migration workflow requires it. Uninstall preserves data. Private Nautex profiles are never automatically adopted or migrated. Use protected backups; recovery copies may contain confidential records and credentials and are not public support attachments. Automatic update and crash-upload endpoints are disabled in this candidate.
 
 Fleet lookup/map tiles and optional mailbox/web enrichment need internet access independently of AI. No paid AIS feed, OCR engine, accounting certification or catalogue licence is included. Jev advice is experimental and uses a separate TypeSafe account. External-provider availability may change. Live-provider qualification is pending; the synthetic smoke-test plan and cost bounds are documented.
 

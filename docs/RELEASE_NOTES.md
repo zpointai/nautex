@@ -1,8 +1,8 @@
-# Nautex Community 0.3.14 — source release
+# Nautex AI 0.3.14 — source release
 
 ## Source and Community video update
 
-This source-only revision includes the corrected NSIS core/core-plugin notice classifications, the matching LZMA SDK 19.00 material reference, a precise outstanding distributor-materials request, and a new sanitised Community overview video. The MP4, silent version, editable project, storyboard, validation and checksums accompany the source snapshot. [Watch the Community overview video](https://github.com/zpointai/nautex/releases/download/v0.3.14-source.2/Nautex-Community-Overview.mp4).
+This source-only revision includes the corrected NSIS core/core-plugin notice classifications, the matching LZMA SDK 19.00 material reference, a precise outstanding distributor-materials request, and a new sanitised Community overview video. The MP4, silent version, editable project, storyboard, validation and checksums accompany the source snapshot. [Watch the Nautex AI overview video](https://github.com/zpointai/nautex/releases/download/v0.3.14-source.2/Nautex-Community-Overview.mp4).
 
 The Windows installer and native-materials kit remain withheld. No app runtime or architecture change is made by this documentation/media revision. Earlier developer-host and household test evidence applies to the earlier private candidate, not a new build. Signing remains optional.
 

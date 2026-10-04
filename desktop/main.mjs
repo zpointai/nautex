@@ -46,7 +46,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const releasePackage = JSON.parse(await readFile(path.join(__dirname, 'package.json'), 'utf8'));
 const releaseLabel = Number.isSafeInteger(releasePackage.nautexReleaseRevision) && releasePackage.nautexReleaseRevision > 1
   ? ` · Pilot revision ${releasePackage.nautexReleaseRevision}` : '';
-app.setName("Nautex Community");
+app.setName("Nautex AI");
 app.setPath("userData", path.join(app.getPath("appData"), "Nautex Community"));
 const SESSION_PARTITION = "persist:nautex-community";
 const RENDERER_ENTRY = `${RENDERER_ORIGIN}/index.html`;
@@ -638,7 +638,7 @@ async function startApplication() {
     ] },
     { role: "editMenu" }, { role: "viewMenu" },
     { label: "Help", submenu: [
-      { label: "About / Legal", click: () => dialog.showMessageBox(mainWindow, { title: "Nautex Community", message: `Nautex AI ${releasePackage.version}`, detail: "Copyright 2026 Zlatin Gorov. OASIS AI project. AGPL-3.0-only. No warranty. Commercial use is permitted under the licence. Exact corresponding source and third-party notices are included in Help → Corresponding source and licences." }) },
+      { label: "About / Legal", click: () => dialog.showMessageBox(mainWindow, { title: "Nautex AI", message: `Nautex AI ${releasePackage.version}`, detail: "Copyright 2026 Zlatin Gorov. OASIS AI project. AGPL-3.0-only. No warranty. Commercial use is permitted under the licence. Exact corresponding source and third-party notices are included in Help → Corresponding source and licences." }) },
       { label: "Corresponding source and licences", click: () => shell.openPath(path.join(process.resourcesPath, "legal")) },
     ] },
   ]));

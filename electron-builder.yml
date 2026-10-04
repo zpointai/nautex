@@ -1,5 +1,5 @@
 appId: org.oasisai.nautex.community
-productName: Nautex Community
+productName: Nautex AI
 copyright: Copyright (c) 2026 Zlatin Gorov
 asar: true
 directories:
@@ -43,8 +43,8 @@ nsis:
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: false
   createStartMenuShortcut: true
-  shortcutName: Nautex Community
-  uninstallDisplayName: Nautex Community
+  shortcutName: Nautex AI
+  uninstallDisplayName: Nautex AI
   deleteAppDataOnUninstall: false
   license: LICENSE
   include: scripts/community-installer.nsh
