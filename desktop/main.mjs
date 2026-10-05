@@ -270,6 +270,9 @@ async function serveRendererRequest(request, desktopSession) {
   let relativePath;
   try {
     relativePath = decodeURIComponent(url.pathname).replace(/^[/\\]+/, "") || "index.html";
+    // Sign-out navigates to the web sign-in route. The desktop auth boundary
+    // renders that screen inside the packaged entry point after session removal.
+    if (relativePath === "sign-in" || relativePath === "sign-in/") relativePath = "index.html";
   } catch {
     return new Response("Bad request", { status: 400 });
   }
