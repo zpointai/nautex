@@ -1,5 +1,7 @@
 # Native release candidate — revision 5
 
+> Historical preparation record. Current installer availability, completed native review and remaining Windows qualification are documented in [RELEASE_STATUS.md](RELEASE_STATUS.md).
+
 This private candidate supersedes revisions 2–4. Final Windows qualification is
 pending the user's test on a fresh supported Windows 11 x64 environment.
 

@@ -3,7 +3,7 @@
 Nautex application code is AGPL-3.0-only. Each bundled dependency retains its own
 licence. The final release supplies its application source, third-party notices,
 component inventory, corresponding dependency materials and SHA-256 checksums.
-Installer publication remains pending clean-Windows qualification.
+The [Windows preview release](https://github.com/zpointai/nautex/releases/tag/v0.3.14-windows-preview.7) supplies these materials. Clean-Windows qualification remains incomplete and is disclosed separately from the completed redistribution review.
 
 ## Inventory and evidence
 

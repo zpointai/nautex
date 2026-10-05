@@ -1,5 +1,7 @@
 # Installer follow-up — revision 5
 
+> Historical preparation record. Current installer availability, completed native review and remaining Windows qualification are documented in [RELEASE_STATUS.md](RELEASE_STATUS.md).
+
 The current candidate replaces or excludes the disputed helper/runtime binaries
 and supplies the reviewed source/notices described in THIRD_PARTY.md. Historical
 candidate-2/3/4 reports are superseded by the exact final release inventory.

@@ -1,39 +1,21 @@
-# Windows candidate status — revision 7
+# Windows installer preview — revision 7
 
-The public release remains source-only (`v0.3.14-source.2`). This isolated candidate
-replaces WinShell with original NSIS/Windows COM macros, omits three disputed shader
-DLL copies, and supplies the matching dependency source/build/notices material set.
-The local review artifacts must be kept together; no installer download is published yet.
+The [Nautex AI Windows installer preview](https://github.com/zpointai/nautex/releases/tag/v0.3.14-windows-preview.7) is available for download. This is an unsigned evaluation prerelease, not a fully qualified stable Windows release. The installer targets Windows 11 x64 and includes the application, local PostgreSQL runtime and VC++ prerequisite installer.
 
-## Evidence and remaining qualification
+## Verified evidence
 
-GNU replacements passed 53 consumer ABI checks and PostgreSQL Unicode backup/restore.
-The preceding revision passed ten installed-app acceptance groups and preserved its
-synthetic profile during uninstall on the developer host. Revision 5 graphics tests
-passed WebGL shader compilation/rendering and Canvas2D using Windows' own D3DCompiler;
-the shortcut probe retained the application identity using the replacement COM macros.
-Final revision 5 installer acceptance results are supplied beside the installer in
-INSTALLED_ACCEPTANCE.json and GRAPHICS.json. These are developer-host tests.
+- All 11 packaged-application acceptance groups passed on the developer host using isolated synthetic profiles. These cover first-run setup, empty records, local work without AI, PDF extraction, authorised-data import, encrypted provider settings, maps, restart, sign-out and sign-in with preserved records.
+- Revision 7 fixes the desktop `/sign-in` route. A household user reports successful operation and sign-in/sign-out without issues after the fix.
+- All 10,238 extracted installer files match the packaged payload; all 624 matching-source archive files match the exact tagged source tree. GitHub asset digests and sizes are verified before publication.
+- Native redistribution review covers 29 component groups and 222 native file instances, including the generated uninstaller and repeated plugin copies. Required source, patches, recipes and notices accompany the installer. See [THIRD_PARTY.md](THIRD_PARTY.md).
+- Earlier developer-host installer/uninstaller tests preserved synthetic profile data. Revision 7 installer/uninstaller automation was not rerun because an existing user installation was detected and preserved. Packaged-app testing used a separate profile.
 
-The native material set includes component origins, versions, hashes, applicable
-notices, build instructions and source archives. Excluded components are rejected by
-the native audit. The final per-file NATIVE_BINARIES.json is a separate release asset,
-avoiding a circular hash between the installer and its embedded source. See THIRD_PARTY.md.
+## Remaining qualification
 
-The user will perform the clean Windows 11 x64 test in CLEAN_WINDOWS_TEST.md. Prerequisite
-installation without existing VC++, UAC denial/success, first launch, offline local use,
-restart and uninstall/data preservation remain pending on that machine. This developer
-host cannot establish those results. Cross-version upgrade is also unqualified.
+The household test used Windows 11 Pro 25H2, build 26200.9457, after an earlier Nautex installation. It does not establish a clean prerequisite baseline. Fresh supported Windows without developer tools, PostgreSQL or VC++ is still needed to qualify prerequisite installation, UAC outcomes and the complete first-launch/restart/uninstall/data-preservation lifecycle. Follow [CLEAN_WINDOWS_TEST.md](CLEAN_WINDOWS_TEST.md). Windows 10 compatibility is unqualified.
 
-Live-provider calls remain untested: USD 0.00 spent of the USD 0.05 authorised budget;
-dedicated credentials and billing/entitlement preflight are still needed. Signing is
-optional; this candidate is unsigned. User-provided photos show an Avast scan in progress,
-successful setup and an empty dashboard on an earlier candidate; they establish neither
-an antivirus verdict nor qualification of revision 5. See RELEASE_NOTES.md.
+The installer is unsigned. Earlier user testing reported Avast analysis and a roughly ten-minute installation; a later revision 6 test reported under three minutes and no alerts. No blanket antivirus-clearance claim is made. Keep antivirus enabled. See [RELEASE_NOTES.md](RELEASE_NOTES.md).
 
-The private installation, credentials, catalogue and business records are not build inputs.
-Only allowlisted sanitised application source enters the corresponding-source archive.
+Live-provider calls remain unqualified; no paid smoke tests were made. Users supply their own optional provider keys and authorised catalogue data. No owner credentials, private business records or IMPA catalogue content are included. User test screenshots remain private.
 
-Revision 6 changes visible branding to Nautex AI and removes private announcement notes from corresponding source. Native dependencies and architecture are unchanged from revision 5. Existing native evidence is retained; final packaging, branding, source correspondence and installed-app checks accompany the new artifact.
-
-On 5 October, a household tester reported installation under three minutes and no Avast alerts on Windows 11 25H2, build 26200.9457. An earlier Nautex version had been uninstalled first, so missing-prerequisite qualification is not established. The tester found a sign-out route error in revision 6. Revision 7 maps the desktop sign-in route to its entry point and adds an installed regression test. Final revision 7 results are supplied with its installer.
+Exact installer source tag: `v0.3.14-windows-preview.7`. The source archive and dependency materials are separate assets for inspection and modification; only the EXE is needed to install. Earlier source-only releases and candidate tags are retained unchanged.

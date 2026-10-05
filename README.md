@@ -2,9 +2,9 @@
 
 Local Windows software for ship-chandler procurement, inventory and operations, with optional user-configured AI assistance. Copyright 2026 Zlatin Gorov; an OASIS AI project.
 
-**Source release: `v0.3.14-source.2`. The Windows installer is pending verification and is not available for download.**
+**[Download Nautex AI for Windows 11 x64](https://github.com/zpointai/nautex/releases/download/v0.3.14-windows-preview.7/Nautex-AI-Setup-0.3.14-x64.exe)** — version 0.3.14, revision 7. Only the EXE is needed to install.
 
-This repository contains the sanitised application source under AGPL-3.0-only. Native dependency redistribution review and clean-Windows installation qualification remain incomplete. No installer or native-materials archive is published. GitHub's “Source code (zip)” contains source, not an installer. See the [release status and verified results](docs/RELEASE_STATUS.md).
+This is an **unsigned evaluation prerelease**. The [release](https://github.com/zpointai/nautex/releases/tag/v0.3.14-windows-preview.7) includes the installer, matching AGPL-3.0-only application source, reviewed native dependency source/build materials, notices and checksums. Sign-in/sign-out have passed automated and user retests. Fresh-Windows prerequisite installation remains unqualified; see the [verified results and limitations](docs/RELEASE_STATUS.md). GitHub’s “Source code (zip)” is for developers; use the EXE above to install.
 
 [![Watch the Nautex AI overview](docs/screenshots/community-overview.png)](https://github.com/zpointai/nautex/releases/download/v0.3.14-source.2/Nautex-Community-Overview.mp4)
 
@@ -13,13 +13,13 @@ This repository contains the sanitised application source under AGPL-3.0-only. N
 ![Fresh workspace setup](docs/screenshots/first-run.png)
 ![Empty catalogue](docs/screenshots/empty-catalogue.png)
 
-## Windows installation status
+## Install on Windows
 
-Windows 11 x64 is the intended supported target; clean-machine qualification is pending, and Windows 10 compatibility is unqualified. The privately tested package contains Electron, its Node runtime, the backend, PostgreSQL, migration tooling and Microsoft's Visual C++ x64 prerequisite installer. Its design does not require end users to install Node, Docker or PostgreSQL separately. Administrator consent may be needed for the Microsoft prerequisite. Allow at least 4 GB disk and 4 GB RAM for initial evaluation; workload sizing has not been benchmarked.
+Windows 11 x64 is the intended supported target; clean-machine qualification is pending, and Windows 10 compatibility is unqualified. The downloadable package contains Electron, its Node runtime, the backend, PostgreSQL, migration tooling and Microsoft's Visual C++ x64 prerequisite installer. Its design does not require end users to install Node, Docker or PostgreSQL separately. Administrator consent may be needed for the Microsoft prerequisite. Allow at least 4 GB disk and 4 GB RAM for initial evaluation; workload sizing has not been benchmarked.
 
-Developers can follow the [build instructions](docs/BUILD.md) in a separate checkout and test profile. Building locally does not clear native binaries for redistribution. At first launch, create your local company/workspace and administrator with a password of at least 12 characters. No OASIS account is required. Skip AI and catalogue import to start locally, or configure your own provider and authorised data.
+Run the downloaded EXE and follow the setup prompts. At first launch, create your local company/workspace and administrator with a password of at least 12 characters. No OASIS account is required. Skip AI and catalogue import to start locally, or configure your own provider and authorised data.
 
-The locally built candidate is unsigned. Follow your organisation's software trust policy; do not disable Windows protections. Clean Windows installation, prerequisite UAC/reboot and SmartScreen behaviour require the [pending test procedure](docs/CLEAN_WINDOWS_TEST.md). Signing remains optional.
+The installer is unsigned. Installation and antivirus analysis can take several minutes; earlier user tests reported Avast analysis, while a later test reported no alerts. See the [release notes](docs/RELEASE_NOTES.md). Follow your organisation's software trust policy; do not disable Windows protections. Clean Windows installation, prerequisite UAC/reboot and SmartScreen behaviour require the [pending test procedure](docs/CLEAN_WINDOWS_TEST.md). Signing remains optional.
 
 ## What works without an API key?
 
@@ -43,4 +43,4 @@ Support is best-effort through the [repository issue tracker](https://github.com
 
 Owner-authored code is **AGPL-3.0-only**; see [LICENSE](LICENSE) and [NOTICE](NOTICE). Commercial use is permitted under the licence. AGPL does not require publishing every private internal change, but conveying covered binaries and providing modified software for remote network interaction carry source obligations. This summary does not replace the licence.
 
-The [native component/source review](docs/THIRD_PARTY.md) documents the revision 5 component review and required source/build/notices material set. This source release includes build instructions, lockfiles, notices and component/source manifests; it does not include native executables or dependency archives. Packaging scripts generate the matching application-source ZIP for Help → Corresponding source and licences and Settings → About / Legal. A modified network deployment must offer source matching its running version. A future installer release must include its matching source and cleared dependency materials.
+The [native component/source review](docs/THIRD_PARTY.md) documents the revision 5 component review and required source/build/notices material set. The repository includes build instructions, lockfiles, notices and component/source manifests. The GitHub Release supplies the installer and dependency archives as separate assets; those archives are not needed to run Nautex. Packaging scripts generate the matching application-source ZIP for Help → Corresponding source and licences and Settings → About / Legal. A modified network deployment must offer source matching its running version. The installer’s exact build source is tagged `v0.3.14-windows-preview.7`; later documentation updates on main do not change that immutable snapshot. Developers can follow [BUILD.md](docs/BUILD.md) in an isolated checkout.

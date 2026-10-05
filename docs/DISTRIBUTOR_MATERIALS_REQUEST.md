@@ -1,5 +1,7 @@
 # Distributor materials request — draft, not sent
 
+> Historical preparation record. Current installer availability, completed native review and remaining Windows qualification are documented in [RELEASE_STATUS.md](RELEASE_STATUS.md).
+
 This historical candidate-2 request is superseded for the follow-up build by the
 [source-built replacement route](GNU_RUNTIME_BUILD.md). The GNU DLLs were rebuilt
 and tested; winpthreads and the two unused EDB additions are excluded. This request
