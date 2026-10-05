@@ -1,447 +1,913 @@
 {
   "date": "2026-10-04",
-  "archive": "Nautex-Native-Materials-0.3.14-followup.zip",
-  "completeCorrespondingSource": false,
+  "archive": "Nautex-Native-Materials-0.3.14-community.1.zip",
+  "archiveBytes": 1160838087,
+  "archiveSha256": "6350a22abce966fea4fc686dd2f7f709fdd08eb116c16139c310b1b5fe16541d",
+  "sourceDelivery": "Use this archive together with the separately checksummed Chromium source-only archive and application source. The complete material set, not just this ZIP, must accompany native distribution.",
   "materials": [
     {
-      "file": "build-win64-mxe-v8.18.6.tar.gz",
+      "file": "sources/build-win64-mxe-v8.18.6.tar.gz",
       "bytes": 64411,
       "sha256": "115305c811798647d882c360f17ffe787ea0ffc4c00f2221fccb51116835592d",
-      "origin": "https://github.com/libvips/build-win64-mxe.git @ 09cfccf20b91b441fbe97fa7a7ed8a597e55e830 (git archive)",
-      "role": "source/build material",
-      "correspondenceCaveat": null
+      "origin": "https://github.com/libvips/build-win64-mxe.git @ 09cfccf20b91b441fbe97fa7a7ed8a597e55e830 (git archive)"
     },
     {
-      "file": "canvas-v0.1.80.tar.gz",
-      "bytes": 26858285,
-      "sha256": "b98f2ef5b5bb653884c4f421451aba3244b147d7849c013187f29c41cff63018",
-      "origin": "https://github.com/Brooooooklyn/canvas/archive/refs/tags/v0.1.80.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "chromium-150.0.7871.47-DEPS.txt",
+      "file": "sources/chromium-150.0.7871.47-DEPS.txt",
       "bytes": 190458,
       "sha256": "c84ef7d5adbf14fc8bc4527844baf7b77dc9df8a2e317289147f61768ae867ac",
-      "origin": "https://chromium.googlesource.com/chromium/src/+/150.0.7871.47/DEPS?format=TEXT (decoded)",
-      "role": "source/build material",
-      "correspondenceCaveat": null
+      "origin": "https://chromium.googlesource.com/chromium/src/+/150.0.7871.47/DEPS?format=TEXT (decoded)"
     },
     {
-      "file": "chromium-blink-150.0.7871.47.tar.gz",
-      "bytes": 568686957,
-      "sha256": "5ae301785a0446cf0199747112b7d7f66f370db81a60c25d5008b7c9d16ae780",
-      "origin": "https://chromium.googlesource.com/chromium/src/+archive/150.0.7871.47/third_party/blink.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "chromium-build-150.0.7871.47.tar.gz",
+      "file": "sources/chromium-build-150.0.7871.47.tar.gz",
       "bytes": 1851188,
       "sha256": "ad9bf0c8d6749127e2c37209e49e3a466a01562bfea8780ab246cca45dbf0afb",
-      "origin": "https://chromium.googlesource.com/chromium/src/+archive/150.0.7871.47/build.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
+      "origin": "https://chromium.googlesource.com/chromium/src/+archive/150.0.7871.47/build.tar.gz"
     },
     {
-      "file": "chromium-ffmpeg-ad41607c.tar.gz",
+      "file": "sources/chromium-ffmpeg-ad41607c.tar.gz",
       "bytes": 18434530,
       "sha256": "16849584c04df184d9e9078f5500fa8ff997ea1678f46b7a2dc4af65646380c4",
-      "origin": "https://chromium.googlesource.com/chromium/third_party/ffmpeg/+archive/ad41607c61898cf7150e0fb20fe4bbabd44922a3.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
+      "origin": "https://chromium.googlesource.com/chromium/third_party/ffmpeg/+archive/ad41607c61898cf7150e0fb20fe4bbabd44922a3.tar.gz"
     },
     {
-      "file": "chromium-opus-150.0.7871.47.tar.gz",
+      "file": "sources/chromium-opus-150.0.7871.47.tar.gz",
       "bytes": 4258962,
       "sha256": "4e2985fa917e5bc1e8ecccdaa3b1dee4fbe4c9f3e4a990f6a77151031e0572c6",
-      "origin": "https://chromium.googlesource.com/chromium/src/+archive/150.0.7871.47/third_party/opus.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
+      "origin": "https://chromium.googlesource.com/chromium/src/+archive/150.0.7871.47/third_party/opus.tar.gz"
     },
     {
-      "file": "electron-v43.1.0-source.tar.gz",
+      "file": "sources/electron-v43.1.0-source.tar.gz",
       "bytes": 18956218,
       "sha256": "88eae0eca681c685b510c1cc809d86c10e4f17c9a1c35aae066906331e36ce13",
-      "origin": "https://github.com/electron/electron.git @ b5c102b3f0f7e9c5be064ba337a3547a83cf7d09 (git archive)",
-      "role": "source/build material",
-      "correspondenceCaveat": null
+      "origin": "https://github.com/electron/electron.git @ b5c102b3f0f7e9c5be064ba337a3547a83cf7d09 (git archive)"
     },
     {
-      "file": "fontconfig-2.18.3.tar.gz",
+      "file": "sources/fontconfig-2.18.3.tar.gz",
       "bytes": 663316,
       "sha256": "c2b9b77ef6639a91a19a6ee68609b2ba4c9b2d49e370bd345b93b0ab685a91b5",
-      "origin": "https://gitlab.freedesktop.org/fontconfig/fontconfig.git @ 0f236723a3c26bd9745e32ba2b3ee21e5f809295 (git archive)",
-      "role": "source/build material",
-      "correspondenceCaveat": null
+      "origin": "https://gitlab.freedesktop.org/fontconfig/fontconfig.git @ 0f236723a3c26bd9745e32ba2b3ee21e5f809295 (git archive)"
     },
     {
-      "file": "gettext-0.19.8.tar.gz",
+      "file": "sources/gettext-0.19.8.tar.gz",
       "bytes": 19977131,
       "sha256": "3da4f6bd79685648ecf46dab51d66fcdddc156f41ed07e580a696a38ac61d48f",
-      "origin": "https://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.8.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": "Matches upstream version only; EDB patches/compiler/build recipe are not established."
+      "origin": "https://ftp.gnu.org/pub/gnu/gettext/gettext-0.19.8.tar.gz"
     },
     {
-      "file": "libiconv-1.15.tar.gz",
-      "bytes": 5264188,
-      "sha256": "ccf536620a45458d26ba83887a983b96827001e92a13847b45e4925cc8913178",
-      "origin": "https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": "Matches upstream version only; EDB patches/compiler/build recipe are not established."
-    },
-    {
-      "file": "mxe-build-recipes.tar.gz",
-      "bytes": 2623127,
-      "sha256": "c54f11d6e0673e5cfdf1031702e7f7c0573dc7d32dba74b2b513b0afd1a2c9c1",
-      "origin": "https://github.com/kleisauke/mxe.git @ d973945bb92c7783d5afa41bb2b8d2e1a04eaba3 (git archive)",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "node-v24.18.0.tar.xz",
-      "bytes": 55425872,
-      "sha256": "e94afde24db08e0c564ee7110a2d5aab51ee0059382c9fd8233c54eec47b28f9",
-      "origin": "https://nodejs.org/dist/v24.18.0/node-v24.18.0.tar.xz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "postgresql-16.14.tar.bz2",
-      "bytes": 25106859,
-      "sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471",
-      "origin": "https://ftp.postgresql.org/pub/source/v16.14/postgresql-16.14.tar.bz2",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "prisma-engines-c2990dca.tar.gz",
-      "bytes": 70969752,
-      "sha256": "588e7a91d67996daf75009a6f684685045d8579eeff1841b8b0aa0c640556708",
-      "origin": "https://github.com/prisma/prisma-engines/archive/c2990dca591cba766e3b7ef5d9e8a84796e47ab7.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-01-0.5.tar.gz",
-      "bytes": 13056,
-      "sha256": "f7a1cbd7579baaf575c66f9d99fb6295e9b0684a28b095967cfda17857595303",
-      "origin": "https://github.com/frida/proxy-libintl/archive/0.5.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-02-2.3.3.tar.gz",
-      "bytes": 2447397,
-      "sha256": "f9c65aa9c852eb8255b636fd9f07ce1c406f061ec19a2e7d508b318ca0c907d1",
-      "origin": "https://github.com/zlib-ng/zlib-ng/archive/2.3.3.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-03-libffi-3.8.0.tar.gz",
-      "bytes": 1581626,
-      "sha256": "7da3e2d9a171eb0a038f592ecad3ff2bb2550f3496d87b3b29ad0cf4430c0db4",
-      "origin": "https://github.com/libffi/libffi/releases/download/v3.8.0/libffi-3.8.0.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-04-glib-2.89.4.tar.xz",
-      "bytes": 5830980,
-      "sha256": "1cdbb799f558832e6f14b8337b5fd599c6918ab144977b55e05e00a5e2e84a2c",
-      "origin": "https://download.gnome.org/sources/glib/2.89/glib-2.89.4.tar.xz",
-      "role": "source/build material",
-      "correspondenceCaveat": null,
-      "upstreamPinnedSha256": "1cdbb799f558832e6f14b8337b5fd599c6918ab144977b55e05e00a5e2e84a2c"
-    },
-    {
-      "file": "sharp-05-glib-without-gregex.patch",
-      "bytes": 7759,
-      "sha256": "b1f2930a11292e529de137c7eb723850e0cc0969b1a2b0358196389312acd272",
-      "origin": "https://gist.github.com/kleisauke/284d685efa00908da99ea6afbaaf39ae/raw/bdad5489a61c217850631571caf57f5db6ea8b2c/glib-without-gregex.patch",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-06-libxml2-2.15.3.tar.xz",
-      "bytes": 3152452,
-      "sha256": "78262a6e7ac170d6528ebfe2efccdf220191a5af6a6cd61ea4a9a9a5042c7a07",
-      "origin": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.3.tar.xz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-07-libexif-0.6.26.tar.xz",
-      "bytes": 1335488,
-      "sha256": "4a055ed6575e61ca46c3172be3c753cc16c9becd0f99ec71d58dd0e471476c0c",
-      "origin": "https://github.com/libexif/libexif/releases/download/v0.6.26/libexif-0.6.26.tar.xz",
-      "role": "source/build material",
-      "correspondenceCaveat": null,
-      "upstreamPinnedSha256": "4a055ed6575e61ca46c3172be3c753cc16c9becd0f99ec71d58dd0e471476c0c"
-    },
-    {
-      "file": "sharp-08-lcms2-2.19.1.tar.gz",
-      "bytes": 5728743,
-      "sha256": "bfc54f7bab59fbc921012014a8032e4cba4abd46db47d46b76416a8c0b2815c8",
-      "origin": "https://github.com/mm2/Little-CMS/releases/download/lcms2.19.1/lcms2-2.19.1.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-10-libheif-1.23.2.tar.gz",
-      "bytes": 2111195,
-      "sha256": "8bd5d41d19dc84536d118b04774709f244df6104ef66d623dad5fa4650143405",
-      "origin": "https://github.com/strukturag/libheif/releases/download/v1.23.2/libheif-1.23.2.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-11-0826579.tar.gz",
-      "bytes": 2443542,
-      "sha256": "b680167bd5d9afebdd576a12f8c49d2c9066a3b92ef96a2b2c5f7829b8600fe5",
-      "origin": "https://github.com/mozilla/mozjpeg/archive/0826579.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-12-f90668e0e4fb79c81e1f24a0ccc0e2090af761bf.patch",
-      "bytes": 8103,
-      "sha256": "a65f87cadf3a6052e44d6314c906f6e2891352f82646b8a6f0b8fcf2c1891e7c",
-      "origin": "https://github.com/mozilla/mozjpeg/commit/f90668e0e4fb79c81e1f24a0ccc0e2090af761bf.patch",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-13-v1.6.58.tar.gz",
-      "bytes": 1592190,
-      "sha256": "a9d4df463d36a6e5f9c29bd6f4967312d17e996c1854f3511f833924eb1993cf",
-      "origin": "https://github.com/pnggroup/libpng/archive/v1.6.58.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-14-v2.4.1.tar.gz",
-      "bytes": 45792,
-      "sha256": "47d2a84b7b1052975c9d50a3d4e3cacbf57b43d84a4c3131210848ead9964dfb",
-      "origin": "https://github.com/lovell/libimagequant/archive/v2.4.1.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-15-libwebp-1.6.0.tar.gz",
-      "bytes": 4296070,
-      "sha256": "e4ab7009bf0629fd11982d4c2aa83964cf244cffba7347ecd39019a9e38c4564",
-      "origin": "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.6.0.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-16-libtiff-v4.7.2.tar.gz",
-      "bytes": 2616788,
-      "sha256": "62b15f44c10106065211efa22a2dc77937bd97ee1f6e3afd2c9659010de112eb",
-      "origin": "https://gitlab.com/libtiff/libtiff/-/archive/v4.7.2/libtiff-v4.7.2.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-17-1.4.0.tar.gz",
-      "bytes": 3691240,
-      "sha256": "e72241ac9524bb653ae52ced768b508045d4438726a303f10181a38f764a453c",
-      "origin": "https://github.com/google/highway/archive/1.4.0.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-18-VER-2-14-3.tar.gz",
-      "bytes": 2515533,
-      "sha256": "dc49de6b01a266eef4876a4dd34d9842c475d3e28ff2eff63bd2fb760ab56261",
-      "origin": "https://github.com/freetype/freetype/archive/VER-2-14-3.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-19-expat-2.8.3.tar.xz",
-      "bytes": 517264,
-      "sha256": "f6256df90c906773d344da084402b7d3e4f22ed41b1a59c989098a83d3ea0c85",
-      "origin": "https://github.com/libexpat/libexpat/releases/download/R_2_8_3/expat-2.8.3.tar.xz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-20-libarchive-3.8.9.tar.xz",
-      "bytes": 6617696,
-      "sha256": "888c934f9d95648ecb9163dc8e23ab80a476ecb81a8f1154704a227b5b676dde",
-      "origin": "https://github.com/libarchive/libarchive/releases/download/v3.8.9/libarchive-3.8.9.tar.xz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-22-14.3.1.tar.gz",
-      "bytes": 37889473,
-      "sha256": "05e602daf0846d7497d842807766ea32ca270f3e2c9284ce03811a2a1ed669c9",
-      "origin": "https://github.com/harfbuzz/harfbuzz/archive/14.3.1.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-23-pixman-0.46.4.tar.gz",
-      "bytes": 827198,
-      "sha256": "d09c44ebc3bd5bee7021c79f922fe8fb2fb57f7320f55e97ff9914d2346a591c",
-      "origin": "https://cairographics.org/releases/pixman-0.46.4.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-24-cairo-1.18.4.tar.xz",
-      "bytes": 32578804,
-      "sha256": "445ed8208a6e4823de1226a74ca319d3600e83f6369f99b14265006599c32ccb",
-      "origin": "https://cairographics.org/releases/cairo-1.18.4.tar.xz",
-      "role": "source/build material",
-      "correspondenceCaveat": null,
-      "upstreamPinnedSha256": "445ed8208a6e4823de1226a74ca319d3600e83f6369f99b14265006599c32ccb"
-    },
-    {
-      "file": "sharp-25-fribidi-1.0.16.tar.xz",
-      "bytes": 1098260,
-      "sha256": "1b1cde5b235d40479e91be2f0e88a309e3214c8ab470ec8a2744d82a5a9ea05c",
-      "origin": "https://github.com/fribidi/fribidi/releases/download/v1.0.16/fribidi-1.0.16.tar.xz",
-      "role": "source/build material",
-      "correspondenceCaveat": null,
-      "upstreamPinnedSha256": "1b1cde5b235d40479e91be2f0e88a309e3214c8ab470ec8a2744d82a5a9ea05c"
-    },
-    {
-      "file": "sharp-26-pango-1.58.2.tar.xz",
-      "bytes": 1918112,
-      "sha256": "342385b6ca3b7c73455d7c80a13b7dbe4489e00bc3bd4c5bd6ed4dce421e374a",
-      "origin": "https://download.gnome.org/sources/pango/1.58/pango-1.58.2.tar.xz",
-      "role": "source/build material",
-      "correspondenceCaveat": null,
-      "upstreamPinnedSha256": "342385b6ca3b7c73455d7c80a13b7dbe4489e00bc3bd4c5bd6ed4dce421e374a"
-    },
-    {
-      "file": "sharp-27-librsvg-2.62.91.tar.xz",
-      "bytes": 6766696,
-      "sha256": "6caeae129d40dd88f8ec49436fd89bfe4ada716a125187a7fa0def8fcaa0b250",
-      "origin": "https://download.gnome.org/sources/librsvg/2.62/librsvg-2.62.91.tar.xz",
-      "role": "source/build material",
-      "correspondenceCaveat": null,
-      "upstreamPinnedSha256": "6caeae129d40dd88f8ec49436fd89bfe4ada716a125187a7fa0def8fcaa0b250"
-    },
-    {
-      "file": "sharp-28-v0.5.3.tar.gz",
-      "bytes": 40021,
-      "sha256": "dcc7731e974ee77db75df26c99aca4d95f11ca2d267d870d42bce1e0d1e1e75f",
-      "origin": "https://github.com/dloebl/cgif/archive/v0.5.3.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-29-v2.0.2.tar.gz",
-      "bytes": 1518872,
-      "sha256": "aa8d193bb887c348c419780511dd03b374f4e07af8812b6d3f80c8537cf1ef2c",
-      "origin": "https://github.com/google/libultrahdr/archive/v2.0.2.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-30-383.patch",
-      "bytes": 7567,
-      "sha256": "57658db2a11ae964755e513b01db21bcfa408c350b11b3a6ef9bc8576fb749ba",
-      "origin": "https://patch-diff.githubusercontent.com/raw/google/libultrahdr/pull/383.patch",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-31-vips-8.18.6.tar.xz",
-      "bytes": 25431000,
-      "sha256": "3c41e1d5458081bfa4a5bc54e116c46259c75c6760a18027764555632b9dda3e",
-      "origin": "https://github.com/libvips/libvips/releases/download/v8.18.6/vips-8.18.6.tar.xz",
-      "role": "source/build material",
-      "correspondenceCaveat": null,
-      "upstreamPinnedSha256": "3c41e1d5458081bfa4a5bc54e116c46259c75c6760a18027764555632b9dda3e"
-    },
-    {
-      "file": "sharp-32-libvips-cpp-soversion.patch",
-      "bytes": 514,
-      "sha256": "256b7d6f8c973bb53b20cff5171c7117d6b35d3aa4e72d22cb906f4fe1e2c890",
-      "origin": "https://gist.githubusercontent.com/lovell/313a6901e9db1bf285f2a1f1180499e4/raw/3988223c7dfa4d22745d9392034b0117abef1446/libvips-cpp-soversion.patch",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-libvips-v1.3.3-build.tar.gz",
-      "bytes": 24122,
-      "sha256": "22e0382d713982cd5bcb8ce99b3d3ab9cdbf6625793959aa1477bfb70c0bc6be",
-      "origin": "https://github.com/lovell/sharp-libvips.git @ 6e5971d333377743163edc3ad9e5d0b897abcbc9 (git archive)",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "sharp-v0.35.4.tar.gz",
-      "bytes": 41787797,
-      "sha256": "c28497f06919490a5073fd489541203406fbca99c1c0147810cb12c7da30ac05",
-      "origin": "https://github.com/lovell/sharp/archive/refs/tags/v0.35.4.tar.gz",
-      "role": "source/build material",
-      "correspondenceCaveat": null
-    },
-    {
-      "file": "vips-dev-x64-web-8.18.6-static.zip",
-      "bytes": 9322134,
-      "sha256": "42ceea0c2f53d1244f3cb54c059881487b37452ee46c1c98c0d4b47480b20588",
-      "origin": "https://github.com/libvips/build-win64-mxe/releases/download/v8.18.6/vips-dev-x64-web-8.18.6-static.zip",
-      "role": "upstream development binary/header kit for provenance and relinking",
-      "correspondenceCaveat": null,
-      "upstreamPinnedSha256": "42ceea0c2f53d1244f3cb54c059881487b37452ee46c1c98c0d4b47480b20588"
-    },
-    {
-      "file": "libxslt-1.1.45.tar.xz",
-      "bytes": 1519992,
-      "sha256": "9acfe68419c4d06a45c550321b3212762d92f41465062ca4ea19e632ee5d216e",
-      "origin": "https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.45.tar.xz",
-      "role": "Upstream libxslt 1.1.45 source; bundled DLL exported version verified, EDB build revision unknown"
-    },
-    {
-      "file": "libaom-3.14.1.tar.gz",
+      "file": "sources/libaom-3.14.1.tar.gz",
       "bytes": 6368868,
       "sha256": "44bf90dbd23e734d50e70a8c41c285193922938bd0d3bc2ee56764d181d55ef5",
-      "origin": "https://storage.googleapis.com/aom-releases/libaom-3.14.1.tar.gz",
-      "upstreamPinnedSha256": "44bf90dbd23e734d50e70a8c41c285193922938bd0d3bc2ee56764d181d55ef5",
-      "role": "Matching Windows libvips aom 3.14.1 source; tagged build-win64-mxe recipe hash verified",
-      "correspondenceCaveat": "Windows patch/build recipe is in build-win64-mxe-v8.18.6.tar.gz; original base image digest remains unknown"
+      "origin": "https://storage.googleapis.com/aom-releases/libaom-3.14.1.tar.gz"
     },
     {
-      "file": "StdUtils-1.14-source.tar.gz",
-      "bytes": 222751,
-      "sha256": "3687ab4e09005a8a0b93c1a07a36285d93466070e94b8bf6f12781fb53c419e1",
-      "origin": "https://codeload.github.com/lordmulder/StdUtils/tar.gz/4e1117321001e54dcd2c52f72d3c359d5215e426",
-      "role": "StdUtils tag 1.14 commit 4e1117321001e54dcd2c52f72d3c359d5215e426 source/build files; exact EDB-independent installer helper",
-      "correspondenceCaveat": "No complete independent native rebuild performed"
+      "file": "sources/libiconv-1.15.tar.gz",
+      "bytes": 5264188,
+      "sha256": "ccf536620a45458d26ba83887a983b96827001e92a13847b45e4925cc8913178",
+      "origin": "https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz"
     },
     {
-      "file": "Nsis7z_19.00.7z",
-      "bytes": 461078,
-      "sha256": "6f2f3730049926f40442ee0c8b7d3e3dee7ace544d82467ff8059ea3f4201c58",
-      "origin": "https://nsis.sourceforge.io/mediawiki/images/6/69/Nsis7z_19.00.7z",
-      "role": "Official plugin source/project and binaries; shipped x86-unicode DLL byte-matches",
-      "correspondenceCaveat": "No complete independent native rebuild performed"
+      "file": "sources/libxslt-1.1.45.tar.xz",
+      "bytes": 1519992,
+      "sha256": "9acfe68419c4d06a45c550321b3212762d92f41465062ca4ea19e632ee5d216e",
+      "origin": "https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.45.tar.xz"
     },
     {
-      "file": "7z1900-src.7z",
-      "bytes": 1071569,
-      "sha256": "9ba70a5e8485cf9061b30a2a84fe741de5aeb8dd271aab8889da0e9b3bf1868e",
-      "origin": "https://www.7-zip.org/a/7z1900-src.7z",
-      "role": "Upstream 7-Zip 19.00 source; plugin source identifies its own selected LZMA SDK files",
-      "correspondenceCaveat": "No complete independent native rebuild performed"
-    },
-    {
-      "file": "lzma1900.7z",
+      "file": "sources/lzma1900.7z",
       "bytes": 1082692,
       "sha256": "00f569e624b3d9ed89cf8d40136662c4c5207eaceb92a70b1044c77f84234bad",
-      "origin": "https://www.7-zip.org/a/lzma1900.7z",
-      "role": "Exact SDK 19.00 source/build input required by the official Nsis7z 19.00 instructions",
-      "correspondenceCaveat": "Official plugin binary matches; project-reference coverage checked; no independent rebuild performed"
+      "origin": "https://www.7-zip.org/a/lzma1900.7z"
+    },
+    {
+      "file": "sources/mxe-build-recipes.tar.gz",
+      "bytes": 2623127,
+      "sha256": "c54f11d6e0673e5cfdf1031702e7f7c0573dc7d32dba74b2b513b0afd1a2c9c1",
+      "origin": "https://github.com/kleisauke/mxe.git @ d973945bb92c7783d5afa41bb2b8d2e1a04eaba3 (git archive)"
+    },
+    {
+      "file": "sources/node-v24.18.0.tar.xz",
+      "bytes": 55425872,
+      "sha256": "e94afde24db08e0c564ee7110a2d5aab51ee0059382c9fd8233c54eec47b28f9",
+      "origin": "https://nodejs.org/dist/v24.18.0/node-v24.18.0.tar.xz"
+    },
+    {
+      "file": "sources/Nsis7z_19.00.7z",
+      "bytes": 461078,
+      "sha256": "6f2f3730049926f40442ee0c8b7d3e3dee7ace544d82467ff8059ea3f4201c58",
+      "origin": "https://nsis.sourceforge.io/mediawiki/images/6/69/Nsis7z_19.00.7z"
+    },
+    {
+      "file": "sources/postgresql-16.14.tar.bz2",
+      "bytes": 25106859,
+      "sha256": "f6d077142737920858ce958ccdb75c6ee137a63b5b0853c70693d401ac7e3471",
+      "origin": "https://ftp.postgresql.org/pub/source/v16.14/postgresql-16.14.tar.bz2"
+    },
+    {
+      "file": "sources/prisma-engines-c2990dca.tar.gz",
+      "bytes": 70969752,
+      "sha256": "588e7a91d67996daf75009a6f684685045d8579eeff1841b8b0aa0c640556708",
+      "origin": "https://github.com/prisma/prisma-engines/archive/c2990dca591cba766e3b7ef5d9e8a84796e47ab7.tar.gz"
+    },
+    {
+      "file": "sources/sharp-01-0.5.tar.gz",
+      "bytes": 13056,
+      "sha256": "f7a1cbd7579baaf575c66f9d99fb6295e9b0684a28b095967cfda17857595303",
+      "origin": "https://github.com/frida/proxy-libintl/archive/0.5.tar.gz"
+    },
+    {
+      "file": "sources/sharp-02-2.3.3.tar.gz",
+      "bytes": 2447397,
+      "sha256": "f9c65aa9c852eb8255b636fd9f07ce1c406f061ec19a2e7d508b318ca0c907d1",
+      "origin": "https://github.com/zlib-ng/zlib-ng/archive/2.3.3.tar.gz"
+    },
+    {
+      "file": "sources/sharp-03-libffi-3.8.0.tar.gz",
+      "bytes": 1581626,
+      "sha256": "7da3e2d9a171eb0a038f592ecad3ff2bb2550f3496d87b3b29ad0cf4430c0db4",
+      "origin": "https://github.com/libffi/libffi/releases/download/v3.8.0/libffi-3.8.0.tar.gz"
+    },
+    {
+      "file": "sources/sharp-04-glib-2.89.4.tar.xz",
+      "bytes": 5830980,
+      "sha256": "1cdbb799f558832e6f14b8337b5fd599c6918ab144977b55e05e00a5e2e84a2c",
+      "origin": "https://download.gnome.org/sources/glib/2.89/glib-2.89.4.tar.xz"
+    },
+    {
+      "file": "sources/sharp-05-glib-without-gregex.patch",
+      "bytes": 7759,
+      "sha256": "b1f2930a11292e529de137c7eb723850e0cc0969b1a2b0358196389312acd272",
+      "origin": "https://gist.github.com/kleisauke/284d685efa00908da99ea6afbaaf39ae/raw/bdad5489a61c217850631571caf57f5db6ea8b2c/glib-without-gregex.patch"
+    },
+    {
+      "file": "sources/sharp-06-libxml2-2.15.3.tar.xz",
+      "bytes": 3152452,
+      "sha256": "78262a6e7ac170d6528ebfe2efccdf220191a5af6a6cd61ea4a9a9a5042c7a07",
+      "origin": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.3.tar.xz"
+    },
+    {
+      "file": "sources/sharp-07-libexif-0.6.26.tar.xz",
+      "bytes": 1335488,
+      "sha256": "4a055ed6575e61ca46c3172be3c753cc16c9becd0f99ec71d58dd0e471476c0c",
+      "origin": "https://github.com/libexif/libexif/releases/download/v0.6.26/libexif-0.6.26.tar.xz"
+    },
+    {
+      "file": "sources/sharp-08-lcms2-2.19.1.tar.gz",
+      "bytes": 5728743,
+      "sha256": "bfc54f7bab59fbc921012014a8032e4cba4abd46db47d46b76416a8c0b2815c8",
+      "origin": "https://github.com/mm2/Little-CMS/releases/download/lcms2.19.1/lcms2-2.19.1.tar.gz"
+    },
+    {
+      "file": "sources/sharp-10-libheif-1.23.2.tar.gz",
+      "bytes": 2111195,
+      "sha256": "8bd5d41d19dc84536d118b04774709f244df6104ef66d623dad5fa4650143405",
+      "origin": "https://github.com/strukturag/libheif/releases/download/v1.23.2/libheif-1.23.2.tar.gz"
+    },
+    {
+      "file": "sources/sharp-11-0826579.tar.gz",
+      "bytes": 2443542,
+      "sha256": "b680167bd5d9afebdd576a12f8c49d2c9066a3b92ef96a2b2c5f7829b8600fe5",
+      "origin": "https://github.com/mozilla/mozjpeg/archive/0826579.tar.gz"
+    },
+    {
+      "file": "sources/sharp-12-f90668e0e4fb79c81e1f24a0ccc0e2090af761bf.patch",
+      "bytes": 8103,
+      "sha256": "a65f87cadf3a6052e44d6314c906f6e2891352f82646b8a6f0b8fcf2c1891e7c",
+      "origin": "https://github.com/mozilla/mozjpeg/commit/f90668e0e4fb79c81e1f24a0ccc0e2090af761bf.patch"
+    },
+    {
+      "file": "sources/sharp-13-v1.6.58.tar.gz",
+      "bytes": 1592190,
+      "sha256": "a9d4df463d36a6e5f9c29bd6f4967312d17e996c1854f3511f833924eb1993cf",
+      "origin": "https://github.com/pnggroup/libpng/archive/v1.6.58.tar.gz"
+    },
+    {
+      "file": "sources/sharp-14-v2.4.1.tar.gz",
+      "bytes": 45792,
+      "sha256": "47d2a84b7b1052975c9d50a3d4e3cacbf57b43d84a4c3131210848ead9964dfb",
+      "origin": "https://github.com/lovell/libimagequant/archive/v2.4.1.tar.gz"
+    },
+    {
+      "file": "sources/sharp-15-libwebp-1.6.0.tar.gz",
+      "bytes": 4296070,
+      "sha256": "e4ab7009bf0629fd11982d4c2aa83964cf244cffba7347ecd39019a9e38c4564",
+      "origin": "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.6.0.tar.gz"
+    },
+    {
+      "file": "sources/sharp-16-libtiff-v4.7.2.tar.gz",
+      "bytes": 2616788,
+      "sha256": "62b15f44c10106065211efa22a2dc77937bd97ee1f6e3afd2c9659010de112eb",
+      "origin": "https://gitlab.com/libtiff/libtiff/-/archive/v4.7.2/libtiff-v4.7.2.tar.gz"
+    },
+    {
+      "file": "sources/sharp-17-1.4.0.tar.gz",
+      "bytes": 3691240,
+      "sha256": "e72241ac9524bb653ae52ced768b508045d4438726a303f10181a38f764a453c",
+      "origin": "https://github.com/google/highway/archive/1.4.0.tar.gz"
+    },
+    {
+      "file": "sources/sharp-18-VER-2-14-3.tar.gz",
+      "bytes": 2515533,
+      "sha256": "dc49de6b01a266eef4876a4dd34d9842c475d3e28ff2eff63bd2fb760ab56261",
+      "origin": "https://github.com/freetype/freetype/archive/VER-2-14-3.tar.gz"
+    },
+    {
+      "file": "sources/sharp-19-expat-2.8.3.tar.xz",
+      "bytes": 517264,
+      "sha256": "f6256df90c906773d344da084402b7d3e4f22ed41b1a59c989098a83d3ea0c85",
+      "origin": "https://github.com/libexpat/libexpat/releases/download/R_2_8_3/expat-2.8.3.tar.xz"
+    },
+    {
+      "file": "sources/sharp-20-libarchive-3.8.9.tar.xz",
+      "bytes": 6617696,
+      "sha256": "888c934f9d95648ecb9163dc8e23ab80a476ecb81a8f1154704a227b5b676dde",
+      "origin": "https://github.com/libarchive/libarchive/releases/download/v3.8.9/libarchive-3.8.9.tar.xz"
+    },
+    {
+      "file": "sources/sharp-22-14.3.1.tar.gz",
+      "bytes": 37889473,
+      "sha256": "05e602daf0846d7497d842807766ea32ca270f3e2c9284ce03811a2a1ed669c9",
+      "origin": "https://github.com/harfbuzz/harfbuzz/archive/14.3.1.tar.gz"
+    },
+    {
+      "file": "sources/sharp-23-pixman-0.46.4.tar.gz",
+      "bytes": 827198,
+      "sha256": "d09c44ebc3bd5bee7021c79f922fe8fb2fb57f7320f55e97ff9914d2346a591c",
+      "origin": "https://cairographics.org/releases/pixman-0.46.4.tar.gz"
+    },
+    {
+      "file": "sources/sharp-24-cairo-1.18.4.tar.xz",
+      "bytes": 32578804,
+      "sha256": "445ed8208a6e4823de1226a74ca319d3600e83f6369f99b14265006599c32ccb",
+      "origin": "https://cairographics.org/releases/cairo-1.18.4.tar.xz"
+    },
+    {
+      "file": "sources/sharp-25-fribidi-1.0.16.tar.xz",
+      "bytes": 1098260,
+      "sha256": "1b1cde5b235d40479e91be2f0e88a309e3214c8ab470ec8a2744d82a5a9ea05c",
+      "origin": "https://github.com/fribidi/fribidi/releases/download/v1.0.16/fribidi-1.0.16.tar.xz"
+    },
+    {
+      "file": "sources/sharp-26-pango-1.58.2.tar.xz",
+      "bytes": 1918112,
+      "sha256": "342385b6ca3b7c73455d7c80a13b7dbe4489e00bc3bd4c5bd6ed4dce421e374a",
+      "origin": "https://download.gnome.org/sources/pango/1.58/pango-1.58.2.tar.xz"
+    },
+    {
+      "file": "sources/sharp-27-librsvg-2.62.91.tar.xz",
+      "bytes": 6766696,
+      "sha256": "6caeae129d40dd88f8ec49436fd89bfe4ada716a125187a7fa0def8fcaa0b250",
+      "origin": "https://download.gnome.org/sources/librsvg/2.62/librsvg-2.62.91.tar.xz"
+    },
+    {
+      "file": "sources/sharp-28-v0.5.3.tar.gz",
+      "bytes": 40021,
+      "sha256": "dcc7731e974ee77db75df26c99aca4d95f11ca2d267d870d42bce1e0d1e1e75f",
+      "origin": "https://github.com/dloebl/cgif/archive/v0.5.3.tar.gz"
+    },
+    {
+      "file": "sources/sharp-29-v2.0.2.tar.gz",
+      "bytes": 1518872,
+      "sha256": "aa8d193bb887c348c419780511dd03b374f4e07af8812b6d3f80c8537cf1ef2c",
+      "origin": "https://github.com/google/libultrahdr/archive/v2.0.2.tar.gz"
+    },
+    {
+      "file": "sources/sharp-30-383.patch",
+      "bytes": 7567,
+      "sha256": "57658db2a11ae964755e513b01db21bcfa408c350b11b3a6ef9bc8576fb749ba",
+      "origin": "https://patch-diff.githubusercontent.com/raw/google/libultrahdr/pull/383.patch"
+    },
+    {
+      "file": "sources/sharp-31-vips-8.18.6.tar.xz",
+      "bytes": 25431000,
+      "sha256": "3c41e1d5458081bfa4a5bc54e116c46259c75c6760a18027764555632b9dda3e",
+      "origin": "https://github.com/libvips/libvips/releases/download/v8.18.6/vips-8.18.6.tar.xz"
+    },
+    {
+      "file": "sources/sharp-32-libvips-cpp-soversion.patch",
+      "bytes": 514,
+      "sha256": "256b7d6f8c973bb53b20cff5171c7117d6b35d3aa4e72d22cb906f4fe1e2c890",
+      "origin": "https://gist.githubusercontent.com/lovell/313a6901e9db1bf285f2a1f1180499e4/raw/3988223c7dfa4d22745d9392034b0117abef1446/libvips-cpp-soversion.patch"
+    },
+    {
+      "file": "sources/sharp-libvips-v1.3.3-build.tar.gz",
+      "bytes": 24122,
+      "sha256": "22e0382d713982cd5bcb8ce99b3d3ab9cdbf6625793959aa1477bfb70c0bc6be",
+      "origin": "https://github.com/lovell/sharp-libvips.git @ 6e5971d333377743163edc3ad9e5d0b897abcbc9 (git archive)"
+    },
+    {
+      "file": "sources/sharp-v0.35.4.tar.gz",
+      "bytes": 41787797,
+      "sha256": "c28497f06919490a5073fd489541203406fbca99c1c0147810cb12c7da30ac05",
+      "origin": "https://github.com/lovell/sharp/archive/refs/tags/v0.35.4.tar.gz"
+    },
+    {
+      "file": "sources/rust-vendors.tar.gz",
+      "bytes": 204697040,
+      "sha256": "def909ed4dbc0706adf75297cdc2348b7158458252adc555a2338e04d0b0fe2f",
+      "origin": "Cargo.lock-pinned librsvg 2.62.91 (350 crates) and Prisma c2990dca (607 crates); crates.io source checksums verified by cargo vendor"
+    },
+    {
+      "file": "sources/StdUtils-1.14-build-sources.tar.gz",
+      "bytes": 163244,
+      "sha256": "adeca65c6d35d66db7dafe5c1afdb11aacb2490e09eb93cf7b54d64fe4a03c2c",
+      "origin": "https://github.com/lordmulder/stdutils/tree/4e1117321001e54dcd2c52f72d3c359d5215e426; optional compiled packaging tools omitted"
+    },
+    {
+      "file": "sources/rustc-1.90.0-src.tar.xz",
+      "bytes": 272348992,
+      "sha256": "6bfeaddd90ffda2f063492b092bfed925c4b8c701579baf4b1316e021470daac",
+      "origin": "https://static.rust-lang.org/dist/; exact publisher SHA-256 verified; see rust-runtime-origins.json"
+    },
+    {
+      "file": "sources/rustc-nightly-2026-06-05-src.tar.xz",
+      "bytes": 243562908,
+      "sha256": "89e9769b66c61eca90b885c852fbe34e952081c0e3332a7921eabfc7990d2afe",
+      "origin": "https://static.rust-lang.org/dist/; exact publisher SHA-256 verified; see rust-runtime-origins.json"
+    },
+    {
+      "file": "rust-runtime-origins.json",
+      "bytes": 1325,
+      "sha256": "08640ba1304ad6a10f78a52888f463fcd3cc2205a952d1c9574ad4aec2f5bc42",
+      "origin": "Rust publisher source checksum verification"
+    },
+    {
+      "file": "third-party/licences/fontconfig-2.18.3--fontconfig-2.18.3_COPYING.txt",
+      "bytes": 8616,
+      "sha256": "51a51aa9823704fd90bccc616cdd17ebabb5b2b3e9cbde886ca02c7002288067",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/gettext-0.19.8--gettext-0.19.8_COPYING.txt",
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/gettext-0.19.8--gettext-0.19.8_djgpp_COPYING.DJ.txt",
+      "bytes": 2088,
+      "sha256": "7ee9e3e525fe35087cff566bce96b1e8f60e944235daa822b5b8375688d64186",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/gettext-0.19.8--gettext-0.19.8_gettext-runtime_COPYING.txt",
+      "bytes": 495,
+      "sha256": "7ef2cdfe58e0c0460657b6598b49af29d4e03c1e41cbaf0e1da1eb8ad74b95d0",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/gettext-0.19.8--gettext-0.19.8_gettext-tools_COPYING.txt",
+      "bytes": 78,
+      "sha256": "5d4cff30d5038f82a0edc79798456049b61e1752fdb7e9ab1f4bfb9fae3a7303",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/GNU-GPL-3.0.txt",
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/GNU-LGPL-3.0.txt",
+      "bytes": 7652,
+      "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/index.json",
+      "bytes": 9154,
+      "sha256": "a133b2fc497a7bc1137d02d509809a386d7577d4ab1ed11cbb07e49dc3c5f6a2",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/libiconv-1.15--libiconv-1.15_COPYING.LIB.txt",
+      "bytes": 25291,
+      "sha256": "56bdea73b6145ef6ac5259b3da390b981d840c24cb03b8e1cbc678de7ecfa18d",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/libiconv-1.15--libiconv-1.15_COPYING.txt",
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/libiconv-1.15--libiconv-1.15_libcharset_COPYING.LIB.txt",
+      "bytes": 25291,
+      "sha256": "56bdea73b6145ef6ac5259b3da390b981d840c24cb03b8e1cbc678de7ecfa18d",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/libxslt-1.1.45--libxslt-1.1.45_Copyright.txt",
+      "bytes": 2968,
+      "sha256": "7e48e290b6bfccc2ec1b297023a1d77f2fd87417f71fbb9f50aabef40a851819",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/NSIS-3.04-COPYING.txt",
+      "bytes": 15488,
+      "sha256": "3c8de989f6504d52f5f8dfafedb6668cd47201f5d01f1319570727c091425dd6",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/Nsis7z--License.txt",
+      "bytes": 476,
+      "sha256": "63fcfe54826809b5a9f9df8a8ff53c04330122319ec67a2dd815085586adaf0e",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/Nsis7z-Wrapper-LICENSE.txt",
+      "bytes": 2553,
+      "sha256": "16b5d1aa7773e36ed48e09b0909a52e0af32250025d0729acac1c113239dcef0",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/pdfjs-LICENSE_OPENJPEG.txt",
+      "bytes": 2112,
+      "sha256": "a6af136f3e15038a666b61f376612a07d9a4e48cb7c01adbf3e33b3f14ab49b6",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/pdfjs-LICENSE_PDFJS_OPENJPEG.txt",
+      "bytes": 1285,
+      "sha256": "717fc62da03292dbb4dd0c8280bd4ce7bb8550dcf31d772bc93455fb50313425",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/pdfjs-LICENSE_PDFJS_QCMS.txt",
+      "bytes": 1285,
+      "sha256": "eb5104ca33552be007857a28351bc408f379ddd4bfacab1226b09c6d1e9fd7c4",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/pdfjs-LICENSE_QCMS.txt",
+      "bytes": 1121,
+      "sha256": "36d847ae882f6574ebc72f56a4f354e4f104fde4a584373496482e97d52d31bc",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/proxy-libintl-0.5--COPYING.txt",
+      "bytes": 25292,
+      "sha256": "d245807f90032872d1438d741ed21e2490e1175dc8aa3afa5ddb6c8e529b58e5",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/sharp-04-glib-2.89.4--glib-2.89.4_LICENSES_LicenseRef-old-glib-tests.txt.txt",
+      "bytes": 841,
+      "sha256": "fb261b2d5dbe76c4850f90da763210bc385e52428df6bbfd7b06295ac8a32914",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/sharp-07-libexif-0.6.26--libexif-0.6.26_COPYING.txt",
+      "bytes": 26434,
+      "sha256": "36b6d3fa47916943fd5fec313c584784946047ec1337a78b440e5992cb595f89",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/sharp-24-cairo-1.18.4--cairo-1.18.4_COPYING-LGPL-2.1.txt",
+      "bytes": 26533,
+      "sha256": "9e9e8608c4cdda51a78cc3a385f4ec9a2e4c96d5ecad74ac8bca5fca3e563b7d",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/sharp-24-cairo-1.18.4--cairo-1.18.4_COPYING-MPL-1.1.txt",
+      "bytes": 25755,
+      "sha256": "53692a2ed6c6a2c6ec9b32dd0b820dfae91e0a1fcdf625ca9ed0bdf8705fcc4f",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/sharp-24-cairo-1.18.4--cairo-1.18.4_COPYING.txt",
+      "bytes": 1576,
+      "sha256": "67228a9f7c5f9b67c58f556f1be178f62da4d9e2e6285318d8c74d567255abdf",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/sharp-24-cairo-1.18.4--cairo-1.18.4_perf_COPYING.txt",
+      "bytes": 229,
+      "sha256": "6f93b45ea874706058ae35bc02df79c3f9daf00948672eea8394cc25d1327d49",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/sharp-24-cairo-1.18.4--cairo-1.18.4_test_COPYING.txt",
+      "bytes": 1026,
+      "sha256": "a37812e0e27a211272d4c27fa45028c3653e78bb708acccb77c94128dc72b98e",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/sharp-24-cairo-1.18.4--cairo-1.18.4_util_COPYING.txt",
+      "bytes": 138,
+      "sha256": "008e976b6e5e7155ee24322073f42cab7cd6daf90bc2322f1d5c3aacab94111c",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/sharp-25-fribidi-1.0.16--fribidi-1.0.16_COPYING.txt",
+      "bytes": 26440,
+      "sha256": "32434afcc8666ba060e111d715bfdb6c2d5dd8a35fa4d3ab8ad67d8f850d2f2b",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/sharp-26-pango-1.58.2--pango-1.58.2_COPYING.txt",
+      "bytes": 25292,
+      "sha256": "d245807f90032872d1438d741ed21e2490e1175dc8aa3afa5ddb6c8e529b58e5",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/sharp-27-librsvg-2.62.91--librsvg-2.62.91_COPYING.LIB.txt",
+      "bytes": 26530,
+      "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/sharp-27-librsvg-2.62.91--librsvg-2.62.91_librsvg-rebind_LICENSE.txt",
+      "bytes": 1023,
+      "sha256": "f9c4c77baa3828004ee54b8a4f2db2e88ed44a6237a493965bf551fac0fcb62d",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/sharp-31-vips-8.18.6--vips-8.18.6_LICENSE.txt",
+      "bytes": 26530,
+      "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/StdUtils--stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426_Contrib_StdUtils_src_blake2_COPYING.txt.txt",
+      "bytes": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/StdUtils--stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426_Contrib_StdUtils_src_rhash_COPYING.txt.txt",
+      "bytes": 751,
+      "sha256": "8cf876d3406a2eed6c17ae804c8958bd78d3a0f63c30d6e2e789ab575e9fde40",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/StdUtils--stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426_LGPL.txt.txt",
+      "bytes": 26530,
+      "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/StdUtils--stdutils-4e1117321001e54dcd2c52f72d3c359d5215e426_LGPL_CLARIFICATION.txt.txt",
+      "bytes": 2703,
+      "sha256": "49287ffa37d51910a8cb595d7ab64ebd2d42525384b16d4322783a0e57a77194",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/licences/UAC-0.2.4c-LICENSE.txt",
+      "bytes": 943,
+      "sha256": "dc66200eed16adc58e24a2a69403b304f8e025ba1967fc0d1aa9ef130d4ab412",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/rust-notices/additional/mongodb-internal-macros-3.3.0-LICENSE",
+      "bytes": 11349,
+      "sha256": "0d6fc0c55c9aa03692171f5373ba6d878aca44a77438ab4fafd3e63f43b816ca",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/rust-notices/INVENTORY.json",
+      "bytes": 641655,
+      "sha256": "eb952b9b37c028b9383f7d1a9e3a6a5227a1fd997b5cad53e67927276131416c",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/rust-notices/NOTICES.txt",
+      "bytes": 8810867,
+      "sha256": "0543d9ef152f1e1fabf0770711eff248ccb352203db6a40e65d713e11d2504fa",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/rust-notices/standard-terms/Apache-2.0.txt",
+      "bytes": 10280,
+      "sha256": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/rust-notices/standard-terms/MIT.txt",
+      "bytes": 1078,
+      "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/rust-notices/standard-terms/MPL-2.0.txt",
+      "bytes": 16727,
+      "sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/GNU_ABI_VERIFICATION.json",
+      "bytes": 15058,
+      "sha256": "d6bfa5cdd5b2a2fbce9a31249b8273724d967306cf6c60d8c6eeabb7c5b76a8d",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/notices/crt/COPYING",
+      "bytes": 2326,
+      "sha256": "99a69660981156c21336fdb5661f89341b013c94e4bf9e1c7467b4745718397f",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/notices/crt/COPYING.MinGW-w64-runtime.txt",
+      "bytes": 12155,
+      "sha256": "1db8da07b436c68833c0673ffee3d9fcb2526047f3820b81661865dfedc79a1f",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/notices/crt/COPYING.MinGW-w64.txt",
+      "bytes": 5905,
+      "sha256": "f38e6194bd3bfa1b654f118e5acefe0aead437bbe669eee43957ccc65a7127f1",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/notices/gettext/COPYING",
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/notices/gettext/COPYING.LIB",
+      "bytes": 26545,
+      "sha256": "3fe5361f24b7c49ba12911c08f5a33f9cb18871d95d9fb881f5b8a4793e04288",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/notices/headers/COPYING",
+      "bytes": 2326,
+      "sha256": "99a69660981156c21336fdb5661f89341b013c94e4bf9e1c7467b4745718397f",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/notices/headers/COPYING.MinGW-w64-runtime.txt",
+      "bytes": 12155,
+      "sha256": "1db8da07b436c68833c0673ffee3d9fcb2526047f3820b81661865dfedc79a1f",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/notices/headers/COPYING.MinGW-w64.txt",
+      "bytes": 5905,
+      "sha256": "f38e6194bd3bfa1b654f118e5acefe0aead437bbe669eee43957ccc65a7127f1",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/notices/headers/ddk-readme.txt",
+      "bytes": 650,
+      "sha256": "8d8f9924e4ea5466932000bdb9a4104da1d8ca3e4c979bb8207225522ba63826",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/notices/libgcc/COPYING.RUNTIME",
+      "bytes": 3324,
+      "sha256": "9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/notices/libgcc/COPYING3",
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/notices/libiconv/COPYING",
+      "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/notices/libiconv/COPYING.LIB",
+      "bytes": 25291,
+      "sha256": "56bdea73b6145ef6ac5259b3da390b981d840c24cb03b8e1cbc678de7ecfa18d",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/POSTGRES_REPLACEMENT_TEST.json",
+      "bytes": 496,
+      "sha256": "96b00e5c972db71865ebbbaa2a575da07795fe448919e358eb674855b75cdcf8",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "third-party/replacements/gnu/toolchain-packages.txt",
+      "bytes": 2954,
+      "sha256": "0ec2c020d2003ac5173b4b726821962489c092e4078aba081dd2a8e4edc18fb6",
+      "origin": "Retained upstream notices / recorded GNU build evidence"
+    },
+    {
+      "file": "docs/DEPENDENCY_BUILD.md",
+      "bytes": 4275,
+      "sha256": "e4b5ce1b23e8f3d8f1b50539ed63cd542ac4dcf2ea78c85f72f085dd0799e4c0",
+      "origin": "Nautex Community build instructions/source"
+    },
+    {
+      "file": "docs/GNU_RUNTIME_BUILD.md",
+      "bytes": 3654,
+      "sha256": "b205cc8e40f39e11580d6c54a8846058d90db07cac182d6b5bb7cea5160bc4fa",
+      "origin": "Nautex Community build instructions/source"
+    },
+    {
+      "file": "docs/INSTALLER_HELPER_REVIEW.md",
+      "bytes": 2344,
+      "sha256": "d41421e2369ea003782c303acc692f935394cad7868603ea79591149fa61651e",
+      "origin": "Nautex Community build instructions/source"
+    },
+    {
+      "file": "scripts/build-gnu-runtime.sh",
+      "bytes": 2795,
+      "sha256": "53b9bf817c1ee5035bd8d9d948a98cc5294d12d666ad5a41f50148a0c2384a2d",
+      "origin": "Nautex Community build instructions/source"
+    },
+    {
+      "file": "scripts/community-shortcuts.nsh",
+      "bytes": 3189,
+      "sha256": "6caa73d2be832f91b24baef771d554b6f76a650405c0efefc28bcb045c6f553a",
+      "origin": "Nautex Community build instructions/source"
+    },
+    {
+      "file": "scripts/prepare-community-nsis.mjs",
+      "bytes": 2024,
+      "sha256": "40d4e86f04bc4937c3e13b9fc95f9b700e0a413bd995f94b5d2a6b169cfc58a7",
+      "origin": "Nautex Community build instructions/source"
+    },
+    {
+      "file": "scripts/build-community-installer.cjs",
+      "bytes": 1158,
+      "sha256": "dd3b0367ae5c5ba6087cd989c7fa6fd5c1b86d24d41e4269768886a03182944a",
+      "origin": "Nautex Community build instructions/source"
+    },
+    {
+      "file": "installer-templates/assistedInstaller.nsh",
+      "bytes": 4783,
+      "sha256": "667a0d50a29e228b15e0baac7035b95dc4e0f8e026e40185b0ddd40f28462d38",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/assistedMessages.yml",
+      "bytes": 22554,
+      "sha256": "f298f188611471abf1cd3d1c840b6b79f8022a3da0ed709b1743de2567c27c8c",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/common.nsh",
+      "bytes": 4068,
+      "sha256": "281e8071663d2ef3e9f00bb27e6ef09d2c2b52b85458da07082f2b186100e259",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/empty-license.txt",
+      "bytes": 10,
+      "sha256": "47d2a515ef2f05b87d688656286a61e4f743da4b878684c7654969db17711c40",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/include/allowOnlyOneInstallerInstance.nsh",
+      "bytes": 5461,
+      "sha256": "219ac8f0e16ce3d2983736fa6d7388c2b2bca6e8f9b40e49b168711f05e25490",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/include/extractAppPackage.nsh",
+      "bytes": 3189,
+      "sha256": "e4174388a0f7a1df0b85a0742aa1ea7a4b2b18f9f29dccd6ef10a66212f68148",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/include/FileAssociation.nsh",
+      "bytes": 4943,
+      "sha256": "3680cc9c9d3adee599aed200e0a7b3a7f3b08114ca0b9fbd7a09d7db6726aa73",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/include/getProcessInfo.nsh",
+      "bytes": 3731,
+      "sha256": "1aa6bd7afc8b82534c26c878d2716fd12b7e215b11e2d5becd0d605085b88590",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/include/installer.nsh",
+      "bytes": 8968,
+      "sha256": "bd44e1b8d83c075f8250e41fbdbd7fa6e39716ac882e682a7d3f2edd0162858a",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/include/installUtil.nsh",
+      "bytes": 6113,
+      "sha256": "97bd546b5cd2aaf16b77bc9e2be8a18962dd74ab5c4d23b35b163ca89bf4dd2a",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/include/nsProcess.nsh",
+      "bytes": 664,
+      "sha256": "c8057c110908425e03bca6a4a96fab853a4705844fb5fb6123e7191ce94d0e63",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/include/StdUtils.nsh",
+      "bytes": 16329,
+      "sha256": "e68d1bf7e4afd258b601346b833bf064285213d8f481caa900a1430cdabee275",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/include/StrContains.nsh",
+      "bytes": 1388,
+      "sha256": "5050b692d091915c9f1083b558918c77b90f20683cb1b9e746890d61a79d550b",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/include/UAC.nsh",
+      "bytes": 8743,
+      "sha256": "abd701f2898f987041baa9d7ece9d0f8ee806eb5f7d85a4f39b6c60b8d638769",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/include/webPackage.nsh",
+      "bytes": 1867,
+      "sha256": "2c0c0ab1ce525caf6ef908502d3ec007430986c3022c3987ccfaf021ddabe7b1",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/installer.nsi",
+      "bytes": 3497,
+      "sha256": "95976b3b995624df62125ba4e7e0a9cdbbad493d3d21f8d89df7a4a5f0669213",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/installSection.nsh",
+      "bytes": 2760,
+      "sha256": "331361749fd950411012d4da0be2341579fd115b7e4a98d01749aba690dd950d",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/messages.yml",
+      "bytes": 22478,
+      "sha256": "5da129410c11bfc202d41586a0704b69749c58664f7f09a4a8b1cad6b1786a20",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/multiUser.nsh",
+      "bytes": 3983,
+      "sha256": "0174cbf623f37f1785a43b3ad7f9e782dd88ec3c1d483347fb466b913d42363a",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/multiUserUi.nsh",
+      "bytes": 8917,
+      "sha256": "f7a4524244e68dc0782a759e076e5e55fadef0f22bbccf33100a4ab59d69c066",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/oneClick.nsh",
+      "bytes": 399,
+      "sha256": "87d6c095f37716759c8d9373dcab906394546007abb626c04e1c784158f6de5b",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/portable.nsi",
+      "bytes": 2249,
+      "sha256": "6b49b3450cbb622caecd442b48e7669d82d68f62dcc7c515aec4f4862040908e",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/README.md",
+      "bytes": 2898,
+      "sha256": "762b868ee4ab498247d6f523c690083f94540cfd6c81755fabc97a2c8f7828bb",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/uninstaller.nsh",
+      "bytes": 5520,
+      "sha256": "a1846eedff3f712775296008ccaa1ddaca8c076257a62d88bfd9e1e104f97378",
+      "origin": "app-builder-lib 26.15.3 MIT templates, modified by supplied prepare-community-nsis.mjs"
+    },
+    {
+      "file": "installer-templates/LICENSE",
+      "bytes": 1084,
+      "sha256": "bed8d0ab3e6031817f775a641ff37313b0f5591bc8ba0ed79b978dafbd4231ce",
+      "origin": "electron-builder 26.15.3 monorepo MIT licence"
     }
-  ]
+  ],
+  "chromiumSource": {
+    "original": "chromium-150.0.7871.47.tar.xz",
+    "originalSha256": "d58c2f486a918444f86871661a1607bce2ca30b2494cf27c77bf3d6357708050",
+    "policy": "Source/build tree retained; prebuilt toolchains, compiled objects and archived test fixtures omitted. Download platform toolchains via upstream build hooks. This is a source distribution, not a preconfigured offline build environment.",
+    "keptMembers": 1150245,
+    "sourceBytes": 14818086388,
+    "file": "Chromium-150.0.7871.47-source-only.tar.gz",
+    "bytes": 3896242996,
+    "sha256": "17079404c973469b0375a7dfe7145447f93f2e354fdfcd83b2304bc213bbaff5",
+    "omittedMembers": 124949,
+    "parts": [
+      {
+        "file": "Chromium-150.0.7871.47-source-only.tar.gz.part01",
+        "bytes": 1500000000,
+        "sha256": "ad763705d2f2cb73c7883f76cc388e01daa24b47b4716a7738c804524cf94e23"
+      },
+      {
+        "file": "Chromium-150.0.7871.47-source-only.tar.gz.part02",
+        "bytes": 1500000000,
+        "sha256": "e72447192b4ac8e876610ff5a447b9a9153310a68b6c4744567383a23ef46da1"
+      },
+      {
+        "file": "Chromium-150.0.7871.47-source-only.tar.gz.part03",
+        "bytes": 896242996,
+        "sha256": "223512413d5eae9da657b4dfb3657a35168a205681c59cb254c7ee517168c756"
+      }
+    ]
+  }
 }

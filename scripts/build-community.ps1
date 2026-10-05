@@ -27,5 +27,5 @@ if(!$UsePreparedPostgres){Run-Checked 'node.exe' @('scripts/prepare-postgres-run
 Run-Checked 'node.exe' @('scripts/prepare-prisma-runtime.mjs')
 Run-Checked 'node.exe' @('scripts/prepare-desktop-runtime.mjs','--standalone')
 Run-Checked 'node.exe' @('scripts/test-native-runtime.mjs')
-Run-Checked 'npx.cmd' @('electron-builder','--win','nsis','--x64','--publish','never')
+Run-Checked 'node.exe' @('scripts/build-community-installer.cjs')
 Run-Checked 'node.exe' @('scripts/scan-release.mjs','releases/win-unpacked/resources')

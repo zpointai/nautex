@@ -1,10 +1,22 @@
-# Nautex AI 0.3.14 — source release
+# Nautex AI 0.3.14 — Windows candidate revision 7
 
-## Source and Community video update
+Revision 7 fixes desktop sign-out: `/sign-in` loads the packaged interface, which displays the existing sign-in form after the session is removed. The regression test also checks restart while signed out, signing back in and preservation of synthetic records. Missing or forbidden asset paths retain their existing handling.
 
-This source-only revision includes the corrected NSIS core/core-plugin notice classifications, the matching LZMA SDK 19.00 material reference, a precise outstanding distributor-materials request, and a new sanitised Community overview video. The MP4, silent version, editable project, storyboard, validation and checksums accompany the source snapshot. [Watch the Nautex AI overview video](https://github.com/zpointai/nautex/releases/download/v0.3.14-source.2/Nautex-Community-Overview.mp4).
+Revision 6 restored the visible name **Nautex AI** in the installer, executable, Start menu and About dialog. Existing internal profile/registration identifiers are retained. Private announcement notes are excluded from its corresponding source.
 
-The Windows installer and native-materials kit remain withheld. No app runtime or architecture change is made by this documentation/media revision. Earlier developer-host and household test evidence applies to the earlier private candidate, not a new build. Signing remains optional.
+This candidate preserves the local Electron/PostgreSQL architecture and empty first-run
+workspace. It replaces the unclear WinShell helper with original COM macros, uses the
+Windows system shader compiler, removes unused shader/compiler copies, and completes
+the dependency material set. GNU runtime replacements and the removal of unused Canvas,
+EDB extensions and Elevate remain in place. User-owned provider configuration and
+authorised catalogue import remain available; owner credentials and catalogue data
+are excluded.
+
+The public source release remains `v0.3.14-source.2`. The new installer is a private test
+candidate pending the user's clean Windows 11 x64 checklist. Developer-host test evidence
+and hashes accompany the candidate. An eventual public installer will receive a new tag
+at its exact source commit and the complete source/material/checksum set. No earlier tag
+will be moved. The installer is unsigned; signing remains optional.
 
 ## Installation time and antivirus alerts — update 4 October 2026
 
@@ -16,23 +28,5 @@ The visible Avast scan and Threat Labs referral are consistent with the unfamili
 
 Keep antivirus protection enabled. If a file is blocked or quarantined, leave it blocked pending review and record the detection name, affected filename, file SHA-256 and final antivirus verdict. Share screenshots only after removing personal paths, account details and private data. A matching release checksum establishes that a file matches the published artifact; it does not establish that the file is harmless. Signing may help establish publisher identity, but does not guarantee that antivirus alerts disappear.
 
-The installer remains unavailable as a public release asset while native redistribution and outstanding installation checks remain unresolved. The original source.1 release remains unchanged; source.2 packages the updated documentation and media with new matching checksums.
 
-
-Tag: `v0.3.14-source.2`. Repository: https://github.com/zpointai/nautex.
-
-**The Windows installer is pending verification. No installer or native-materials archive is published with this source release.** GitHub's generated source archives contain code and are not executable installers.
-
-- AGPL-3.0-only application source, attribution, full licence and corresponding-source build scripts.
-- Separate Nautex Community installation and profile; no automatic adoption of private Nautex records.
-- Empty first launch, local workspace/account creation, optional user-owned provider configuration and authorised catalogue import.
-- Accurate requirements for all 17 navigation modules, Ask Nautex and Settings.
-- Exact provider model IDs, setup, costs, privacy, explicit activation/removal and bounded failure handling.
-- No owner keys, private business data, catalogue content or private Git history.
-- Sanitised first-run and empty-catalogue screenshots; third-party notices, source/build manifests and the per-binary candidate inventory.
-
-The Windows candidate passed build/type checks, nine focused tests and nine installed-application acceptance groups on a **developer host** with an isolated synthetic profile. Same-version reinstall, restart and uninstall/data preservation were tested there. No clean-machine, missing-VC++ prerequisite, cross-version upgrade or live-provider qualification is claimed.
-
-Remaining binary gates include exact EDB library source/build correspondence, native static dependency/source and notice closure, vendor grants/revisions, and installer helper redistribution evidence. The candidate is unsigned; signing is optional. A clean supported Windows 11 x64 VM without developer tools, PostgreSQL or VC++ was unavailable. Follow [the precise pending procedure](CLEAN_WINDOWS_TEST.md).
-
-The [release status](RELEASE_STATUS.md), [native review](THIRD_PARTY.md), [provider guide](PROVIDERS.md) and [module matrix](MODULE_REQUIREMENTS.md) describe evidence and limitations. The source tag is distinct from the earlier local `v0.3.14` candidate. Any future cleared installer will use a new tag at its exact final source commit, with regenerated matching artifacts and checksums.
+See RELEASE_STATUS.md, THIRD_PARTY.md, PROVIDERS.md and MODULE_REQUIREMENTS.md for evidence and limits.

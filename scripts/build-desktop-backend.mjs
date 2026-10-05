@@ -32,6 +32,9 @@ await cp(standaloneRoot, outputRoot, {
     const relative = path.relative(standaloneRoot, source);
     if (!relative) return true;
     const segments = relative.split(path.sep);
+    // PDF text extraction uses a JavaScript DOMMatrix; no native Canvas/Skia
+    // package is needed. Exclude all Canvas platform variants from the payload.
+    if (segments.some((segment, index) => segment === "@napi-rs" && segments[index + 1]?.startsWith("canvas"))) return false;
     return standaloneEntries.has(segments[0]) && !segments.some((segment) => segment === ".git" || segment.startsWith(".env") || /\.node\.tmp\d+$/i.test(segment));
   },
 });
@@ -65,7 +68,6 @@ for (const entry of tracedPackages) {
   const localDependencies = path.join(tracedPackagesRoot, entry.name, "node_modules");
   await mkdir(localDependencies, { recursive: true });
   await cp(path.join(projectRoot, "node_modules", "pdfjs-dist"), path.join(localDependencies, "pdfjs-dist"), { recursive: true });
-  await cp(path.join(projectRoot, "node_modules", "@napi-rs"), path.join(localDependencies, "@napi-rs"), { recursive: true });
 }
 
 // Next's tracing includes the Sharp addon but omits its dynamically loaded DLLs.

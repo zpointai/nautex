@@ -214,5 +214,11 @@
     "archive": "Nsis7z_19.00.7z",
     "member": "Contrib/nsis7z/DOC/nsis7z.txt (attribution and License section; explanatory heading added)",
     "sha256": "16b5d1aa7773e36ed48e09b0909a52e0af32250025d0729acac1c113239dcef0"
+  },
+  {
+    "file": "UAC-0.2.4c-LICENSE.txt",
+    "archive": "UAC.zip",
+    "member": "License.txt",
+    "sha256": "dc66200eed16adc58e24a2a69403b304f8e025ba1967fc0d1aa9ef130d4ab412"
   }
 ]

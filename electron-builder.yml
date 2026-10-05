@@ -2,6 +2,7 @@ appId: org.oasisai.nautex.community
 productName: Nautex AI
 copyright: Copyright (c) 2026 Zlatin Gorov
 asar: true
+afterPack: scripts/after-pack-community.cjs
 directories:
   app: desktop
   output: releases
@@ -40,6 +41,8 @@ win:
 nsis:
   oneClick: false
   perMachine: false
+  # This release has no automatic-update feed; install updates manually.
+  packElevateHelper: false
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: false
   createStartMenuShortcut: true

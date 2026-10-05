@@ -1,7 +1,7 @@
 {
   "name": "nautex-desktop",
   "version": "0.3.14",
-  "nautexBuildRevision": 2,
+  "nautexBuildRevision": 7,
   "description": "Secure Nautex Windows desktop client",
   "author": "Zlatin Gorov",
   "private": true,

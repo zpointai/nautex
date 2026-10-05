@@ -5,40 +5,50 @@
     {
       "id": "gnu-libiconv",
       "match": "postgresql/bin/libiconv-2\\.dll$",
-      "version": "1.15 (PE resource; EDB build revision unknown)",
+      "version": "1.15 source-built replacement",
       "license": "LGPL-2.1-or-later",
-      "origin": "EDB PostgreSQL 16.14-2 windows-x64 archive SHA256 8a7f54c1968d5d49bdcd3f66b1291f736c74b8cb6a26e9874771fcc7837dbf38",
+      "origin": "Unmodified GNU release sources; isolated MSYS2 GCC 16.2.0-4 build",
       "requiredNotices": [
-        "resources/local-runtime/postgresql/server_license.txt",
-        "resources/local-runtime/postgresql/commandlinetools_3rd_party_licenses.txt"
+        "public/legal/THIRD-PARTY-NOTICES.txt",
+        "third-party/replacements/gnu/notices"
       ],
       "sourceMaterials": [
         "libiconv-1.15.tar.gz"
       ],
       "buildMaterials": [
-        "GNU configure/Makefiles in archive; EDB build recipe missing"
+        "scripts/build-gnu-runtime.sh",
+        "third-party/replacements/gnu/toolchain-packages.txt",
+        "docs/GNU_RUNTIME_BUILD.md"
       ],
-      "verificationStatus": "BLOCKED",
-      "remaining": "Exact EDB patches, build scripts and source-to-binary match are unavailable from the public source page. No compatible replacement has been built; a Windows C/C++ compiler and an accessible Linux build engine were unavailable."
+      "verificationStatus": "SOURCE_REBUILT_AND_RUNTIME_TESTED",
+      "remaining": "Matching source archives and notices must accompany this DLL in the eventual release; overall installer clearance remains pending.",
+      "allowedSha256": [
+        "42ec8fb73a809f0a4160b6985addd2fa930603ebb7e64e4c1490f4fcbffea934"
+      ]
     },
     {
       "id": "gnu-gettext-libintl",
       "match": "postgresql/bin/libintl-9\\.dll$",
-      "version": "0.19.8 (PE resource; EDB build revision unknown)",
+      "version": "0.19.8 source-built replacement; native Windows threading",
       "license": "LGPL-2.1-or-later (runtime library; gettext tools have different terms)",
-      "origin": "EDB PostgreSQL 16.14-2 windows-x64 archive SHA256 8a7f54c1968d5d49bdcd3f66b1291f736c74b8cb6a26e9874771fcc7837dbf38",
+      "origin": "Unmodified GNU release sources; isolated MSYS2 GCC 16.2.0-4 build",
       "requiredNotices": [
-        "resources/local-runtime/postgresql/server_license.txt",
-        "resources/local-runtime/postgresql/commandlinetools_3rd_party_licenses.txt"
+        "public/legal/THIRD-PARTY-NOTICES.txt",
+        "third-party/replacements/gnu/notices"
       ],
       "sourceMaterials": [
         "gettext-0.19.8.tar.gz"
       ],
       "buildMaterials": [
-        "GNU runtime/intl build files; EDB patches/recipe missing"
+        "scripts/build-gnu-runtime.sh",
+        "third-party/replacements/gnu/toolchain-packages.txt",
+        "docs/GNU_RUNTIME_BUILD.md"
       ],
-      "verificationStatus": "BLOCKED",
-      "remaining": "Exact EDB patches, build scripts and source-to-binary match are unavailable from the public source page. No compatible replacement has been built; a Windows C/C++ compiler and an accessible Linux build engine were unavailable."
+      "verificationStatus": "SOURCE_REBUILT_AND_RUNTIME_TESTED",
+      "remaining": "Matching source archives and notices must accompany this DLL in the eventual release; overall installer clearance remains pending.",
+      "allowedSha256": [
+        "04328d1b9e5e4178b9bfa6ac019788ea5bc4255d50ae7b18b8a7cd4ce03525bc"
+      ]
     },
     {
       "id": "winpthreads",
@@ -54,8 +64,8 @@
       "buildMaterials": [
         "Distributor source/build identification required"
       ],
-      "verificationStatus": "BLOCKED",
-      "remaining": "The resource version is not a unique source revision. Resolve the distributor/upstream licence attribution discrepancy and preserve the correct copyright notices; do not infer LGPL solely from its aggregate heading."
+      "verificationStatus": "EXCLUDED_FROM_REVISION_5",
+      "remaining": "Not distributed. The native audit rejects reintroduction. See docs/NATIVE_REPLACEMENT_PROGRESS.md."
     },
     {
       "id": "openssl",
@@ -209,8 +219,8 @@
       "buildMaterials": [
         "Distributor source/provenance required"
       ],
-      "verificationStatus": "BLOCKED",
-      "remaining": "These optional EDB additions are not identified by the core PostgreSQL version. Their exact licences/source revisions still need distributor evidence."
+      "verificationStatus": "EXCLUDED_FROM_REVISION_5",
+      "remaining": "Not distributed. The native audit rejects reintroduction. See docs/NATIVE_REPLACEMENT_PROGRESS.md."
     },
     {
       "id": "postgresql",
@@ -276,15 +286,17 @@
         "sharp-31-vips-8.18.6.tar.xz",
         "sharp-32-libvips-cpp-soversion.patch",
         "sharp-libvips-v1.3.3-build.tar.gz",
-        "sharp-v0.35.4.tar.gz"
+        "sharp-v0.35.4.tar.gz",
+        "rust-vendors.tar.gz",
+        "rustc-nightly-2026-06-05-src.tar.xz"
       ],
       "buildMaterials": [
         "build-win64-mxe-v8.18.6.tar.gz",
         "sharp-libvips-v1.3.3-build.tar.gz",
         "mxe-build-recipes.tar.gz"
       ],
-      "verificationStatus": "SOURCES_PARTIAL",
-      "remaining": "31 recipe downloads plus Fontconfig Git source obtained; nine upstream hash pins verified. Original base image digest, full static Rust dependency/source closure and exact rebuild remain unverified. A moving MXE branch snapshot is identified by commit and is not falsely labelled the original build commit."
+      "verificationStatus": "SOURCE_AND_NOTICE_MATERIALS_ASSEMBLED",
+      "remaining": "Matching source/build recipes and notices supplied in the material set. Independent byte-for-byte reproduction is not claimed; platform SDKs and build tools are separate prerequisites. Original upstream container digest is unknown; the captured MXE commit is explicitly recorded as a recipe snapshot."
     },
     {
       "id": "sharp-addon",
@@ -321,8 +333,8 @@
       "buildMaterials": [
         "Upstream build/workflow and Skia dependency metadata in archive"
       ],
-      "verificationStatus": "BLOCKED",
-      "remaining": "Wrapper source acquired; bundled Skia/native dependency notice/source closure not yet verified."
+      "verificationStatus": "EXCLUDED_FROM_REVISION_5",
+      "remaining": "Not distributed. The native audit rejects reintroduction. See docs/NATIVE_REPLACEMENT_PROGRESS.md."
     },
     {
       "id": "pdfjs-openjpeg",
@@ -365,16 +377,19 @@
       "license": "Apache-2.0 engines; transitive Rust licences retained separately",
       "origin": "Prisma locked packages and engine commit metadata",
       "requiredNotices": [
-        "Prisma Apache licence; native transitive notices still under review"
+        "Prisma Apache licence; native transitive notices still under review",
+        "third-party/rust-notices/NOTICES.txt"
       ],
       "sourceMaterials": [
-        "prisma-engines-c2990dca.tar.gz"
+        "prisma-engines-c2990dca.tar.gz",
+        "rust-vendors.tar.gz",
+        "rustc-1.90.0-src.tar.xz"
       ],
       "buildMaterials": [
         "Cargo.lock and engine build sources"
       ],
-      "verificationStatus": "SOURCES_PARTIAL",
-      "remaining": "Exact engine source acquired; full compiled-crate notice closure and rebuild are not claimed."
+      "verificationStatus": "SOURCE_AND_NOTICE_MATERIALS_ASSEMBLED",
+      "remaining": "Matching source/build recipes and notices supplied in the material set. Independent byte-for-byte reproduction is not claimed; platform SDKs and build tools are separate prerequisites."
     },
     {
       "id": "ms-vc-runtime",
@@ -405,8 +420,8 @@
       "buildMaterials": [
         "https://github.com/electron-userland/electron-builder/tree/v26.15.3"
       ],
-      "verificationStatus": "VENDOR_TERMS_REVIEW",
-      "remaining": "NSIS bundle COPYING retained. Helper-specific origin/source revision and applicable grant require confirmation."
+      "verificationStatus": "EXCLUDED_FROM_REVISION_5",
+      "remaining": "Not distributed. The native audit rejects reintroduction. See docs/NATIVE_REPLACEMENT_PROGRESS.md."
     },
     {
       "id": "electron-ffmpeg",
@@ -443,16 +458,16 @@
       ],
       "sourceMaterials": [
         "electron-v43.1.0-source.tar.gz",
-        "chromium-blink-150.0.7871.47.tar.gz",
-        "node-v24.18.0.tar.xz"
+        "node-v24.18.0.tar.xz",
+        "Chromium-150.0.7871.47-source-only.tar.gz (joined source parts)"
       ],
       "buildMaterials": [
         "chromium-build-150.0.7871.47.tar.gz",
         "chromium-150.0.7871.47-DEPS.txt",
         "Electron patches/build files"
       ],
-      "verificationStatus": "SOURCES_PARTIAL",
-      "remaining": "Exact Blink/Node/Electron source obtained. Chromium contains additional transitive components; complete source/notice closure of all covered code has not been certified."
+      "verificationStatus": "SOURCE_AND_NOTICE_MATERIALS_ASSEMBLED",
+      "remaining": "Matching source/build recipes and notices supplied in the material set. Independent byte-for-byte reproduction is not claimed; platform SDKs and build tools are separate prerequisites."
     },
     {
       "id": "angle",
@@ -513,8 +528,8 @@
       ],
       "sourceMaterials": [],
       "buildMaterials": [],
-      "verificationStatus": "VENDOR_TERMS_REVIEW",
-      "remaining": "Confirm the specific SDK redistributable grant and notices for this exact vendor DLL before binary clearance."
+      "verificationStatus": "EXCLUDED_FROM_REVISION_5",
+      "remaining": "Not distributed. The native audit rejects reintroduction. See docs/NATIVE_REPLACEMENT_PROGRESS.md."
     },
     {
       "id": "dxcompiler",
@@ -529,8 +544,8 @@
       "buildMaterials": [
         "Chromium pinned toolchain metadata"
       ],
-      "verificationStatus": "VENDOR_TERMS_REVIEW",
-      "remaining": "Exact DXC source revision/build and any additional redistribution notices still need confirmation."
+      "verificationStatus": "EXCLUDED_FROM_REVISION_5",
+      "remaining": "Not distributed. The native audit rejects reintroduction. See docs/NATIVE_REPLACEMENT_PROGRESS.md."
     },
     {
       "id": "dxil",
@@ -545,13 +560,13 @@
       "buildMaterials": [
         "Unmodified Microsoft component distributed by Electron"
       ],
-      "verificationStatus": "VENDOR_TERMS_REVIEW",
-      "remaining": "Do not infer an open-source grant for the validator from dxcompiler next to it."
+      "verificationStatus": "EXCLUDED_FROM_REVISION_5",
+      "remaining": "Not distributed. The native audit rejects reintroduction. See docs/NATIVE_REPLACEMENT_PROGRESS.md."
     },
     {
       "id": "nsis-generated-installer",
       "match": "^(?:installer/.*|Uninstall Nautex (?:AI|Community))\\.exe$",
-      "version": "Nautex 0.3.14 build revision 2; NSIS compiler v3.04, distributor bundle 3.0.4.1",
+      "version": "Nautex 0.3.14 build revision 7; NSIS compiler v3.04, distributor bundle 3.0.4.1",
       "license": "zlib/libpng NSIS core and Deflate stub; embedded plugin licences listed separately",
       "origin": "electron-builder 26.15.3 using pinned nsis-3.0.4.1.7z SHA256 9877df902530f96357d13a7a31ae2b9df67f48b11ffc9a1700a7c961574ec5fa and nsis-resources-3.4.1 SHA256 593a9a92ef958321293ac6a2ee61e64bf1bd543142a5bd6b3d310709cc924103",
       "requiredNotices": [
@@ -562,7 +577,9 @@
       "buildMaterials": [
         "electron-builder.yml",
         "scripts/community-installer.nsh",
-        "Locked app-builder-lib NSIS templates"
+        "Locked app-builder-lib NSIS templates",
+        "scripts/prepare-community-nsis.mjs",
+        "scripts/community-shortcuts.nsh"
       ],
       "verificationStatus": "PERMISSIVE_NOTICE_REQUIREMENTS_VERIFIED",
       "remaining": "The actual NSIS outer stub uses Deflate and is covered by the retained NSIS zlib/libpng grant. This grant does not require delivery of patched core source or an independent rebuild. The pinned distributor bundle and binary SHA-256 identify the candidate; the distributor patch revision remains unknown. This classification covers only the core/stub: embedded plugins and payload retain their separate requirements."
@@ -623,19 +640,23 @@
       "match": "^installer-plugins/\\$PLUGINSDIR/StdUtils\\.dll$",
       "version": "1.1.4.0 PE; upstream tag 1.14 / commit 4e1117321001e54dcd2c52f72d3c359d5215e426",
       "license": "LGPL-2.1-or-later with installer linking clarification; embedded hash-library notices retained",
-      "origin": "Extracted from final NSIS installer; matched to pinned NSIS 3.0.4.1 or nsis-resources 3.4.1 build input",
+      "origin": "Byte-identical to author release StdUtils.2018-10-27.zip / Plugins/Unicode/StdUtils.dll; tag 1.14",
       "requiredNotices": [
         "public/legal/THIRD-PARTY-NOTICES.txt",
         "third-party/licences/index.json"
       ],
       "sourceMaterials": [
-        "StdUtils-1.14-source.tar.gz"
+        "StdUtils-1.14-build-sources.tar.gz"
       ],
       "buildMaterials": [
-        "Locked app-builder-lib NSIS templates; acquired upstream project files where identified"
+        "StdUtils.2018-10-27.sources.tbz2: Contrib/StdUtils/StdUtils.sln and StdUtils.vcxproj; Release_Unicode / Win32; Visual Studio 2010",
+        "docs/INSTALLER_HELPER_REVIEW.md"
       ],
-      "verificationStatus": "SOURCES_PARTIAL",
-      "remaining": "Source, build files and full notices acquired; distributor binary-to-build correspondence not independently reproduced."
+      "verificationStatus": "OFFICIAL_BINARY_AND_MATCHING_SOURCE_VERIFIED",
+      "remaining": "Supply the matching source/project, LGPL clarification and embedded RHash/BLAKE2 notices with the final release. All 51 project source/header entries are present. An independent byte-for-byte rebuild is not required to identify this official binary.",
+      "allowedSha256": [
+        "b72e9013a6204e9f01076dc38dabbf30870d44dfc66962adbf73619d4331601e"
+      ]
     },
     {
       "id": "installer-plugin-nsis7z",
@@ -657,25 +678,32 @@
         "Visual Studio 2017 v141; Windows SDK 10.0.17763.0; Release Unicode Win32",
         "DOC/nsis7z.txt version-19.00 instructions: extract SDK C and CPP trees into Contrib/nsis7z"
       ],
-      "verificationStatus": "SOURCES_PARTIAL",
-      "remaining": "Official binary SHA-256 matches the installer plugin. Correct LZMA SDK 19.00 source obtained; the earlier 7-Zip source archive is not the instructed SDK input. 358 of 359 explicit project source/header entries resolve; CPP/7zip/IMyUnknown.h is a stale ClInclude entry with no C/C++ include references found in the supplied trees. Wrapper LGPL statement retained separately from the SDK public-domain notice. No independent rebuild performed; source/build qualification remains partial."
+      "verificationStatus": "OFFICIAL_BINARY_AND_MATCHING_SOURCE_VERIFIED",
+      "remaining": "Deliver official wrapper source and LZMA SDK 19.00, project files and wrapper LGPL notice. The sole unresolved project entry is a stale, noncompiled ClInclude path with no include references. No independent rebuild is claimed or required for provenance; final material delivery remains required.",
+      "allowedSha256": [
+        "b393f05e8ff919ef071181050e1873c9a776e1a0ae8329aefff7007d0cadf592"
+      ]
     },
     {
       "id": "installer-plugin-uac",
       "match": "^installer-plugins/\\$PLUGINSDIR/UAC\\.dll$",
-      "version": "No PE version; exact revision UNKNOWN",
-      "license": "Upstream UAC is zlib; exact bundled revision remains unverified",
-      "origin": "Extracted from final NSIS installer; matched to pinned NSIS 3.0.4.1 or nsis-resources 3.4.1 build input",
+      "version": "0.2.4c (2015-05-26); exact official x86-unicode binary match",
+      "license": "zlib/libpng",
+      "origin": "https://nsis.sourceforge.io/mediawiki/images/8/8f/UAC.zip / Plugins/x86-unicode/UAC.dll",
       "requiredNotices": [
         "public/legal/THIRD-PARTY-NOTICES.txt",
-        "third-party/licences/index.json"
+        "third-party/licences/index.json",
+        "third-party/licences/UAC-0.2.4c-LICENSE.txt"
       ],
       "sourceMaterials": [],
       "buildMaterials": [
         "Locked app-builder-lib NSIS templates; acquired upstream project files where identified"
       ],
-      "verificationStatus": "VENDOR_TERMS_REVIEW",
-      "remaining": "https://nsis.sourceforge.io/UAC_plug-in identifies upstream version 0.2.4c, not proof of this binary revision."
+      "verificationStatus": "PERMISSIVE_NOTICE_REQUIREMENTS_VERIFIED",
+      "remaining": "Official binary hash and archive licence verified. Notice retained. Licence does not require an independent rebuild or source delivery.",
+      "allowedSha256": [
+        "2f7f8fc05dc4fd0d5cda501b47e4433357e887bbfed7292c028d99c73b52dc08"
+      ]
     },
     {
       "id": "installer-plugin-winshell",
@@ -691,8 +719,9 @@
       "buildMaterials": [
         "Locked app-builder-lib NSIS templates; acquired upstream project files where identified"
       ],
-      "verificationStatus": "VENDOR_TERMS_REVIEW",
-      "remaining": "https://nsis.sourceforge.io/WinShell_plug-in is not a sufficient exact binary redistribution grant. Obtain author/distributor terms or replace this helper after installer regression testing."
+      "verificationStatus": "EXCLUDED_FROM_REVISION_5",
+      "remaining": "Not distributed. The native audit rejects reintroduction. See docs/NATIVE_REPLACEMENT_PROGRESS.md."
     }
-  ]
+  ],
+  "reviewScope": "Revision 5 Windows x64 native redistribution engineering review. Excluded components must be absent. Source/build/notices material set must accompany distribution. Clean-Windows qualification is separate and pending."
 }

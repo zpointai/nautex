@@ -22,6 +22,13 @@ for(const entry of nativeLicences){
  const body=await readFile(path.join('third-party/licences',entry.file),'utf8');
  notices.push('\n===== Native licence: '+entry.file+' =====\nSource: '+(entry.archive??entry.npmPackage)+' / '+entry.member+'\n'+body);
 }
+const replacements=JSON.parse(await readFile('third-party/replacements/index.json','utf8'));
+for(const entry of replacements){
+ if(!/^[a-zA-Z0-9_.\-/]+$/.test(entry.file)||entry.file.split('/').includes('..'))throw Error('Unsafe replacement notice filename');
+ const body=await readFile(path.join('third-party/replacements',entry.file),'utf8');
+ notices.push('\n===== Source-built replacement notice: '+entry.file+' =====\n'+body);
+}
+notices.push('\n===== Rust dependency notices =====\n'+await readFile('third-party/rust-notices/NOTICES.txt','utf8'));
 await mkdir('public/legal',{recursive:true});
 await mkdir('docs',{recursive:true});
 await writeFile('public/legal/THIRD-PARTY-NOTICES.txt',notices.join('\n'));

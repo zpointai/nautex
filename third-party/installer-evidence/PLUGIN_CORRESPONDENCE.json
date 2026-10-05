@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-04",
+  "scope": "Unchanged review3 installer plugins; component evidence only, not overall installer clearance",
+  "components": [
+    {
+      "component": "StdUtils",
+      "version": "1.14 (2018-10-27)",
+      "binarySha256": "b72e9013a6204e9f01076dc38dabbf30870d44dfc66962adbf73619d4331601e",
+      "officialMember": "StdUtils.2018-10-27/Plugins/Unicode/StdUtils.dll",
+      "byteMatch": true,
+      "sourceProjectEntries": 51,
+      "missingSourceProjectEntries": [],
+      "independentRebuildRequiredForProvenance": false,
+      "sourceArchive": "StdUtils.2018-10-27.sources.tbz2",
+      "license": "LGPL-2.1-or-later with installer clarification; embedded RHash/BLAKE2 notices retained"
+    },
+    {
+      "component": "UAC",
+      "version": "0.2.4c (2015-05-26)",
+      "binarySha256": "2f7f8fc05dc4fd0d5cda501b47e4433357e887bbfed7292c028d99c73b52dc08",
+      "officialMember": "UAC/Plugins/x86-unicode/UAC.dll",
+      "byteMatch": true,
+      "license": "zlib/libpng",
+      "sourceArchive": "UAC.zip",
+      "independentRebuildRequired": false
+    },
+    {
+      "component": "Nsis7z",
+      "version": "19.00",
+      "binarySha256": "b393f05e8ff919ef071181050e1873c9a776e1a0ae8329aefff7007d0cadf592",
+      "officialByteMatchPreviouslyVerified": true,
+      "sourceArchives": [
+        "Nsis7z_19.00.7z",
+        "lzma1900.7z"
+      ],
+      "projectSourceReferences": 359,
+      "resolved": 358,
+      "staleNoncompiledProjectHeader": "CPP\\7zip\\IMyUnknown.h",
+      "license": "LGPL, version unspecified by wrapper author; public-domain LZMA SDK 19.00",
+      "independentRebuildRequiredForProvenance": false
+    }
+  ],
+  "archives": [
+    {
+      "file": "StdUtils.2018-10-27.zip",
+      "sha256": "3ffe893dc7477fdb1cac551a86ae017509e1f2d0ebdc7185fd0fbaf20870688c",
+      "bytes": 391785
+    },
+    {
+      "file": "StdUtils.2018-10-27.sources.tbz2",
+      "sha256": "c5e3b1a66219bc9564c2ccc1702691327eecf044ad33404ac268d725d22dca49",
+      "bytes": 206896
+    },
+    {
+      "file": "UAC.zip",
+      "sha256": "20e3192af5598568887c16d88de59a52c2ce4a26e42c5fb8bee8105dcbbd1760",
+      "bytes": 52034
+    }
+  ]
+}

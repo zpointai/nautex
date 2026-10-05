@@ -1,0 +1,44 @@
+[
+  {
+    "file": "DOMMatrix-LICENSE.txt"
+  },
+  {
+    "file": "gnu/notices/crt/COPYING"
+  },
+  {
+    "file": "gnu/notices/crt/COPYING.MinGW-w64-runtime.txt"
+  },
+  {
+    "file": "gnu/notices/crt/COPYING.MinGW-w64.txt"
+  },
+  {
+    "file": "gnu/notices/gettext/COPYING"
+  },
+  {
+    "file": "gnu/notices/gettext/COPYING.LIB"
+  },
+  {
+    "file": "gnu/notices/headers/COPYING"
+  },
+  {
+    "file": "gnu/notices/headers/COPYING.MinGW-w64-runtime.txt"
+  },
+  {
+    "file": "gnu/notices/headers/COPYING.MinGW-w64.txt"
+  },
+  {
+    "file": "gnu/notices/headers/ddk-readme.txt"
+  },
+  {
+    "file": "gnu/notices/libgcc/COPYING.RUNTIME"
+  },
+  {
+    "file": "gnu/notices/libgcc/COPYING3"
+  },
+  {
+    "file": "gnu/notices/libiconv/COPYING"
+  },
+  {
+    "file": "gnu/notices/libiconv/COPYING.LIB"
+  }
+]

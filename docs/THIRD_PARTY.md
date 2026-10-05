@@ -1,44 +1,63 @@
-# Native redistribution review — candidate revision 2
+# Third-party redistribution materials
 
-**Installer and native-materials archive uploads remain blocked.** The sanitised application source is released separately under AGPL-3.0-only; third-party grants are not overridden. This repository contains notices, manifests and build instructions, not the uncleared native payload. Signing is optional and independent of these licence/source obligations.
+Nautex application code is AGPL-3.0-only. Each bundled dependency retains its own
+licence. The final release supplies its application source, third-party notices,
+component inventory, corresponding dependency materials and SHA-256 checksums.
+Installer publication remains pending clean-Windows qualification.
 
-The review uses actual native files, PE version resources/import tables, locked npm provenance, the SHA-256-pinned EDB distribution, the verified Electron archive and upstream source/build revisions. The final **NATIVE_BINARIES.json** records each bundled PE/WebAssembly binary separately, including its SHA-256, exact known version/revision (or explicit unknown), origin, licence, notices, source/build material references and remaining work. **NATIVE_INVENTORY.md** summarises those records. The audit rejects any unclassified file.
+## Inventory and evidence
 
-Source files supplied in this repository:
+- [Component versions, provenance, licences and requirements](../third-party/native-components.json).
+- [Source/build material hashes and origins](../third-party/native-materials.json).
+- [Sharp/libvips static components](../third-party/sharp-components.json).
+- [Rust source and notice inventory](../third-party/rust-notices/INVENTORY.json).
+- [Installer helper review](INSTALLER_HELPER_REVIEW.md).
 
-- [Native component rules and obligations](../third-party/native-components.json).
-- [Material origins and SHA-256 manifest](../third-party/native-materials.json).
-- [28 statically embedded Sharp/libvips components](../third-party/sharp-components.json), identified from the distributed versions.json and licence table.
-- [Installed npm dependency inventory](dependency-inventory.json), including build-only packages. This is distinct from the final native payload inventory.
+The final NATIVE_BINARIES.json is supplied beside the installer, rather than
+embedded in that same installer (which would create a circular checksum).
+Every retained PE/WebAssembly file is classified and hashed. Unchanged vendor
+binary evidence is reused; new files and replacements receive new validation.
 
-The earlier private **Nautex-Native-Materials-0.3.14.zip** contains 53 source/build/development materials. The [follow-up review](INSTALLER_FOLLOWUP.md) adds LZMA SDK 19.00, bringing the current manifest to 54 materials for the private follow-up kit. Both are **partial kits**, not claims that every native-source obligation is complete. Foreign source archives are kept verbatim with their licences, tests and public example fixtures; none originate from the owner's private repository/profile. All binary/material uploads remain withheld.
+## Required material delivery
 
-## Verified and repaired
+GNU replacements include exact source releases, recipes, import/export evidence
+and compiler/runtime notices. LGPL libraries remain replaceable outside ASAR.
+Sharp includes the identified MXE/libvips recipes, patches, all recorded component
+source archives and librsvg's complete locked Rust vendor superset. The Cairo
+1.18.4 source grant is LGPL-2.1 OR MPL-1.1; the LGPL alternative is used despite
+the downstream package table's differing MPL-2.0 label. No original container
+image digest or independently reproduced libvips build is claimed.
 
-- EDB PostgreSQL 16.14-2 binary archive was independently downloaded and matched its pin. PostgreSQL 16.14 source was obtained from the official PostgreSQL server. The three relevant EDB DLLs were examined individually: libiconv reports 1.15, libintl reports 0.19.8 and winpthreads reports a non-unique 1.0.0.0 resource version. PE imports prove PostgreSQL needs libintl, which needs libiconv and winpthreads; these cannot simply be removed.
-- libxslt exports xsltEngineVersion and xsltLibxsltVersion as 10145 (1.1.45); matching upstream source was acquired. EDB build correspondence remains unverified.
-- Upstream GNU libiconv 1.15 and gettext 0.19.8 source archives were obtained. This verifies upstream source versions, **not** the missing EDB patch/build correspondence.
-- Sharp's libvips-42.dll byte-matches the official vips-dev-x64-web-8.18.6-static.zip; its published SHA-256 was checked. Seven copyleft source archives additionally match SHA-256 pins in the identified build recipes: GLib, libexif, Cairo, FriBidi, Pango, librsvg and libvips. Windows AOM 3.14.1 additionally matches the tagged MXE build-recipe SHA-256 (the POSIX recipe uses a different AOM version). Fontconfig's source was obtained via its exact Git tag after archive download endpoints failed. Other source URLs are recorded with their hashes.
-- Cairo is reviewed against its actual 1.18.4 source COPYING: LGPL-2.1 OR MPL-1.1. This differs from the packaged Sharp table's MPL-2.0 label. The source terms and both full licence alternatives are retained; the LGPL alternative is used for this review, with the distributor discrepancy explicitly recorded.
-- Exact Electron 43.1.0 source/patches identify Chromium 150.0.7871.47, Node 24.18.0 and FFmpeg revision ad41607c61898cf7150e0fb20fe4bbabd44922a3. Matching Blink, FFmpeg, Opus, Node and Chromium build material was acquired. The inspected FFmpeg Chrome/win/x64 configuration has GPL, GPLv3 and nonfree flags disabled. Electron's shipped configuration uses Chrome branding; no unrelated FFmpeg build is substituted.
-- Eight unused versioned wxWidgets DLLs are removed. PE inspection verifies no retained PostgreSQL module imports them. The unused Sharp Wasm fallback is removed from this Windows x64 payload. Next tracing had omitted Sharp's dynamically loaded DLLs; the complete Windows package is now copied, and a real resize/PNG test guards that boundary.
-- React Leaflet's Hippocratic restrictions were already removed by using original bindings around BSD Leaflet. Existing font OFL/Apache notices remain. PDF.js's bundled QCMS licence was read and is MIT; no MPL licence was inferred from its name.
+Prisma includes exact engine commit c2990dca591cba766e3b7ef5d9e8a84796e47ab7,
+Cargo.lock, all 607 vendored packages and notices. Librsvg includes 350 vendored
+packages; the MXE patches remove optional packages from that superset without
+introducing different versions. MPL-2.0 is selected for priority-queue. Original
+crate sources and copyright headers are preserved. Standard licence texts
+supplement explicit upstream SPDX declarations where no standalone notice was
+supplied; no copyright holder or year is invented.
 
-## Exact remaining blockers
+Electron 43.1.0 identifies Chromium 150.0.7871.47 and Node 24.18.0. Source,
+patches, build files and the full upstream notice collection are retained.
+Chromium's Windows FFmpeg configuration disables GPL, GPLv3 and nonfree flags.
+The complete Chromium source archive was checked against its publisher's SHA-256.
+The distributed source tree removes prebuilt compiler/toolchain executables,
+objects and compiled test fixtures; all source-code/build files remain available.
+The filter manifest records each omission. Standard developer tools are obtained
+through the upstream build hooks, not redistributed as unexplained binaries.
 
-1. **EDB GNU DLLs:** the [distributor source page](https://www.enterprisedb.com/modified-gpl) requires account access and does not identify the exact 0.19.8/1.15 binary patch/build recipes. Obtain matching distributor materials or rebuild compatible libraries from the acquired sources with recorded patches/toolchain and validate their imports/exports and PostgreSQL startup/locales. No Windows C/C++ compiler was found; the Linux Docker engine is unavailable, so a safe replacement build was not performed in this environment.
-2. **winpthreads attribution/version:** the actual filename and imports identify winpthreads, whose upstream licence is MIT/BSD, while EDB's aggregate notice groups pthreads under LGPL-2.1. The PE 1.0.0.0 value does not identify a unique source revision. Obtain EDB's exact origin and correct copyright/licence notice; do not treat this as resolved from a similarly named project.
-3. **Static native dependency closure:** libvips source versions and tagged recipes are captured, but the original moving build-image/base-recipe revision and complete Rust/static source and notice closure are not fully verified. Canvas 0.1.80 and Prisma's exact engine source were acquired, but their compiled native dependency notices still need component-level closure. Electron/Blink/FFmpeg materials are substantially improved; full Chromium covered-code/source closure is not certified by merely possessing the Electron repository.
-4. **Remaining vendor identification:** the unversioned EDB plugin_debugger/system_stats additions, and Electron's Microsoft SDK/DirectX compiler/validator redistribution terms/revisions are explicitly identified in the per-binary inventory. Their adjacent permissive components do not establish their own grants.
+Large Chromium source materials may be split into numbered parts for hosting.
+Join them in the documented order and verify the complete archive checksum.
+Only the EXE is needed to install Nautex; source materials are separate downloads
+for inspection and modification. See [dependency build/replacement instructions](DEPENDENCY_BUILD.md).
 
-5. **Installer engine/helpers:** the compiler reports NSIS v3.04 from the pinned 3.0.4.1 distributor bundle. Its complete COPYING is retained, including LZMA CPL-1.0 and the linking exception. The actual outer installer uses Deflate, so the optional CPL LZMA stub is not attributed to it. Its core/stub zlib/libpng notice requirements are verified; unknown distributor patches do not add a source-delivery requirement under that grant. Seven embedded plugin DLLs are separately extracted and inventoried. The three core plugins System/nsDialogs/nsExec have verified zlib/libpng notice requirements; an unknown patch revision does not by itself add a source-delivery obligation to that licence. StdUtils 1.14 source/notices and a byte-matched Nsis7z 19.00 source/binary kit are acquired; the follow-up adds the correct LZMA SDK 19.00 and separate wrapper LGPL statement. Copyleft source/build coverage, WinShell freeware redistribution scope, other plugin grants and the elevate helper origin still require closure; do not infer these from electron-builder's MIT licence. The application payload inventory does not claim that compressed Microsoft prerequisite internals were exhaustively decomposed.
+Microsoft's unmodified signed VC++ prerequisite installer retains its own terms.
+No Microsoft shader DLL is bundled: Windows 11's system D3DCompiler is used, while
+Nautex's unused DXC/validator copies are omitted. Native Windows shortcut APIs
+replace WinShell. The Elevate helper, unused Canvas/Skia and unused EDB additions
+are also absent.
 
-No assertion of a full native rebuild, legal clearance or complete corresponding source kit is made. The inventory shows which evidence is obtained and exactly what remains. Preserve the architecture; replace a component only after ABI/runtime checks and a traceable source build.
-
-## Notices, replacement and source delivery
-
-Keep the unmodified PostgreSQL server/command-line licence files, Electron/Chromium notices, full dependency notices, Microsoft prerequisite terms and native component notices with the distribution. The collected licence texts under third-party/licences supplement the source archives. LGPL library replacements must remain possible: keep DLLs outside ASAR, allow an advanced user to rebuild/replace the DLLs against the supplied headers/build recipes in their own copy, and do not impose terms forbidding reverse engineering needed to debug those modifications. Native copies are not protected by an owner-only signing gate.
-
-The source kit includes the upstream development/header package and tagged build scripts; toolchains are external build requirements, not end-user requirements. No matched-source claim is made for the two EDB GNU DLLs merely because their upstream versions are available. Publish source/material assets at the same accessible release location as each binary only after closure and explicit owner approval.
-
-Pattern scans retain exact-hash exceptions for reviewed upstream examples/binary strings, never owner secrets. All private catalogue/business datasets, historical screenshots and operational exports remain excluded by the public allowlist. Source material archives have their own provenance/hash manifest and are not private profile backups.
+Copyright notices and licence terms are included in Help → Corresponding source
+and licences. Users may modify/rebuild the covered components and replace their
+DLLs; this release imposes no additional restriction on debugging those changes.
+Independent exact-binary reproducibility and clean-machine qualification are
+reported separately from the actual source/notice delivery obligations.

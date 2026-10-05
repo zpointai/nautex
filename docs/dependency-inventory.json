@@ -877,6 +877,14 @@
     ]
   },
   {
+    "id": "@thednp/dommatrix@3.1.2",
+    "license": "MIT",
+    "source": "https://registry.npmjs.org/@thednp/dommatrix/-/dommatrix-3.1.2.tgz",
+    "notices": [
+      "LICENSE"
+    ]
+  },
+  {
     "id": "@tybys/wasm-util@0.10.1",
     "license": "MIT",
     "source": "https://registry.npmjs.org/@tybys/wasm-util/-/wasm-util-0.10.1.tgz",

@@ -3,6 +3,7 @@ import { _electron as electron } from '@playwright/test';
 import { mkdir, writeFile, readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { createRequire } from 'node:module';
+import { pdf } from '../tests/helpers/pdf-fixture.mjs';
 const require=createRequire(import.meta.url);
 const executable=process.argv[2] === '--development' ? require('electron') : path.resolve(process.argv[2] || '');
 const base=path.resolve(process.argv[3] || '');
@@ -47,6 +48,18 @@ try {
  const validation=await api(page,'/api/v1/procurement/validate',{leftText:'Description,Quantity,Unit,Price\nFICTIONAL test widget,2,EA,100',rightText:'Description,Quantity,Unit,Price\nFICTIONAL test widget,2,EA,100'});
  assert.equal(validation.status,200);assert.equal(validation.body.data._stub,false);assert.equal(validation.body.data._ai.enabled,false);
  results.push('Price arithmetic, structured RFQ processing and rule validation work without provider keys or catalogue');
+ for (const [text, expectedStatus] of [['FICTIONAL PDF widget 2 EA', 200], ['', 422]]) {
+   const encoded=pdf([{text}]);
+   const response=await page.evaluate(async(encoded)=>{
+     const bytes=Uint8Array.from(atob(encoded),c=>c.charCodeAt(0));
+     const form=new FormData();form.append('file',new File([bytes],'synthetic.pdf',{type:'application/pdf'}));
+     const r=await fetch('/api/v1/rfq/process',{method:'POST',body:form});
+     return {status:r.status,body:await r.json()};
+   },encoded);
+   assert.equal(response.status,expectedStatus,JSON.stringify(response.body));
+   if(!text)assert.ok(JSON.stringify(response.body).includes('RFQ_TEXT_NOT_EXTRACTED'));
+ }
+ results.push('Packaged PDF upload extracts selectable text without Canvas; empty PDF returns the explicit no-text response');
  const legal=await page.evaluate(async()=>({licence:await (await fetch('/legal/LICENSE.txt')).text(),source:Array.from(new Uint8Array(await (await fetch('/legal/source.zip')).arrayBuffer()).slice(0,2)),template:await (await fetch('/templates/catalogue.csv')).text()}));
  assert.ok(legal.licence.includes('GNU AFFERO GENERAL PUBLIC LICENSE'));assert.deepEqual(legal.source,[80,75]);assert.equal(legal.template.trim().split('\n').length,1);
  results.push('Bundled full licence, source ZIP and empty import template are accessible');
@@ -87,6 +100,25 @@ try {
  const persisted=await api(page,'/api/v1/impa/catalogue');assert.equal(persisted.body.data.length,1);
  const afterRestart=await api(page,'/api/v1/settings/ai');assert.equal(afterRestart.body.data.configured,false);
  results.push('Graceful shutdown and restart preserve only synthetic test data; removed provider keys remain absent');
+ await page.getByTitle('Synthetic Tester workspace',{exact:true}).click();
+ await page.getByRole('button',{name:/Sign out/}).click();
+ await page.getByRole('heading',{name:'Sign in to Nautex',exact:true}).waitFor();
+ assert.equal((await api(page,'/api/v1/auth/context')).status,401);
+ assert.equal((await api(page,'/api/v1/auth/config')).body.data.bootstrapRequired,false);
+ assert.equal(await page.getByText('Nautex could not load its desktop interface',{exact:true}).count(),0);
+ await application.close();application=null;
+ page=await launch();
+ await page.getByRole('heading',{name:'Sign in to Nautex',exact:true}).waitFor();
+ assert.equal((await api(page,'/api/v1/auth/context')).status,401);
+ await page.getByLabel('Email',{exact:true}).fill('tester@example.invalid');
+ await page.getByLabel('Password',{exact:true}).fill('Synthetic-Release-Test-Password-Only');
+ await page.getByRole('button',{name:/Sign in$/}).click();
+ await page.getByTitle('Synthetic Tester workspace',{exact:true}).waitFor();
+ await page.waitForFunction(async()=>{try{return (await fetch('/api/v1/auth/context')).ok;}catch{return false;}});
+ const afterSignIn=await api(page,'/api/v1/impa/catalogue');
+ assert.equal(afterSignIn.status,200,JSON.stringify(afterSignIn.body));
+ assert.equal(afterSignIn.body.data.length,1);
+ results.push('Sign out opens desktop sign-in; session stays signed out across restart; signing back in preserves synthetic records');
  await application.close();application=null;
  await writeFile(path.join(base,'validation.json'),JSON.stringify({passed:true,results,providerChecks:'offline mock/unit; no live paid calls',profile},null,2));
  console.log(JSON.stringify({passed:true,results},null,2));

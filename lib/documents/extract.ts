@@ -55,6 +55,13 @@ function workbookToText(buffer: Buffer) {
 }
 
 async function pdfToText(buffer: Buffer) {
+  // PDF.js needs a DOMMatrix even for text extraction. Supply a JavaScript
+  // implementation so desktop text extraction does not require native Canvas.
+  // Raster rendering and OCR are not part of this document extraction path.
+  if (typeof globalThis.DOMMatrix === "undefined") {
+    const { default: DOMMatrix } = await import("@thednp/dommatrix");
+    Object.defineProperty(globalThis, "DOMMatrix", { value: DOMMatrix, configurable: true, writable: true });
+  }
   const { PDFParse } = await import("pdf-parse");
   const parser = new PDFParse({ data: buffer });
   try {

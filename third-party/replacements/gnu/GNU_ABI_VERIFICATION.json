@@ -1,0 +1,542 @@
+{
+  "libraries": {
+    "libiconv-2.dll": {
+      "sha256": "42ec8fb73a809f0a4160b6985addd2fa930603ebb7e64e4c1490f4fcbffea934",
+      "imports": {
+        "kernel32.dll": [
+          "DeleteCriticalSection",
+          "EnterCriticalSection",
+          "GetACP",
+          "GetCPInfo",
+          "GetLastError",
+          "GetModuleFileNameA",
+          "GetModuleHandleA",
+          "GetProcAddress",
+          "InitializeCriticalSection",
+          "LeaveCriticalSection",
+          "MultiByteToWideChar",
+          "Sleep",
+          "VirtualProtect",
+          "VirtualQuery",
+          "WideCharToMultiByte"
+        ],
+        "msvcrt.dll": [
+          "___lc_codepage_func",
+          "___mb_cur_max_func",
+          "__iob_func",
+          "_errno",
+          "_initterm",
+          "_lock",
+          "_strdup",
+          "_unlock",
+          "abort",
+          "calloc",
+          "fprintf",
+          "fputc",
+          "free",
+          "localeconv",
+          "malloc",
+          "memcpy",
+          "qsort",
+          "realloc",
+          "setlocale",
+          "strchr",
+          "strcmp",
+          "strerror",
+          "strlen",
+          "strncmp",
+          "strrchr",
+          "vfprintf",
+          "wcslen"
+        ]
+      },
+      "exports": [
+        "_imp___libiconv_version",
+        "_libiconv_version",
+        "aliases_lookup",
+        "iconv_canonicalize",
+        "libiconv",
+        "libiconv_close",
+        "libiconv_open",
+        "libiconv_open_into",
+        "libiconv_relocate",
+        "libiconv_set_relocation_prefix",
+        "libiconvctl",
+        "libiconvlist",
+        "locale_charset"
+      ],
+      "machine": "0x8664"
+    },
+    "libintl-9.dll": {
+      "sha256": "04328d1b9e5e4178b9bfa6ac019788ea5bc4255d50ae7b18b8a7cd4ce03525bc",
+      "imports": {
+        "advapi32.dll": [
+          "RegCloseKey",
+          "RegOpenKeyExA",
+          "RegQueryValueExA"
+        ],
+        "kernel32.dll": [
+          "CloseHandle",
+          "CreateEventA",
+          "DeleteCriticalSection",
+          "EnterCriticalSection",
+          "EnumResourceLanguagesA",
+          "EnumSystemLocalesA",
+          "GetACP",
+          "GetCPInfo",
+          "GetCurrentThreadId",
+          "GetFileInformationByHandle",
+          "GetLastError",
+          "GetLocaleInfoA",
+          "GetModuleFileNameA",
+          "GetModuleHandleA",
+          "GetProcAddress",
+          "GetThreadLocale",
+          "InitializeCriticalSection",
+          "LeaveCriticalSection",
+          "MultiByteToWideChar",
+          "SetEvent",
+          "Sleep",
+          "VirtualProtect",
+          "VirtualQuery",
+          "WaitForSingleObject",
+          "WideCharToMultiByte"
+        ],
+        "msvcrt.dll": [
+          "___lc_codepage_func",
+          "___mb_cur_max_func",
+          "__iob_func",
+          "_close",
+          "_errno",
+          "_fstat64",
+          "_get_osfhandle",
+          "_getcwd",
+          "_initterm",
+          "_lock",
+          "_open",
+          "_read",
+          "_strdup",
+          "_stricmp",
+          "_unlock",
+          "_vsnwprintf",
+          "abort",
+          "bsearch",
+          "calloc",
+          "fclose",
+          "feof",
+          "fgets",
+          "fopen",
+          "fprintf",
+          "fputc",
+          "fputwc",
+          "free",
+          "fwprintf",
+          "fwrite",
+          "getenv",
+          "isalnum",
+          "isalpha",
+          "isspace",
+          "localeconv",
+          "malloc",
+          "memcpy",
+          "memset",
+          "putc",
+          "qsort",
+          "raise",
+          "realloc",
+          "setlocale",
+          "strchr",
+          "strcmp",
+          "strcpy",
+          "strcspn",
+          "strerror",
+          "strlen",
+          "strncmp",
+          "strncpy",
+          "strrchr",
+          "strstr",
+          "strtoul",
+          "tolower",
+          "vfprintf",
+          "wcschr",
+          "wcslen"
+        ],
+        "libiconv-2.dll": [
+          "libiconv",
+          "libiconv_open",
+          "libiconv_set_relocation_prefix"
+        ]
+      },
+      "exports": [
+        "__printf__",
+        "_nl_expand_alias",
+        "_nl_explode_name",
+        "_nl_find_domain",
+        "_nl_find_msg",
+        "_nl_language_preferences_default",
+        "_nl_load_domain",
+        "_nl_locale_name",
+        "_nl_locale_name_canonicalize",
+        "_nl_locale_name_default",
+        "_nl_locale_name_environ",
+        "_nl_locale_name_from_win32_LANGID",
+        "_nl_locale_name_from_win32_LCID",
+        "_nl_locale_name_posix",
+        "_nl_locale_name_thread",
+        "_nl_locale_name_thread_unsafe",
+        "_nl_log_untranslated",
+        "_nl_make_l10nflist",
+        "_nl_msg_cat_cntr",
+        "_nl_normalize_codeset",
+        "_nl_state_lock",
+        "bind_textdomain_codeset",
+        "bindtextdomain",
+        "dcgettext",
+        "dcngettext",
+        "dgettext",
+        "dngettext",
+        "gettext",
+        "libintl_asprintf",
+        "libintl_bind_textdomain_codeset",
+        "libintl_bindtextdomain",
+        "libintl_dcgettext",
+        "libintl_dcigettext",
+        "libintl_dcngettext",
+        "libintl_dgettext",
+        "libintl_dngettext",
+        "libintl_fprintf",
+        "libintl_fwprintf",
+        "libintl_gettext",
+        "libintl_gettext_extract_plural",
+        "libintl_gettext_free_exp",
+        "libintl_gettext_germanic_plural",
+        "libintl_gettextparse",
+        "libintl_hash_string",
+        "libintl_lock_destroy_func",
+        "libintl_lock_init_func",
+        "libintl_lock_lock_func",
+        "libintl_lock_unlock_func",
+        "libintl_ngettext",
+        "libintl_nl_current_default_domain",
+        "libintl_nl_default_default_domain",
+        "libintl_nl_default_dirname",
+        "libintl_nl_domain_bindings",
+        "libintl_once_func",
+        "libintl_recursive_lock_destroy_func",
+        "libintl_recursive_lock_init_func",
+        "libintl_recursive_lock_lock_func",
+        "libintl_recursive_lock_unlock_func",
+        "libintl_relocate",
+        "libintl_rwlock_destroy_func",
+        "libintl_rwlock_init_func",
+        "libintl_rwlock_rdlock_func",
+        "libintl_rwlock_unlock_func",
+        "libintl_rwlock_wrlock_func",
+        "libintl_set_relocation_prefix",
+        "libintl_setlocale",
+        "libintl_snprintf",
+        "libintl_sprintf",
+        "libintl_swprintf",
+        "libintl_textdomain",
+        "libintl_vasnprintf",
+        "libintl_vasnwprintf",
+        "libintl_vasprintf",
+        "libintl_version",
+        "libintl_vfprintf",
+        "libintl_vfwprintf",
+        "libintl_vprintf",
+        "libintl_vsnprintf",
+        "libintl_vsprintf",
+        "libintl_vswprintf",
+        "libintl_vwprintf",
+        "libintl_wprintf",
+        "locale_charset",
+        "ngettext",
+        "textdomain",
+        "xmax",
+        "xsum",
+        "xsum3",
+        "xsum4"
+      ],
+      "machine": "0x8664"
+    }
+  },
+  "consumerImports": {
+    "bin/clusterdb.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_bindtextdomain",
+      "libintl_ngettext",
+      "libintl_gettext"
+    ],
+    "bin/createdb.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_ngettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/createuser.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_bindtextdomain",
+      "libintl_ngettext",
+      "libintl_gettext"
+    ],
+    "bin/dropdb.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_ngettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/dropuser.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_ngettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/ecpg.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_ngettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/initdb.exe -> libintl-9.dll": [
+      "libintl_bindtextdomain",
+      "libintl_textdomain",
+      "libintl_gettext"
+    ],
+    "bin/isolationtester.exe -> libintl-9.dll": [
+      "libintl_gettext"
+    ],
+    "bin/libecpg.dll -> libintl-9.dll": [
+      "libintl_dgettext",
+      "libintl_bindtextdomain",
+      "libintl_gettext"
+    ],
+    "bin/libintl-9.dll -> libiconv-2.dll": [
+      "libiconv",
+      "libiconv_open",
+      "libiconv_set_relocation_prefix"
+    ],
+    "bin/libpgtypes.dll -> libintl-9.dll": [
+      "libintl_gettext"
+    ],
+    "bin/libpq.dll -> libintl-9.dll": [
+      "libintl_dngettext",
+      "libintl_bindtextdomain",
+      "libintl_gettext",
+      "libintl_dgettext"
+    ],
+    "bin/libpq_pipeline.exe -> libintl-9.dll": [
+      "libintl_gettext"
+    ],
+    "bin/libpq_testclient.exe -> libintl-9.dll": [
+      "libintl_gettext"
+    ],
+    "bin/libpq_uri_regress.exe -> libintl-9.dll": [
+      "libintl_gettext"
+    ],
+    "bin/oid2name.exe -> libintl-9.dll": [
+      "libintl_gettext"
+    ],
+    "bin/pg_amcheck.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/pg_archivecleanup.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/pg_basebackup.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_ngettext",
+      "libintl_gettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/pg_checksums.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/pg_config.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/pg_controldata.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_ngettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/pg_ctl.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/pg_dump.exe -> libintl-9.dll": [
+      "libintl_bindtextdomain",
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_ngettext"
+    ],
+    "bin/pg_dumpall.exe -> libintl-9.dll": [
+      "libintl_bindtextdomain",
+      "libintl_textdomain",
+      "libintl_gettext"
+    ],
+    "bin/pg_isolation_regress.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/pg_isready.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_ngettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/pg_receivewal.exe -> libintl-9.dll": [
+      "libintl_bindtextdomain",
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_ngettext"
+    ],
+    "bin/pg_recvlogical.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_ngettext",
+      "libintl_bindtextdomain",
+      "libintl_gettext"
+    ],
+    "bin/pg_regress.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/pg_regress_ecpg.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/pg_resetwal.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_ngettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/pg_restore.exe -> libintl-9.dll": [
+      "libintl_bindtextdomain",
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_ngettext"
+    ],
+    "bin/pg_rewind.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_bindtextdomain",
+      "libintl_gettext",
+      "libintl_ngettext"
+    ],
+    "bin/pg_test_fsync.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_ngettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/pg_test_timing.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_gettext",
+      "libintl_ngettext",
+      "libintl_bindtextdomain"
+    ],
+    "bin/pg_upgrade.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_bindtextdomain",
+      "libintl_gettext"
+    ],
+    "bin/pg_verifybackup.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_bindtextdomain",
+      "libintl_gettext"
+    ],
+    "bin/pg_waldump.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_bindtextdomain",
+      "libintl_ngettext",
+      "libintl_gettext"
+    ],
+    "bin/pgbench.exe -> libintl-9.dll": [
+      "libintl_gettext"
+    ],
+    "bin/postgres.exe -> libintl-9.dll": [
+      "libintl_dgettext",
+      "libintl_textdomain",
+      "libintl_ngettext",
+      "libintl_gettext",
+      "libintl_dngettext",
+      "libintl_bind_textdomain_codeset",
+      "libintl_bindtextdomain"
+    ],
+    "bin/psql.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_bindtextdomain",
+      "libintl_ngettext",
+      "libintl_gettext"
+    ],
+    "bin/reindexdb.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_bindtextdomain",
+      "libintl_ngettext",
+      "libintl_gettext"
+    ],
+    "bin/test_cloexec.exe -> libintl-9.dll": [
+      "libintl_gettext"
+    ],
+    "bin/vacuumdb.exe -> libintl-9.dll": [
+      "libintl_textdomain",
+      "libintl_bindtextdomain",
+      "libintl_ngettext",
+      "libintl_gettext"
+    ],
+    "bin/vacuumlo.exe -> libintl-9.dll": [
+      "libintl_gettext"
+    ],
+    "bin/zic.exe -> libintl-9.dll": [
+      "libintl_gettext"
+    ],
+    "lib/libecpg.dll -> libintl-9.dll": [
+      "libintl_dgettext",
+      "libintl_bindtextdomain",
+      "libintl_gettext"
+    ],
+    "lib/libpgtypes.dll -> libintl-9.dll": [
+      "libintl_gettext"
+    ],
+    "lib/libpq.dll -> libintl-9.dll": [
+      "libintl_dngettext",
+      "libintl_bindtextdomain",
+      "libintl_gettext",
+      "libintl_dgettext"
+    ],
+    "lib/libpqwalreceiver.dll -> libintl-9.dll": [
+      "libintl_gettext"
+    ],
+    "lib/plpgsql.dll -> libintl-9.dll": [
+      "libintl_dgettext"
+    ],
+    "lib/plpython3.dll -> libintl-9.dll": [
+      "libintl_dngettext",
+      "libintl_dgettext"
+    ]
+  },
+  "missingSymbols": [],
+  "status": "All existing PostgreSQL GNU imports are exported by rebuilt x64 DLLs; no winpthreads or additional redistributable imports",
+  "excludedFiles": [
+    "bin/libwinpthread-1.dll",
+    "lib/plugin_debugger.dll",
+    "lib/system_stats.dll",
+    "share/extension/pldbgapi--1.0--1.1.sql",
+    "share/extension/pldbgapi--1.1.sql",
+    "share/extension/pldbgapi--unpackaged--1.1.sql",
+    "share/extension/pldbgapi.control"
+  ]
+}

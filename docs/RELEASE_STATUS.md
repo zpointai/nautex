@@ -1,25 +1,39 @@
-# Source release status — 4 October 2026
+# Windows candidate status — revision 7
 
-Publication scope: the allowlisted application source, AGPL-3.0-only licence, documentation, clean screenshots, dependency notices and review manifests. No native executable, installer, dependency source archive, operational profile or private Git history is included. Separate promotional media assets are published with this release. The source tag is `v0.3.14-source.2`.
+The public release remains source-only (`v0.3.14-source.2`). This isolated candidate
+replaces WinShell with original NSIS/Windows COM macros, omits three disputed shader
+DLL copies, and supplies the matching dependency source/build/notices material set.
+The local review artifacts must be kept together; no installer download is published yet.
 
-## Verified developer-host results
+## Evidence and remaining qualification
 
-The earlier isolated Windows candidate was built from a clean checkout using locked dependencies. TypeScript, nine focused community tests, both frontends, the backend, PostgreSQL/migration packaging and NSIS packaging passed. A real Sharp resize/PNG test passed outside the development dependency tree after the missing Windows DLL packaging was repaired. Eight unused wxWidgets DLLs and the unused Sharp Wasm fallback were removed; retained PostgreSQL imports were checked.
+GNU replacements passed 53 consumer ABI checks and PostgreSQL Unicode backup/restore.
+The preceding revision passed ten installed-app acceptance groups and preserved its
+synthetic profile during uninstall on the developer host. Revision 5 graphics tests
+passed WebGL shader compilation/rendering and Canvas2D using Windows' own D3DCompiler;
+the shortcut probe retained the application identity using the replacement COM macros.
+Final revision 5 installer acceptance results are supplied beside the installer in
+INSTALLED_ACCEPTANCE.json and GRAPHICS.json. These are developer-host tests.
 
-Actual installation on the developer host passed nine acceptance groups: first-run setup, empty workspace/catalogue, local use without AI, synthetic catalogue import, provider encryption/removal, legal/source access, map controls, restart and persistence. The 10,268 installed payload files matched the build hashes. Same-version reinstall and uninstall returned success; all 6,491 synthetic profile files were preserved byte-for-byte, and installed app/shortcut/uninstall entries were removed. The test used only isolated release profiles. These are developer-host results, not clean-Windows qualification.
+The native material set includes component origins, versions, hashes, applicable
+notices, build instructions and source archives. Excluded components are rejected by
+the native audit. The final per-file NATIVE_BINARIES.json is a separate release asset,
+avoiding a circular hash between the installer and its embedded source. See THIRD_PARTY.md.
 
-The source-only snapshot changes publication documentation and adds the existing per-file native review evidence. It does not claim that the older private installer contains these final documentation changes. That installer and the partial dependency-materials kit remain withheld; they must be regenerated and requalified against a future exact source commit before distribution.
+The user will perform the clean Windows 11 x64 test in CLEAN_WINDOWS_TEST.md. Prerequisite
+installation without existing VC++, UAC denial/success, first launch, offline local use,
+restart and uninstall/data preservation remain pending on that machine. This developer
+host cannot establish those results. Cross-version upgrade is also unqualified.
 
-## Pending checks and binary blockers
+Live-provider calls remain untested: USD 0.00 spent of the USD 0.05 authorised budget;
+dedicated credentials and billing/entitlement preflight are still needed. Signing is
+optional; this candidate is unsigned. User-provided photos show an Avast scan in progress,
+successful setup and an empty dashboard on an earlier candidate; they establish neither
+an antivirus verdict nor qualification of revision 5. See RELEASE_NOTES.md.
 
-Follow-up user report, 4 October 2026: the privately supplied candidate installed successfully in almost 10 minutes, Avast showed several alerts, and the application subsequently appeared to work normally. Four supplied photos have now been reviewed: Avast shows an active scan of `Nautex Community.exe` and a Threat Labs referral, followed by photos of Nautex 0.3.14 setup, About and a post-setup dashboard with AI disconnected and zero activity metrics. The alert photo shows no named malware detection or final verdict. The other alerts, exact file hash, OS build, prerequisite baseline and full lifecycle checks remain unverified; installation duration is user-reported. Photos remain private. See the [installation-time and antivirus disclosure](RELEASE_NOTES.md). This evidence does not certify missing-prerequisite installation or all clean-Windows lifecycle checks.
+The private installation, credentials, catalogue and business records are not build inputs.
+Only allowlisted sanitised application source enters the corresponding-source archive.
 
-| Area | Status and exact missing evidence/action |
-| --- | --- |
-| Native redistribution | Incomplete. See [per-binary inventory](../third-party/NATIVE_BINARIES.json), [readable inventory](../third-party/NATIVE_INVENTORY.md) and [component blockers](THIRD_PARTY.md). Unknown revisions and vendor terms are explicitly marked. No inference of clearance from adjacent components' licences. |
-| Clean Windows | Pending. Requires an accessible fresh supported Windows 11 x64 VM, standard-user session and administrator credentials, without Node/developer tools, PostgreSQL or VC++. Windows Sandbox is absent; Hyper-V management is denied to the current account. Follow [the manual checklist](CLEAN_WINDOWS_TEST.md), including UAC denial/success, reboot, offline use, restart and default-profile preservation. |
-| Live providers | Pending dedicated test credentials and provider billing/entitlement preflight. USD 0.05 total was authorised; USD 0.00 spent. Model/pricing documentation was reviewed; dry runs make no API requests. See [bounded test plan](LIVE_PROVIDER_TEST.md). |
-| Signing | Optional; the private Windows candidate is unsigned. SmartScreen behaviour on a clean VM is unverified. |
-| Cross-version upgrade | Pending a previous Community build and disposable VM snapshot. Same-version reinstall is the only upgrade-like path exercised. |
+Revision 6 changes visible branding to Nautex AI and removes private announcement notes from corresponding source. Native dependencies and architecture are unchanged from revision 5. Existing native evidence is retained; final packaging, branding, source correspondence and installed-app checks accompany the new artifact.
 
-Screenshots in this repository were captured from an isolated synthetic first-run/empty workspace. No supplied catalogue rows or business records are present. External services, OCR and experimental Jev limitations are described in the [module requirements](MODULE_REQUIREMENTS.md).
+On 5 October, a household tester reported installation under three minutes and no Avast alerts on Windows 11 25H2, build 26200.9457. An earlier Nautex version had been uninstalled first, so missing-prerequisite qualification is not established. The tester found a sign-out route error in revision 6. Revision 7 maps the desktop sign-in route to its entry point and adds an installed regression test. Final revision 7 results are supplied with its installer.

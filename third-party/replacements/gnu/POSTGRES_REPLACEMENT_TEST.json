@@ -1,0 +1,17 @@
+{
+  "runtime": "PostgreSQL 16.14 with locally rebuilt libiconv 1.15/gettext 0.19.8, native Windows threads",
+  "developerHost": true,
+  "cleanWindowsQualification": false,
+  "checks": [
+    "initdb UTF-8/C locale",
+    "loopback startup",
+    "synthetic Unicode insert/read",
+    "pg_trgm extension",
+    "dump",
+    "stop/restart and persistence",
+    "restore into second database",
+    "Windows-1252 to UTF-8 iconv"
+  ],
+  "status": "passed",
+  "privateProfilesUsed": false
+}

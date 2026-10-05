@@ -1,5 +1,10 @@
 # Distributor materials request — draft, not sent
 
+This historical candidate-2 request is superseded for the follow-up build by the
+[source-built replacement route](GNU_RUNTIME_BUILD.md). The GNU DLLs were rebuilt
+and tested; winpthreads and the two unused EDB additions are excluded. This request
+was not sent. Other native and final-installer checks remain open.
+
 This request contains public vendor binary identifiers only. It has not been sent to EDB or another party.
 
 Subject: Matching source/build and licence materials for PostgreSQL 16.14-2 Windows x64
